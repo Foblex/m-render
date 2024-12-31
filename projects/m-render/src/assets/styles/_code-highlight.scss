@@ -1,5 +1,5 @@
 :root {
-  .f-docs {
+  .m-render {
     --punctuation: #24292E;
     --attr-name: #D73A49;
     --property: #032F62;
@@ -9,7 +9,7 @@
 }
 
 .dark {
-  .f-docs {
+  .m-render {
     --punctuation: #E1E4E8;
     --attr-name: #F97583;
     --property: #9ECBFF;
@@ -18,7 +18,7 @@
   }
 }
 
-.f-docs {
+.m-render {
   .token.comment,
   .token.prolog,
   .token.doctype,

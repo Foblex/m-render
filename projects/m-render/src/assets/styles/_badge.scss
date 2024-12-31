@@ -40,24 +40,24 @@ f-navigation-panel {
   }
 }
 
-.f-docs h1 > .f-badge {
+.m-render h1 > .f-badge {
   margin-top: 4px;
   vertical-align: top;
 }
 
-.f-docs h2 > .f-badge {
+.m-render h2 > .f-badge {
   margin-top: 3px;
   padding: 0 8px;
   vertical-align: top;
 }
 
-.f-docs h3 > .f-badge {
+.m-render h3 > .f-badge {
   vertical-align: middle;
 }
 
-.f-docs h4 > .f-badge,
-.f-docs h5 > .f-badge,
-.f-docs h6 > .f-badge {
+.m-render h4 > .f-badge,
+.m-render h5 > .f-badge,
+.m-render h6 > .f-badge {
   vertical-align: middle;
   line-height: 18px;
 }

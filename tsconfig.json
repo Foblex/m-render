@@ -6,8 +6,8 @@
     "strict": true,
     "noImplicitOverride": true,
     "paths": {
-      "f-docs": [
-        "./dist/f-docs"
+      "m-render": [
+        "./dist/m-render"
       ]
     },
     "noPropertyAccessFromIndexSignature": true,

@@ -45,7 +45,7 @@ import { FMarkdownFooterComponent } from '../f-markdown-footer';
     FMarkdownFooterComponent
   ],
   host: {
-    class: 'f-docs'
+    class: 'm-render'
   }
 })
 export class FMarkdownRendererComponent implements OnInit, AfterViewChecked, OnDestroy {

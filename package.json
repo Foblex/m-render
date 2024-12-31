@@ -1,5 +1,5 @@
 {
-  "name": "f-docs",
+  "name": "m-render",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "publish": "ng build f-docs && cd dist/f-docs && npm publish"
+    "publish": "ng build m-render && cd dist/m-render && npm publish"
   },
   "private": true,
   "dependencies": {
