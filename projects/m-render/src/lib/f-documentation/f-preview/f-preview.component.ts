@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from
 import { startWith, Subscription } from 'rxjs';
 import { FStateService } from '../../domain/f-state.service';
 import { Router } from '@angular/router';
-import { INavigationGroup, INavigationItem } from '../../f-navigation-panel';
-import { FEnvironmentService } from '../../domain';
+import { INavigationGroup, INavigationItem } from '../f-navigation-panel';
+import { FDocumentationEnvironmentService } from '../f-documentation-environment.service';
 
 @Component({
   selector: 'a[f-preview]',
@@ -31,7 +31,7 @@ export class FPreviewComponent implements OnDestroy {
   protected url: string | undefined;
 
   constructor(
-    private fEnvironment: FEnvironmentService,
+    private fEnvironment: FDocumentationEnvironmentService,
     private fState: FStateService,
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,

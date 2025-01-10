@@ -1,26 +1,14 @@
 import { Routes } from '@angular/router';
-import { GUIDES_ENVIRONMENT } from '../../public/markdown/guides/environment';
-import { EXAMPLES_ENVIRONMENT } from '../../public/markdown/examples/environment';
-import { F_ENVIRONMENT } from '@foblex/m-render';
+import { F_HOME_PAGE_ENVIRONMENT } from '@foblex/m-render';
+import { HOME_ENVIRONMENT } from '../../public/markdown/home';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./home/home.component').then(m => m.HomeComponent),
-  },
-  {
-    path: 'docs',
     providers: [
-      { provide: F_ENVIRONMENT, useValue: GUIDES_ENVIRONMENT }
+      { provide: F_HOME_PAGE_ENVIRONMENT, useValue: HOME_ENVIRONMENT }
     ],
-    loadChildren: () => import('@foblex/m-render').then(m => m.F_DOCUMENTATION_ROUTES)
-  },
-  {
-    path: 'examples',
-    providers: [
-      { provide: F_ENVIRONMENT, useValue: EXAMPLES_ENVIRONMENT }
-    ],
-    loadChildren: () => import('@foblex/m-render').then(m => m.F_DOCUMENTATION_ROUTES)
+    loadChildren: () => import('@foblex/m-render').then(m => m.F_HOME_PAGE_ROUTES),
   },
   {
     path: '**',

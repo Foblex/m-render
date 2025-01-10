@@ -1,14 +1,8 @@
-export * from './features';
+export * from './get-version-handler';
 
-export * from './f-environment.service';
-
-export * from './f-meta.service';
-
-export * from './f-popover.service';
+export * from './handle-navigation-links';
 
 export * from './i-docs-component';
-
-export * from './i-docs-environment';
 
 export * from './i-docs-footer-navigation';
 
@@ -20,9 +14,7 @@ export * from './i-docs-table-of-content';
 
 export * from './i-docs-version';
 
+export * from './i-environment-service';
+
 export * from './i-meta-data';
-
-export * from './providers';
-
-export * from './router';
 

@@ -1,7 +1,7 @@
 {
   "name": "@foblex/m-render",
-  "version": "2.5.1",
-  "description": "MarkEngine is a static site generator designed for creating fast and user-friendly documentation sites based on Markdown files. MarkEngine supports extended Markdown syntax and can render Angular components directly from Markdown files.",
+  "version": "2.5.2",
+  "description": "MRender is a static site generator designed for creating fast and user-friendly documentation sites based on Markdown files. MarkEngine supports extended Markdown syntax and can render Angular components directly from Markdown files.",
   "author": "Siarhei Huzarevich",
   "license": "MIT",
   "private": false,
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/foblex/markengine.git"
+    "url": "git+https://github.com/foblex/m-render.git"
   },
   "peerDependencies": {
     "@angular/common": ">=12.0.0",

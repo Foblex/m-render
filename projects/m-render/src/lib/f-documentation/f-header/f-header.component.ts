@@ -1,14 +1,15 @@
 import {
   ChangeDetectionStrategy,
-  Component
+  Component, inject
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { FHamburgerButtonComponent } from '../f-hamburger-button/f-hamburger-button.component';
-import { FVersionComponent } from '../f-version/f-version.component';
-import { FSocialLinksComponent } from '../f-social-links/f-social-links.component';
-import { FEnvironmentService } from '../../domain';
-import { FThemeButtonComponent } from '../f-theme-button/f-theme-button.component';
-import { FHeaderMenuComponent } from '../f-header-menu/f-header-menu.component';
+import {
+  FHamburgerButtonComponent, FHeaderMenuComponent,
+  FSocialLinksComponent,
+  FThemeButtonComponent,
+  FVersionComponent
+} from '../../common-components';
+import { FDocumentationEnvironmentService } from '../f-documentation-environment.service';
 
 @Component({
   selector: 'f-header',
@@ -27,11 +28,5 @@ import { FHeaderMenuComponent } from '../f-header-menu/f-header-menu.component';
 })
 export class FHeaderComponent {
 
-  protected title: string = '';
-
-  constructor(
-    private fEnvironmentService: FEnvironmentService
-  ) {
-    this.title = this.fEnvironmentService.getTitle();
-  }
+  protected title: string = inject(FDocumentationEnvironmentService).getTitle();
 }

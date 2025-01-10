@@ -2,13 +2,15 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component, OnDestroy, OnInit
 } from '@angular/core';
-import { FNavigationPanelComponent } from '../f-navigation-panel';
+import { FNavigationPanelComponent } from './f-navigation-panel';
 import { FHeaderComponent } from './f-header/f-header.component';
-import { FScrollableContainerComponent } from '../f-scrollable-container';
+import { FScrollableContainerComponent } from './f-scrollable-container';
 import { RouterOutlet } from '@angular/router';
 import { F_DOCUMENTATION_COMPONENT, IDocumentationComponent } from './i-documentation-component';
-import { FEnvironmentService, FPopoverService } from '../domain';
+import { INTERNAL_ENVIRONMENT_SERVICE } from '../domain';
 import { Subscription } from 'rxjs';
+import { FDocumentationEnvironmentService } from './f-documentation-environment.service';
+import { FPopoverService } from '../common-services';
 
 @Component({
   selector: 'f-documentation',
@@ -17,8 +19,9 @@ import { Subscription } from 'rxjs';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    FEnvironmentService,
+    FDocumentationEnvironmentService,
     FPopoverService,
+    { provide: INTERNAL_ENVIRONMENT_SERVICE, useExisting: FDocumentationEnvironmentService },
     { provide: F_DOCUMENTATION_COMPONENT, useExisting: FDocumentationComponent }
   ],
   imports: [
