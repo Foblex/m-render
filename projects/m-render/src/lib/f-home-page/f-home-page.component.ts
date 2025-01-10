@@ -1,6 +1,6 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, Injector, Type, ViewChild, ViewContainerRef
+  ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, Type, ViewChild, ViewContainerRef
 } from '@angular/core';
 import { FHomePageFooterComponent } from './f-home-page-footer/f-home-page-footer.component';
 import { FHomePageHeaderComponent } from './f-home-page-header/f-home-page-header.component';
@@ -31,7 +31,6 @@ export const F_HOME_PAGE_COMPONENT = new InjectionToken<FHomePageComponent>('F_H
 })
 export class FHomePageComponent implements AfterViewInit {
 
-  private _injector = inject(Injector);
   protected _environmentService = inject(FHomePageEnvironmentService);
 
   @ViewChild('backgroundContainer', { read: ViewContainerRef })
@@ -41,15 +40,19 @@ export class FHomePageComponent implements AfterViewInit {
   private _heroImageContainer: ViewContainerRef | undefined;
 
   public ngAfterViewInit(): void {
-    const heroImageComponent = this._environmentService.getImageComponent();
-    if (heroImageComponent) {
-      const heroImageComponentRef = this._getImageComponentReference(heroImageComponent);
-      this.requestComponentRedraw(heroImageComponentRef);
+    this._renderImageComponent(this._environmentService.getImageComponent());
+    this._renderBackgroundComponent(this._environmentService.getBackgroundComponent());
+  }
+
+  private _renderImageComponent<T>(component?: Type<T>): void {
+    if (component) {
+      this.requestComponentRedraw(this._getImageComponentReference(component));
     }
-    const backgroundComponent = this._environmentService.getBackgroundComponent();
-    if (backgroundComponent) {
-      const backgroundComponentRef = this._getBackgroundComponentReference(backgroundComponent);
-      this.requestComponentRedraw(backgroundComponentRef);
+  }
+
+  private _renderBackgroundComponent<T>(component?: Type<T>): void {
+    if (component) {
+      this.requestComponentRedraw(this._getBackgroundComponentReference(component));
     }
   }
 
@@ -59,11 +62,6 @@ export class FHomePageComponent implements AfterViewInit {
 
   private _getImageComponentReference<T>(component: Type<T>): ComponentRef<T> {
     return this._heroImageContainer!.createComponent(component);
-  }
-
-  private getComponentElement(componentRef: ComponentRef<any>): HTMLElement {
-    this.requestComponentRedraw(componentRef);
-    return (componentRef.hostView as any).rootNodes[ 0 ] as HTMLElement;
   }
 
   private requestComponentRedraw(componentRef: ComponentRef<any>): void {

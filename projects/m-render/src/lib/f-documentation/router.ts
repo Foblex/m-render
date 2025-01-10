@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const F_DOCUMENTATION_ROUTES: Routes = [
+export const F_DOCS_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () => import('./index').then(m => m.FDocumentationComponent),

@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef,
-  Component, OnDestroy, OnInit
+  Component, DestroyRef, inject, OnInit
 } from '@angular/core';
 import { FNavigationPanelComponent } from './f-navigation-panel';
 import { FHeaderComponent } from './f-header/f-header.component';
@@ -8,9 +8,9 @@ import { FScrollableContainerComponent } from './f-scrollable-container';
 import { RouterOutlet } from '@angular/router';
 import { F_DOCUMENTATION_COMPONENT, IDocumentationComponent } from './i-documentation-component';
 import { INTERNAL_ENVIRONMENT_SERVICE } from '../domain';
-import { Subscription } from 'rxjs';
 import { FDocumentationEnvironmentService } from './f-documentation-environment.service';
 import { FPopoverService } from '../common-services';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'f-documentation',
@@ -31,38 +31,30 @@ import { FPopoverService } from '../common-services';
     RouterOutlet
   ]
 })
-export class FDocumentationComponent implements IDocumentationComponent, OnInit, OnDestroy {
-
-  private subscriptions$: Subscription = new Subscription();
+export class FDocumentationComponent implements IDocumentationComponent, OnInit {
 
   protected isNavigationVisible: boolean = false;
 
   protected popoverMessage: string | null = null;
 
-  constructor(
-    private fPopoverService: FPopoverService,
-    private changeDetectorRef: ChangeDetectorRef,
-  ) {
-  }
+  private _fPopover = inject(FPopoverService);
+  private _destroyRef = inject(DestroyRef);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   public ngOnInit() {
-    this.subscriptions$.add(this.subscribeOnPopover());
+    this._fPopover.dispose(this._destroyRef);
+    this._subscribeOnPopover();
   }
 
-  private subscribeOnPopover(): Subscription {
-    return this.fPopoverService.popover$.subscribe((x) => {
+  private _subscribeOnPopover(): void {
+    this._fPopover.popover$.pipe(takeUntilDestroyed(this._destroyRef)).subscribe((x) => {
       this.popoverMessage = x;
-      this.changeDetectorRef.markForCheck();
+      this._changeDetectorRef.markForCheck();
     });
   }
 
   public onToggleNavigation(value: boolean): void {
     this.isNavigationVisible = value;
-    this.changeDetectorRef.markForCheck();
-  }
-
-  public ngOnDestroy() {
-    this.fPopoverService.dispose();
-    this.subscriptions$.unsubscribe();
+    this._changeDetectorRef.markForCheck();
   }
 }

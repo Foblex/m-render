@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { INTERNAL_ENVIRONMENT_SERVICE, IDocsHeaderNavigationItem } from '../../domain';
+import { IDocsHeaderNavigationItem } from '../../domain';
 import { Router, RouterLink } from '@angular/router';
+import { FDocumentationEnvironmentService } from '../f-documentation-environment.service';
 
 @Component({
   selector: 'f-header-menu',
@@ -17,7 +18,7 @@ export class FHeaderMenuComponent implements OnInit {
   protected navigation: IDocsHeaderNavigationItemViewModel[] = [];
 
   private _router = inject(Router);
-  private _fEnvironmentService = inject(INTERNAL_ENVIRONMENT_SERVICE);
+  private _fEnvironmentService = inject(FDocumentationEnvironmentService);
 
   public ngOnInit(): void {
 

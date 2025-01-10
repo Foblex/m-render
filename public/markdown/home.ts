@@ -1,17 +1,8 @@
 import { IHomePageEnvironment } from '@foblex/m-render';
-import {
-  HomePageBackgroundComponent
-} from '../../src/app/home-page/home-page-background/home-page-background.component';
-import { HomePageImageComponent } from '../../src/app/home-page/home-page-image/home-page-image.component';
 
 export const HOME_ENVIRONMENT: IHomePageEnvironment = {
   logo: './logo.svg',
   title: 'Foblex MRender',
-  socialLinks: [
-    { icon: 'github', link: 'https://github.com/Foblex/m-render' },
-  ],
-  // backgroundComponent: HomePageBackgroundComponent,
-  // heroImageComponent: HomePageImageComponent,
   hero: {
     headline: 'Foblex MRender',
     tagline1: 'Built with Angular',

@@ -15,8 +15,6 @@ export interface IHomePageEnvironment {
 
   headerNavigation?: IDocsHeaderNavigationItem[];
 
-  socialLinks?: IDocsSocialLink[];
-
   backgroundComponent?: Type<any>;
 
   hero: IHomePageHero;

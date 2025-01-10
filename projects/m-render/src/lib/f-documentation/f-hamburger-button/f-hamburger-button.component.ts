@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component, HostListener, Inject
 } from '@angular/core';
-import { F_DOCUMENTATION_COMPONENT, IDocumentationComponent } from '../../f-documentation';
+import { F_DOCUMENTATION_COMPONENT, IDocumentationComponent } from '../index';
 
 @Component({
   selector: 'button[f-hamburger-button]',

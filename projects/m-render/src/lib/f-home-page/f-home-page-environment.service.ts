@@ -1,13 +1,8 @@
 import { Inject, Injectable, Optional, Type } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { F_HOME_PAGE_ENVIRONMENT } from './providers';
 import { IHomePageEnvironment, IHomePageFeature, IHomePageFooter, IHomePageHero, IHomePageLink } from './domain';
 import {
-  GetVersionHandler,
-  GetVersionRequest,
-  IDocsHeaderNavigationItem,
-  IDocsSocialLink,
   IEnvironmentService
 } from '../domain';
 
@@ -26,20 +21,6 @@ export class FHomePageEnvironmentService implements IEnvironmentService {
 
   public getTitle(): string {
     return this.environment.title;
-  }
-
-  public getHeaderNavigation(): IDocsHeaderNavigationItem[] {
-    return this.environment.headerNavigation || [];
-  }
-
-  public getVersion(): Observable<string | undefined> {
-    return new GetVersionHandler(this.http).handle(
-      new GetVersionRequest(this.environment.version)
-    );
-  }
-
-  public getSocialLinks(): IDocsSocialLink[] {
-    return this.environment.socialLinks || [];
   }
 
   public getHero(): IHomePageHero {

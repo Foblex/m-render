@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
@@ -15,8 +15,10 @@ export class FPopoverService {
     setTimeout(() => this.popover.next(null), 2000);
   }
 
-  public dispose(): void {
-    this.popover.next(null);
-    this.popover.complete();
+  public dispose(destroyRef: DestroyRef): void {
+    destroyRef.onDestroy(() => {
+      this.popover.next(null);
+      this.popover.complete();
+    });
   }
 }
