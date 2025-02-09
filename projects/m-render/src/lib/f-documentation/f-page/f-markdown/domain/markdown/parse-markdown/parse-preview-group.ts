@@ -52,9 +52,15 @@ export class ParsePreviewGroup {
   }
 
   private getGroupsHTML(groups: INavigationGroup[]): string {
-    return (groups || []).map((x) => {
+    const result = (groups || []).map((x) => {
       return `<h2>${ x.text }</h2><div class="f-preview-group">${ this.getItemsHTML(x) }</div>`;
     }).join('');
+
+    return this._getGroupFiltersHTML() + result;
+  }
+
+  private _getGroupFiltersHTML(): string {
+    return `<f-preview-group-filters></f-preview-group-filters>`;
   }
 
   private getItemsHTML(group: INavigationGroup): string {

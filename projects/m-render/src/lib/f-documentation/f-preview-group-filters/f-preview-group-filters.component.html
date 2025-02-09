@@ -1,0 +1,14 @@
+@if (filters().length) {
+  <div class="filters-row">
+    @for (filter of filters(); track filter) {
+      <f-radio-button [checked]="activeFilter() === filter"
+                      (change)="onFilterChange(filter)">{{ filter | titlecase }}
+      </f-radio-button>
+    }
+    <div class="flex-space"></div>
+    <f-checkbox [checked]="isSortByDateChecked()" (change)="onSortByDateChange($event)">Sort by Newness</f-checkbox>
+  </div>
+}
+
+
+

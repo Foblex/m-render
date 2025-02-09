@@ -1,7 +1,7 @@
 import { IHandler } from '@foblex/mediator';
 import { HandleDynamicComponentsRequest } from './handle-dynamic-components.request';
 import { ComponentRef, Injectable, Injector, Type, ViewContainerRef } from '@angular/core';
-import { FDocumentationEnvironmentService, FPreviewComponent } from '../../../../index';
+import { FDocumentationEnvironmentService, FPreviewComponent, FPreviewGroupFiltersComponent } from '../../../../index';
 
 @Injectable()
 export class HandleDynamicComponentsHandler implements IHandler<HandleDynamicComponentsRequest> {
@@ -17,7 +17,10 @@ export class HandleDynamicComponentsHandler implements IHandler<HandleDynamicCom
     this.dispose();
     const components = [
       {
-        tag: 'f-preview', component: FPreviewComponent
+        tag: 'f-preview', component: FPreviewComponent,
+      },
+      {
+        tag: 'f-preview-group-filters', component: FPreviewGroupFiltersComponent,
       },
       ...this.fEnvironmentService.getComponents()
     ];

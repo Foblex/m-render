@@ -21,5 +21,7 @@ export interface INavigationItem {
   image_type?: string;
 
   badge?: INavigationItemBadge;
+
+  date?: Date;
 }
 

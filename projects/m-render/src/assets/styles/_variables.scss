@@ -285,3 +285,16 @@
 
   --checkbox-checkmark-color: var(--secondary-text);
 }
+
+:root {
+  --radio-button-size: 16px;
+  --radio-button-container-border-radius: var(--border-radius);
+  --radio-button-text: var(--primary-text);
+  --radio-button-container-background: var(--default-3);
+
+  --radio-button-border-color: var(--tertiary-text);
+  --radio-button-background: var(--neutral-inverse);
+  --radio-button-checked-background: var(--neutral-inverse);
+
+  --radio-button-inner-circle-color: var(--secondary-text);
+}

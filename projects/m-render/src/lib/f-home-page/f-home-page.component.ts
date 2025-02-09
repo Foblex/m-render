@@ -7,7 +7,6 @@ import { FHomePageHeaderComponent } from './f-home-page-header/f-home-page-heade
 import { FHomePageFeaturesComponent } from './f-home-page-features/f-home-page-features.component';
 import { FHomePageHeroComponent } from './f-home-page-hero/f-home-page-hero.component';
 import { FHomePageEnvironmentService } from './f-home-page-environment.service';
-import { INTERNAL_ENVIRONMENT_SERVICE } from '../domain';
 
 export const F_HOME_PAGE_COMPONENT = new InjectionToken<FHomePageComponent>('F_HOME_PAGE_COMPONENT');
 
@@ -19,7 +18,6 @@ export const F_HOME_PAGE_COMPONENT = new InjectionToken<FHomePageComponent>('F_H
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     FHomePageEnvironmentService,
-    { provide: INTERNAL_ENVIRONMENT_SERVICE, useExisting: FHomePageEnvironmentService },
     { provide: F_HOME_PAGE_COMPONENT, useExisting: FHomePageComponent }
   ],
   imports: [

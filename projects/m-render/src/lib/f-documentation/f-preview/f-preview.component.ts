@@ -1,9 +1,19 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { startWith, Subscription } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component, DestroyRef,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit, signal
+} from '@angular/core';
+import { startWith } from 'rxjs';
 import { FStateService } from '../../domain/f-state.service';
 import { Router } from '@angular/router';
 import { INavigationGroup, INavigationItem } from '../f-navigation-panel';
 import { FDocumentationEnvironmentService } from '../f-documentation-environment.service';
+import { FPreviewBase } from './f-preview-base';
+import { FPreviewGroupService } from '../f-preview-group/f-preview-group.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'a[f-preview]',
@@ -16,66 +26,81 @@ import { FDocumentationEnvironmentService } from '../f-documentation-environment
     '[attr.title]': 'viewModel?.text',
   }
 })
-export class FPreviewComponent implements OnDestroy {
+export class FPreviewComponent extends FPreviewBase implements OnInit, OnDestroy {
 
-  private subscriptions$: Subscription = new Subscription();
+  private _elementReference = inject(ElementRef);
+  private _fEnvironment = inject(FDocumentationEnvironmentService);
+  private _fPreviewGroupService = inject(FPreviewGroupService);
+  private _fState = inject(FStateService);
+  private _router = inject(Router);
+  private _destroyRef = inject(DestroyRef);
 
   public item: string | undefined;
-
   public group: string | undefined;
 
   protected viewModel: INavigationItem | undefined;
-
-  protected src: string | undefined;
-
+  protected src = signal<string | undefined>(undefined);
   protected url: string | undefined;
 
-  constructor(
-    private fEnvironment: FDocumentationEnvironmentService,
-    private fState: FStateService,
-    private router: Router,
-    private changeDetectorRef: ChangeDetectorRef,
-  ) {
+  public get hostElement(): HTMLElement {
+    return this._elementReference.nativeElement;
+  }
+
+  public get filterKey(): string | undefined {
+    return this.viewModel?.badge?.text.toLowerCase();
+  }
+
+  public get date(): Date | undefined {
+    return this.viewModel?.date;
   }
 
   public initialize(): void {
-    this.viewModel = this.getNavigationItem(this.getNavigationGroup()!);
-    this.url = this.normalizeLink(this.viewModel!.link, this.getUrlPrefix());
-    this.subscriptions$.add(this.fState.theme$.pipe(startWith(null)).subscribe(() => this.updateTheme()));
+    this.viewModel = this._getNavigationItem(this._getNavigationGroup()!);
+    this.url = this._normalizeLink(this.viewModel!.link, this._getUrlPrefix());
+    this._subscribeToThemeChanges();
   }
 
-  private getNavigationGroup(): INavigationGroup | undefined {
-    return this.fEnvironment.getNavigation().find((x) => x.text === this.group);
+  private _subscribeToThemeChanges(): void {
+    this._fState.theme$.pipe(
+      startWith(null), takeUntilDestroyed(this._destroyRef)
+    ).subscribe(() => this.updateTheme());
   }
 
-  private getNavigationItem(group: INavigationGroup): INavigationItem | undefined {
+  public ngOnInit(): void {
+    this._fPreviewGroupService.add(this);
+  }
+
+  private _getNavigationGroup(): INavigationGroup | undefined {
+    return this._fEnvironment.getNavigation().find((x) => x.text === this.group);
+  }
+
+  private _getNavigationItem(group: INavigationGroup): INavigationItem | undefined {
     return group.items.find((x) => x.link === this.item);
   }
 
   private updateTheme(): void {
-    this.src = this.fState.getPreferredTheme() === 'dark' ? this.viewModel?.image_dark : this.viewModel?.image;
-    if (!this.src) {
-      this.src = this.viewModel?.image;
+    this.src.set(this._fState.getPreferredTheme() === 'dark' ? this.viewModel?.image_dark : this.viewModel?.image);
+    if (!this.src()) {
+      this.src.set(this.viewModel?.image);
     }
-    this.changeDetectorRef.markForCheck();
   }
 
-  private normalizeLink(link: string, prefix: string): string {
-    if (!this.isExternalLink(link)) {
+  private _normalizeLink(link: string, prefix: string): string {
+    if (!this._isExternalLink(link)) {
       return link.startsWith('/') ? `${ prefix }${ link }` : `${ prefix }/${ link }`;
     }
     return link;
   }
 
-  private getUrlPrefix(): string {
-    return this.router.url.substring(0, this.router.url.lastIndexOf('/'));
+  private _getUrlPrefix(): string {
+    return this._router.url.substring(0, this._router.url.lastIndexOf('/'));
   }
 
-  private isExternalLink(href: string): boolean {
+  private _isExternalLink(href: string): boolean {
     return href.startsWith('www') || href.startsWith('http');
   }
 
   public ngOnDestroy(): void {
-    this.subscriptions$.unsubscribe();
+    this._fPreviewGroupService.remove(this);
   }
 }

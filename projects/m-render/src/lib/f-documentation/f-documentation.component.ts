@@ -7,10 +7,10 @@ import { FHeaderComponent } from './f-header/f-header.component';
 import { FScrollableContainerComponent } from './f-scrollable-container';
 import { RouterOutlet } from '@angular/router';
 import { F_DOCUMENTATION_COMPONENT, IDocumentationComponent } from './i-documentation-component';
-import { INTERNAL_ENVIRONMENT_SERVICE } from '../domain';
 import { FDocumentationEnvironmentService } from './f-documentation-environment.service';
 import { FPopoverService } from '../common-services';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FPreviewGroupService } from './f-preview-group/f-preview-group.service';
 
 @Component({
   selector: 'f-documentation',
@@ -21,7 +21,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   providers: [
     FDocumentationEnvironmentService,
     FPopoverService,
-    { provide: INTERNAL_ENVIRONMENT_SERVICE, useExisting: FDocumentationEnvironmentService },
+    FPreviewGroupService,
     { provide: F_DOCUMENTATION_COMPONENT, useExisting: FDocumentationComponent }
   ],
   imports: [

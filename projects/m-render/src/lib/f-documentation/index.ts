@@ -19,6 +19,11 @@ export * from './f-social-links/f-social-links.component';
 export * from './f-version/f-version.component';
 
 export * from './f-preview/f-preview.component';
+export * from './f-preview/f-preview-base';
+
+export * from './f-preview-group/f-preview-group.service';
+
+export * from './f-preview-group-filters/f-preview-group-filters.component';
 
 export * from './f-documentation.component';
 

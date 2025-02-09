@@ -42,6 +42,9 @@
     font-weight: 600;
     text-transform: uppercase;
     color: var(--primary-text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .description {
@@ -54,5 +57,11 @@
   @media (min-width: 640px) {
     width: calc((100% - 32px) / 2);
   }
+}
+
+.f-badge {
+  padding: 0 6px;
+  line-height: 14px;
+  text-transform: none;
 }
 
