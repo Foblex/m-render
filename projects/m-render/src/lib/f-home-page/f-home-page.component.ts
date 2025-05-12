@@ -1,14 +1,13 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, Type, ViewChild, ViewContainerRef
+  ChangeDetectionStrategy, Component, ComponentRef, inject, Type, ViewChild, ViewContainerRef
 } from '@angular/core';
 import { FHomePageFooterComponent } from './f-home-page-footer/f-home-page-footer.component';
 import { FHomePageHeaderComponent } from './f-home-page-header/f-home-page-header.component';
 import { FHomePageFeaturesComponent } from './f-home-page-features/f-home-page-features.component';
 import { FHomePageHeroComponent } from './f-home-page-hero/f-home-page-hero.component';
 import { FHomePageEnvironmentService } from './f-home-page-environment.service';
-
-export const F_HOME_PAGE_COMPONENT = new InjectionToken<FHomePageComponent>('F_HOME_PAGE_COMPONENT');
+import { FHomePageMembershipsComponent } from './f-home-page-memberships/f-home-page-memberships.component';
 
 @Component({
   selector: 'f-home-page',
@@ -18,18 +17,18 @@ export const F_HOME_PAGE_COMPONENT = new InjectionToken<FHomePageComponent>('F_H
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     FHomePageEnvironmentService,
-    { provide: F_HOME_PAGE_COMPONENT, useExisting: FHomePageComponent }
   ],
   imports: [
     FHomePageFooterComponent,
     FHomePageHeaderComponent,
     FHomePageFeaturesComponent,
     FHomePageHeroComponent,
+    FHomePageMembershipsComponent,
   ]
 })
 export class FHomePageComponent implements AfterViewInit {
 
-  protected _environmentService = inject(FHomePageEnvironmentService);
+  private _environment = inject(FHomePageEnvironmentService);
 
   @ViewChild('backgroundContainer', { read: ViewContainerRef })
   private _backgroundContainer: ViewContainerRef | undefined;
@@ -38,8 +37,8 @@ export class FHomePageComponent implements AfterViewInit {
   private _heroImageContainer: ViewContainerRef | undefined;
 
   public ngAfterViewInit(): void {
-    this._renderImageComponent(this._environmentService.getImageComponent());
-    this._renderBackgroundComponent(this._environmentService.getBackgroundComponent());
+    this._renderImageComponent(this._environment.getImageComponent());
+    this._renderBackgroundComponent(this._environment.getBackgroundComponent());
   }
 
   private _renderImageComponent<T>(component?: Type<T>): void {

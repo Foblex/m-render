@@ -3,6 +3,12 @@
   z-index: 5;
   padding: 0 24px;
 
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
   .content {
     display: flex;
     justify-content: flex-start;

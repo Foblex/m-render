@@ -7,4 +7,6 @@ export interface IHomePageLink {
   href?: string;
 
   text: string;
+
+  icon?: string;
 }

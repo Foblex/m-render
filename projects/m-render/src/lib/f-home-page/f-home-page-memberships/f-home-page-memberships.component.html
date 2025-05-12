@@ -1,0 +1,14 @@
+<div class="membership-list">
+  @for (membership of viewModel; track membership.id) {
+    <div class="membership">
+      <h2>{{ membership.name }}</h2>
+      <p>{{ membership.description }}</p>
+      <div class="benefit-list">
+        @for (benefit of membership.benefits; track benefit) {
+          <p class="benefit">✅ {{ benefit }}</p>
+        }
+      </div>
+      <a class="f-button" [href]="membership.buttonRef">{{ membership.buttonText }}</a>
+    </div>
+  }
+</div>

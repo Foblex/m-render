@@ -9,9 +9,11 @@ import { FHomePageEnvironmentService } from '../../f-home-page-environment.servi
   standalone: true,
   imports: [
     RouterLink
-  ]
+  ],
+  host: {
+    '[class.display-none]': '!viewModel.length',
+  }
 })
 export class FHomePageButtonsRowComponent {
-
   protected viewModel = inject(FHomePageEnvironmentService).getButtons();
 }

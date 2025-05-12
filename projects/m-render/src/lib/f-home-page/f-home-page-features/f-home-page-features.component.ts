@@ -6,8 +6,10 @@ import { FHomePageEnvironmentService } from '../f-home-page-environment.service'
   templateUrl: './f-home-page-features.component.html',
   styleUrl: './f-home-page-features.component.scss',
   standalone: true,
+  host: {
+    '[class.display-none]': '!viewModel.length',
+  }
 })
 export class FHomePageFeaturesComponent {
-
   protected viewModel = inject(FHomePageEnvironmentService).getFeatures();
 }

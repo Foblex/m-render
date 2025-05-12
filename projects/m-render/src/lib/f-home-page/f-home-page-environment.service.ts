@@ -1,7 +1,14 @@
-import { Inject, Injectable, Optional, Type } from '@angular/core';
+import { inject, Inject, Injectable, Optional, Type } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { F_HOME_PAGE_ENVIRONMENT } from './providers';
-import { IHomePageEnvironment, IHomePageFeature, IHomePageFooter, IHomePageHero, IHomePageLink } from './domain';
+import {
+  IHomePageEnvironment,
+  IHomePageFeature,
+  IHomePageFooter,
+  IHomePageHero,
+  IHomePageLink,
+  IHomePageMembership
+} from './domain';
 import {
   IEnvironmentService
 } from '../domain';
@@ -9,41 +16,41 @@ import {
 @Injectable()
 export class FHomePageEnvironmentService implements IEnvironmentService {
 
-  constructor(
-    @Optional() @Inject(F_HOME_PAGE_ENVIRONMENT) private environment: IHomePageEnvironment,
-    private http: HttpClient
-  ) {
-  }
+  private _environment = inject(F_HOME_PAGE_ENVIRONMENT);
 
   public getLogo(): string {
-    return this.environment.logo;
+    return this._environment.logo;
   }
 
   public getTitle(): string {
-    return this.environment.title;
+    return this._environment.title;
   }
 
   public getHero(): IHomePageHero {
-    return this.environment.hero;
+    return this._environment.hero;
   }
 
   public getButtons(): IHomePageLink[] {
-    return this.environment.buttons;
+    return this._environment.buttons || [];
   }
 
   public getFeatures(): IHomePageFeature[] {
-    return this.environment.features;
+    return this._environment.features || [];
+  }
+
+  public getMemberships(): IHomePageMembership[] {
+    return this._environment.memberships || [];
   }
 
   public getFooter(): IHomePageFooter {
-    return this.environment.footer;
+    return this._environment.footer;
   }
 
   public getBackgroundComponent(): Type<any> | undefined {
-    return this.environment.backgroundComponent;
+    return this._environment.backgroundComponent;
   }
 
   public getImageComponent(): Type<any> | undefined {
-    return this.environment.heroImageComponent;
+    return this._environment.heroImageComponent;
   }
 }

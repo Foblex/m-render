@@ -7,3 +7,5 @@ export * from './i-home-page-footer';
 export * from './i-home-page-hero';
 
 export * from './i-home-page-link';
+
+export * from './i-home-page-membership';

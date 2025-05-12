@@ -1,5 +1,7 @@
 :host {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   padding-top: 32px;
   gap: 12px;
   width: fit-content;
@@ -7,5 +9,12 @@
 
   @media (min-width: 960px) {
     margin: 0;
+    justify-content: flex-start;
   }
+}
+
+.f-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }

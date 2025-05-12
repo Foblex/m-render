@@ -4,6 +4,7 @@ import { IHomePageLink } from './i-home-page-link';
 import { IHomePageFeature } from './i-home-page-feature';
 import { IHomePageFooter } from './i-home-page-footer';
 import { Type } from '@angular/core';
+import { IHomePageMembership } from './i-home-page-membership';
 
 export interface IHomePageEnvironment {
 
@@ -21,9 +22,11 @@ export interface IHomePageEnvironment {
 
   heroImageComponent?: Type<any>;
 
-  buttons: IHomePageLink[];
+  buttons?: IHomePageLink[];
 
-  features: IHomePageFeature[];
+  features?: IHomePageFeature[];
+
+  memberships?: IHomePageMembership[];
 
   footer: IHomePageFooter;
 }
