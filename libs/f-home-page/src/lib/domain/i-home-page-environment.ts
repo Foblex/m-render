@@ -1,0 +1,32 @@
+import { IHomePageHero } from './i-home-page-hero';
+import { IHomePageLink } from './i-home-page-link';
+import { IHomePageFeature } from './i-home-page-feature';
+import { IHomePageFooter } from './i-home-page-footer';
+import { Type } from '@angular/core';
+import { IHomePageMembership } from './i-home-page-membership';
+import { IDocsHeaderNavigationItem, INpmVersion } from '@f-common';
+
+export interface IHomePageEnvironment {
+
+  logo: string;
+
+  title: string;
+
+  version?: INpmVersion;
+
+  headerNavigation?: IDocsHeaderNavigationItem[];
+
+  backgroundComponent?: Type<any>;
+
+  hero: IHomePageHero;
+
+  heroImageComponent?: Type<any>;
+
+  buttons?: IHomePageLink[];
+
+  features?: IHomePageFeature[];
+
+  memberships?: IHomePageMembership[];
+
+  footer: IHomePageFooter;
+}

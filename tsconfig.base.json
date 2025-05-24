@@ -1,0 +1,49 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@f-analytics": [
+        "libs/f-analytics/src/index.ts"
+      ],
+      "@f-common": [
+        "libs/f-common/src/index.ts"
+      ],
+      "@f-documentation-page": [
+        "libs/f-documentation-page/src/index.ts"
+      ],
+      "@f-highlight-code": [
+        "libs/f-highlight-code/src/index.ts"
+      ],
+      "@f-home-page": [
+        "libs/f-home-page/src/index.ts"
+      ],
+      "@f-markdown": [
+        "libs/f-markdown/src/index.ts"
+      ],
+      "@foblex/m-render": [
+        "libs/m-render/src/index.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
+}

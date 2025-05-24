@@ -31,5 +31,3 @@ npm install @foblex/m-render
 ### License
 
 This library is available for use under the [MIT License](./LICENSE).
-
-
