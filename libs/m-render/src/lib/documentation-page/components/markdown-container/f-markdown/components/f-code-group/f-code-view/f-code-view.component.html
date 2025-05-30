@@ -1,0 +1,6 @@
+<span class="f-code-language">{{ visibleLanguage() }}</span>
+<button class="f-copy-button" (click)="onCopyClick()"></button>
+@if (content()) {
+  <highlight [content]="content()" [language]="syntaxLanguage()"/>
+}
+

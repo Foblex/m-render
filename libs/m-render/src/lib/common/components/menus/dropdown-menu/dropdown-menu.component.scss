@@ -1,0 +1,61 @@
+:host {
+  overflow: hidden;
+}
+
+.label {
+  margin-left: 8px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-text);
+  cursor: pointer;
+  line-height: 64px;
+
+  .text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .f-icon {
+    margin-left: 4px;
+    width: 14px;
+    min-width: 14px;
+    height: 14px;
+    color: inherit;
+  }
+
+  &:hover {
+    color: var(--secondary-text);
+  }
+}
+
+.dropdown-panel {
+  border-radius: 6px;
+  padding: 12px;
+  min-width: 128px;
+  border: 1px solid var(--divider-color);
+  background-color: var(--background-color);
+  box-shadow: var(--shadow-3);
+  max-height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+}
+
+.menu-link {
+  display: block;
+  border-radius: 4px;
+  padding: 0 12px;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-text);
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary-1);
+    background-color: var(--gray-soft);
+  }
+}

@@ -1,0 +1,27 @@
+<!--<div class="inline-menu-wrapper" [element]="element" overflowObserver (overflowed)="overflowed($event)">-->
+<!--  <div #element class="inline-menu-container" [class.hidden]="isOverflowed()">-->
+<!--    @for (item of navigation; track item.link) {-->
+<!--      <a class="inline-menu-link" [routerLink]="item.link" [class.active]="item.isActive">-->
+<!--        <span>{{ item.text }}</span>-->
+<!--      </a>-->
+<!--    }-->
+<!--  </div>-->
+
+<!--  @if (isOverflowed()) {-->
+
+<!--  }-->
+<!--  <dropdown-menu label=""/>-->
+<!--</div>-->
+
+
+
+<div class="inline-menu-wrapper" >
+  <div #element class="inline-menu-container" [class.hidden]="isOverflowed()">
+    @for (item of navigation; track item.link) {
+      <a class="inline-menu-link" [routerLink]="item.link" [class.active]="item.isActive">
+        <span>{{ item.text }}</span>
+      </a>
+    }
+  </div>
+</div>
+

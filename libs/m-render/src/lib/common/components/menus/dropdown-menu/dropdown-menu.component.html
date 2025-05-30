@@ -1,0 +1,35 @@
+<span class="label" cdk-overlay-origin
+      (click)="toggle()"
+      (mouseenter)="mouseEnter()"
+      (mouseleave)="mouseLeave()"
+      #overlayOrigin="cdkOverlayOrigin">
+   <span class="text">{{ label() }}</span>
+   <span class="f-icon chevron-down"></span>
+</span>
+
+<ng-template
+  cdk-connected-overlay
+  [cdkConnectedOverlayLockPosition]="true"
+  [cdkConnectedOverlayHasBackdrop]="false"
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayDisableClose]="false"
+  [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+  [cdkConnectedOverlayOrigin]="overlayOrigin"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayOpen]="isOpen()"
+  [cdkConnectedOverlayOffsetY]="-10"
+  (backdropClick)="close()"
+>
+  <div class="dropdown-panel"
+       (mouseenter)="mouseEnter()"
+       (mouseleave)="mouseLeave()">
+    <div class="items">
+      @for (link of links(); track link.link) {
+        <div class="menu-item">
+          <a class="menu-link" [href]="link.link">{{ link.text }}</a>
+        </div>
+      }
+    </div>
+  </div>
+</ng-template>
+

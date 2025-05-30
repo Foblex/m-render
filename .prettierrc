@@ -1,0 +1,23 @@
+{
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": ["**/*.css", "**/*.scss"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": ["./otel","^@opentelemetry/","^@angular/", "^(?!@angular/)[^./]", "^[./]"],
+  "importOrderParserPlugins": ["typescript", "decorators"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "bracketSpacing": true,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 140,
+  "semi": true,
+  "arrowParens": "avoid"
+}
