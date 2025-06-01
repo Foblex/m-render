@@ -1,9 +1,9 @@
 import { EMarkdownContainerType } from './domain';
 import { IMarkdownItToken } from './domain';
-import { encodeDataAttr, getContent, isOpeningToken, parseFileLinkLine } from './utils';
 
 import container from 'markdown-it-container';
 import { EParsedContainerType, IMarkdownContainerData, IParsedContainerData } from './domain';
+import { encodeDataAttr, getContent, isOpeningToken, parseFileLinkLine } from './utils';
 
 type ContainerArgs = [typeof container, string, { render: any }];
 
