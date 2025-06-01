@@ -148,11 +148,9 @@ This is a tip block
 :::
 ```
 
----
-
 ## 🧑‍💻 Contributing
 
-Open for contributions, feedback and PRs.
+Open for contributions, feedback and PRs. [GitHub](https://github.com/Foblex/m-render)
 
-GitHub: [https://github.com/Foblex/m-render](https://github.com/Foblex/m-render)
+
 

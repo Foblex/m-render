@@ -8,6 +8,5 @@ import { HomeStore } from '../../services';
   standalone: true,
 })
 export class FHomePageFooterComponent {
-
   protected viewModel = inject(HomeStore).getFooter();
 }
