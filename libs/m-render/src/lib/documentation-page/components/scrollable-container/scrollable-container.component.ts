@@ -1,12 +1,19 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, forwardRef, inject, OnInit } from '@angular/core';
 import {
-  CalculateHashFromScrollPositionAndActivateTocRequest,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  forwardRef,
+  inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import {
+  CalculateHashFromScrollPositionAndActivateTocHandler,
   IScrollableContainer,
   SCROLLABLE_CONTAINER,
-  SCROLLABLE_CONTAINER_FEATURES,
 } from './domain';
 import { debounceTime, fromEvent, startWith } from 'rxjs';
-import { FMediator } from '@foblex/mediator';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TableOfContentComponent } from './components';
 
@@ -20,8 +27,6 @@ import { TableOfContentComponent } from './components';
       provide: SCROLLABLE_CONTAINER,
       useExisting: forwardRef(() => ScrollableContainerComponent),
     },
-    FMediator,
-    ...SCROLLABLE_CONTAINER_FEATURES,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
@@ -30,8 +35,8 @@ import { TableOfContentComponent } from './components';
 })
 export class ScrollableContainerComponent implements OnInit, IScrollableContainer {
 
-  private readonly _mediator = inject(FMediator);
   private readonly _destroyRef = inject(DestroyRef);
+  private readonly _injector = inject(Injector);
 
   public readonly htmlElement = inject(ElementRef<HTMLElement>).nativeElement;
 
@@ -44,9 +49,7 @@ export class ScrollableContainerComponent implements OnInit, IScrollableContaine
   }
 
   private _calculateHashAndActivate(): void {
-    this._mediator.send<string | undefined>(
-      new CalculateHashFromScrollPositionAndActivateTocRequest(),
-    );
+    new CalculateHashFromScrollPositionAndActivateTocHandler(this._injector).handle();
   }
 }
 

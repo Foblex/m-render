@@ -1,13 +1,16 @@
-import { FExecutionRegister, IHandler } from '@foblex/mediator';
 import { ScrollToElementInContainerRequest } from './scroll-to-element-in-container.request';
-import { inject, Injectable } from '@angular/core';
-import { SCROLLABLE_CONTAINER } from '../../../index';
+import { Injector } from '@angular/core';
+import { IScrollableContainer, SCROLLABLE_CONTAINER } from '../../../index';
 
-@Injectable()
-@FExecutionRegister(ScrollToElementInContainerRequest)
-export class ScrollToElementInContainerHandler implements IHandler<ScrollToElementInContainerRequest, void> {
+export class ScrollToElementInContainerHandler {
 
-  private readonly _scrollableContainer = inject(SCROLLABLE_CONTAINER);
+  private readonly _scrollableContainer: IScrollableContainer;
+
+  constructor(
+    _injector: Injector,
+  ) {
+    this._scrollableContainer = _injector.get(SCROLLABLE_CONTAINER);
+  }
 
   public handle(payload: ScrollToElementInContainerRequest): void {
     this._scrollableContainer.htmlElement.scrollTo({

@@ -1,15 +1,8 @@
-import { FExecutionRegister, IExecution } from '@foblex/mediator';
 import { HandleNavigationLinksRequest } from './handle-navigation-links.request';
-import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BrowserService } from '@foblex/platform';
 
-@Injectable()
-@FExecutionRegister(HandleNavigationLinksRequest)
-export class HandleNavigationLinksHandler
-  implements IExecution<HandleNavigationLinksRequest, void> {
-  private readonly _router = inject(Router);
-  private readonly _browser = inject(BrowserService);
+export class HandleNavigationLinksHandler {
 
   public handle(request: HandleNavigationLinksRequest): void {
     const target = this._getClosestAnchorTag(this._getTargetElement(request.event));
@@ -19,19 +12,19 @@ export class HandleNavigationLinksHandler
 
       const href = target.getAttribute('href')!;
       if (!this._isExternalLink(href)) {
-        this._navigateInternalLink(href);
+        this._navigateInternalLink(href, request.router);
       } else {
-        this._navigateExternalLink(href);
+        this._navigateExternalLink(href, request.browser);
       }
     }
   }
 
-  private _getTargetElement(event: Event): HTMLElement {
-    return event.target as HTMLElement;
+  private _getTargetElement(event: Event): HTMLElement | null {
+    return event?.target as HTMLElement;
   }
 
-  private _getClosestAnchorTag(element: HTMLElement): HTMLElement | null {
-    return element.closest('a');
+  private _getClosestAnchorTag(element: HTMLElement | null): HTMLElement | undefined | null {
+    return element?.closest('a');
   }
 
   private _hasHref(element: HTMLElement): boolean {
@@ -42,14 +35,14 @@ export class HandleNavigationLinksHandler
     return href.startsWith('www') || href.startsWith('http');
   }
 
-  private _navigateInternalLink(href: string): void {
+  private _navigateInternalLink(href: string, router: Router): void {
     if (href.startsWith('/')) {
       href = href.substring(1);
     }
-    this._router.navigate([href]).then();
+    router.navigate([href]).then();
   }
 
-  private _navigateExternalLink(href: string): void {
-    this._browser.window.open(href, '_blank');
+  private _navigateExternalLink(href: string, browser: BrowserService): void {
+    browser.window.open(href, '_blank');
   }
 }

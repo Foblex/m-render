@@ -1,9 +1,8 @@
-import { FExecutionRegister, FMediator, IExecution } from '@foblex/mediator';
-import { CalculateHashFromScrollPositionAndActivateTocRequest } from './calculate-hash-from-scroll-position-and-activate-toc.request';
-import { GetAbsoluteTopToContainerRequest } from '../get-absolute-top-to-container';
+import { GetAbsoluteTopToContainerHandler, GetAbsoluteTopToContainerRequest } from '../get-absolute-top-to-container';
 import { BrowserService } from '@foblex/platform';
-import { inject, Injectable } from '@angular/core';
+import { Injector } from '@angular/core';
 import {
+  ActivateTocByHashHandler, IScrollableContainer,
   SCROLLABLE_CONTAINER,
 } from '../../../index';
 import { ActivateTocByHashRequest } from '../activate-toc-by-hash';
@@ -14,15 +13,19 @@ interface IHasTopItem {
   top: number;
 }
 
-@Injectable()
-@FExecutionRegister(CalculateHashFromScrollPositionAndActivateTocRequest)
-export class CalculateHashFromScrollPositionAndActivateTocHandler
-  implements IExecution<CalculateHashFromScrollPositionAndActivateTocRequest, void> {
+export class CalculateHashFromScrollPositionAndActivateTocHandler {
 
-  private readonly _browser = inject(BrowserService);
-  private readonly _mediator = inject(FMediator);
-  private readonly _provider = inject(DocumentationStore);
-  private readonly _scrollableContainer = inject(SCROLLABLE_CONTAINER);
+  private readonly _browser: BrowserService;
+  private readonly _provider: DocumentationStore;
+  private readonly _scrollableContainer: IScrollableContainer;
+
+  constructor(
+    private _injector: Injector,
+  ) {
+    this._browser = _injector.get(BrowserService);
+    this._provider = _injector.get(DocumentationStore);
+    this._scrollableContainer = _injector.get(SCROLLABLE_CONTAINER);
+  }
 
   public handle(): void {
     let result: string | undefined;
@@ -32,12 +35,12 @@ export class CalculateHashFromScrollPositionAndActivateTocHandler
 
     if (elementsWithTopPosition.length) {
       if (this._isScrollAtBottom(containerScrollTop)) {
-        result = elementsWithTopPosition[ elementsWithTopPosition.length - 1 ].hash;
+        result = elementsWithTopPosition[elementsWithTopPosition.length - 1].hash;
       } else {
         result = this._findTargetHashByPosition(containerScrollTop, elementsWithTopPosition);
       }
     }
-    this._mediator.execute(new ActivateTocByHashRequest(result));
+    new ActivateTocByHashHandler(this._injector).handle(new ActivateTocByHashRequest(result));
   }
 
   private _getContainerScrollTop(): number {
@@ -56,14 +59,14 @@ export class CalculateHashFromScrollPositionAndActivateTocHandler
       return {
         hash: x.hash,
         top: this._getAbsoluteTopToContainer(x.element),
-      }
+      };
     }).filter((x) => !Number.isNaN(x.top));
   }
 
   private _getAbsoluteTopToContainer(element: HTMLElement): number {
-    return this._mediator.execute(
+    return new GetAbsoluteTopToContainerHandler(this._injector).handle(
       new GetAbsoluteTopToContainerRequest(element),
-    );
+    )
   }
 
   private _isScrollAtBottom(containerScrollTop: number): boolean {
@@ -71,7 +74,7 @@ export class CalculateHashFromScrollPositionAndActivateTocHandler
   }
 
   private _findTargetHashByPosition(containerScrollTop: number, elementsWithTopPosition: IHasTopItem[]): string {
-    let result: string = elementsWithTopPosition[ 0 ].hash;
+    let result: string = elementsWithTopPosition[0].hash;
     for (const { hash, top } of elementsWithTopPosition) {
       if (top > containerScrollTop) break;
       result = hash;

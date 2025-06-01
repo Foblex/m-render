@@ -1,7 +1,10 @@
-import { FExecutionRegister, IHandler } from '@foblex/mediator';
 import { RenderDynamicComponentsRequest } from './render-dynamic-components.request';
-import { ComponentRef, inject, Injectable, Type, ViewContainerRef } from '@angular/core';
-import { FCodeGroupComponent, FPreviewComponent, FPreviewGroupFiltersComponent } from '../../../index';
+import { ComponentRef, Injector, Type, ViewContainerRef } from '@angular/core';
+import {
+  FCodeGroupComponent,
+  FPreviewComponent,
+  FPreviewGroupFiltersComponent,
+} from '../../../index';
 import { DocumentationStore } from '../../../../services';
 
 interface DynamicComponentDescriptor {
@@ -9,18 +12,23 @@ interface DynamicComponentDescriptor {
   component: Type<any>;
 }
 
-@Injectable()
-@FExecutionRegister(RenderDynamicComponentsRequest)
-export class RenderDynamicComponentsHandler implements IHandler<RenderDynamicComponentsRequest> {
-
-  private readonly _provider = inject(DocumentationStore);
-  private readonly _containerRef = inject(ViewContainerRef);
+export class RenderDynamicComponentsHandler {
 
   private readonly _componentsMap: DynamicComponentDescriptor[] = [
     { tag: 'f-code-group', component: FCodeGroupComponent },
     { tag: 'f-preview', component: FPreviewComponent },
     { tag: 'f-preview-group-filters', component: FPreviewGroupFiltersComponent },
   ];
+
+  private readonly _provider: DocumentationStore;
+  private readonly _containerRef: ViewContainerRef;
+
+  constructor(
+    _injector: Injector,
+  ) {
+    this._provider = _injector.get(DocumentationStore);
+    this._containerRef = _injector.get(ViewContainerRef);
+  }
 
   public handle(request: RenderDynamicComponentsRequest): void {
     this._provider.disposeDComponents();
@@ -67,7 +75,8 @@ export class RenderDynamicComponentsHandler implements IHandler<RenderDynamicCom
         try {
           value = JSON.parse(value);
           // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-        } catch (e) { /* empty */ }
+        } catch (e) { /* empty */
+        }
       }
       if (componentRef.instance[key]?.set) {
         componentRef.instance[key].set(value);

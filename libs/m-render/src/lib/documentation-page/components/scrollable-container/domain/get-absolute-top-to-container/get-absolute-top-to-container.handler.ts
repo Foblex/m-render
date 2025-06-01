@@ -1,15 +1,19 @@
-import { FExecutionRegister, IHandler } from '@foblex/mediator';
 import { GetAbsoluteTopToContainerRequest } from './get-absolute-top-to-container.request';
-import { inject, Injectable } from '@angular/core';
+import { Injector } from '@angular/core';
 import {
+  IScrollableContainer,
   SCROLLABLE_CONTAINER,
 } from '../../../index';
 
-@Injectable()
-@FExecutionRegister(GetAbsoluteTopToContainerRequest)
-export class GetAbsoluteTopToContainerHandler implements IHandler<GetAbsoluteTopToContainerRequest, number> {
+export class GetAbsoluteTopToContainerHandler {
 
-  private readonly _scrollableContainer = inject(SCROLLABLE_CONTAINER);
+  private readonly _scrollableContainer: IScrollableContainer;
+
+  constructor(
+    _injector: Injector,
+  ) {
+    this._scrollableContainer = _injector.get(SCROLLABLE_CONTAINER);
+  }
 
   public handle(request: GetAbsoluteTopToContainerRequest): number {
     let element = request.element;

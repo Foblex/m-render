@@ -3,14 +3,17 @@ import {
   Component, computed,
   ElementRef,
   HostListener,
-  inject,
+  inject, Injector,
 } from '@angular/core';
 import { TableOfContentItemsComponent } from './table-of-content-items';
 import { BrowserService } from '@foblex/platform';
 import { DocumentationStore } from '../../../../services';
-import { ScrollToElementInContainerRequest } from '../../index';
-import { ActivateTocByHashRequest } from '../../domain/activate-toc-by-hash';
-import { FMediator } from '@foblex/mediator';
+import {
+  ActivateTocByHashHandler,
+  ScrollToElementInContainerHandler,
+  ScrollToElementInContainerRequest,
+} from '../../index';
+import { ActivateTocByHashRequest } from '../../domain';
 
 @Component({
   selector: 'aside[f-table-of-content]',
@@ -25,7 +28,7 @@ export class TableOfContentComponent {
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
   private readonly _browser = inject(BrowserService);
   private readonly _provider = inject(DocumentationStore);
-  private readonly _mediator = inject(FMediator);
+  private readonly _injector = inject(Injector);
 
   protected readonly tocData = computed(() => {
     return this._provider.tocData();
@@ -60,7 +63,7 @@ export class TableOfContentComponent {
   }
 
   private _scrollTo(hash: string): void {
-    this._mediator.execute<void>(new ActivateTocByHashRequest(hash));
-    this._mediator.execute<void>(new ScrollToElementInContainerRequest(hash));
+    new ActivateTocByHashHandler(this._injector).handle(new ActivateTocByHashRequest(hash));
+    new ScrollToElementInContainerHandler(this._injector).handle(new ScrollToElementInContainerRequest(hash));
   }
 }

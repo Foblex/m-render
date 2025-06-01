@@ -1,8 +1,7 @@
 import { Observable, of } from 'rxjs';
-import { IHandler } from '@foblex/mediator';
 import { BrowserService } from '@foblex/platform';
 
-export class MarkCodeFocusedBlocksPostProcessor implements IHandler<HTMLElement, Observable<HTMLElement>> {
+export class MarkCodeFocusedBlocksPostProcessor {
 
   constructor(
     private _browser: BrowserService,
@@ -12,7 +11,6 @@ export class MarkCodeFocusedBlocksPostProcessor implements IHandler<HTMLElement,
   public handle(element: HTMLElement): Observable<HTMLElement> {
     const html = element.innerHTML;
     if (!FOCUS_REGEX.test(html)) {
-      console.warn('[MarkCodeFocusedBlocksPostProcessor] No focus markers found in the code block.', html);
       return of(element);
     }
 

@@ -1,11 +1,9 @@
-import { IHandler } from '@foblex/mediator';
 import { GetPreviousNextPageNavigationRequest } from './get-previous-next-page-navigation.request';
 import { GetPreviousNextPageNavigationResponse } from './get-previous-next-page-navigation.response';
 import { IMarkdownFooterLink } from '../i-markdown-footer-link';
 import { DocumentationStore } from '../../../../../../../services';
 
-export class GetPreviousNextPageNavigationHandler
-  implements IHandler<GetPreviousNextPageNavigationRequest, GetPreviousNextPageNavigationResponse> {
+export class GetPreviousNextPageNavigationHandler {
 
   constructor(
     private _provider: DocumentationStore,

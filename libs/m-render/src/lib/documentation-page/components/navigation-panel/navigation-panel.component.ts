@@ -16,12 +16,11 @@ import { NavigationGroupComponent } from './navigation-group/navigation-group.co
 import {
   INavigationItem,
 } from './domain';
-import { deepClone } from '@foblex/utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TOGGLE_NAVIGATION_COMPONENT } from '../header';
 import { DocumentationStore } from '../../services';
-import { HandleNavigationLinksRequest } from '../../domain';
-import { FMediator } from '@foblex/mediator';
+import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../domain';
+import { BrowserService } from '@foblex/platform';
 
 @Component({
   selector: 'f-navigation-panel',
@@ -41,9 +40,9 @@ export class NavigationPanelComponent implements OnInit, AfterViewInit {
     optional: true,
   });
   private readonly _router = inject(Router);
-  private readonly _mediator = inject(FMediator);
   private readonly _changeDetectorRef = inject(ChangeDetectorRef);
   private readonly _destroyRef = inject(DestroyRef);
+  private readonly _browser = inject(BrowserService);
 
   protected value: string | undefined;
   protected navigation = this._provider.getNavigation();
@@ -53,11 +52,15 @@ export class NavigationPanelComponent implements OnInit, AfterViewInit {
   public ngOnInit(): void {
     const currentPath = this._router.url;
     const prefix = currentPath.substring(0, currentPath.lastIndexOf('/'));
-    const navigation = deepClone(this._provider.getNavigation());
+    const navigation = this._deepClone(this._provider.getNavigation());
     navigation.forEach((group) => {
       group.items.forEach((item) => this._normalizeLink(item, prefix));
     });
     this.navigation = navigation;
+  }
+
+  private _deepClone<T>(value: T): T {
+    return JSON.parse(JSON.stringify(value));
   }
 
   private _normalizeLink(item: INavigationItem, prefix: string): void {
@@ -102,6 +105,8 @@ export class NavigationPanelComponent implements OnInit, AfterViewInit {
 
   @HostListener('click', ['$event'])
   protected _onDocumentClick(event: MouseEvent): void {
-    this._mediator.execute(new HandleNavigationLinksRequest(event));
+    new HandleNavigationLinksHandler().handle(
+      new HandleNavigationLinksRequest(event, this._browser, this._router),
+    );
   }
 }

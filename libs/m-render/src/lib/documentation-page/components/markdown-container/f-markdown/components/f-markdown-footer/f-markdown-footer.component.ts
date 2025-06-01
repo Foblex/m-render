@@ -14,8 +14,8 @@ import {
 } from './domain';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DocumentationStore } from '../../../../../services';
-import { HandleNavigationLinksRequest } from '../../../../../domain';
-import { FMediator } from '@foblex/mediator';
+import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../../../../domain';
+import { BrowserService } from '@foblex/platform';
 
 @Component({
   selector: 'footer [f-markdown-footer]',
@@ -31,12 +31,12 @@ import { FMediator } from '@foblex/mediator';
   standalone: true,
 })
 export class FMarkdownFooterComponent implements OnInit {
-  private readonly _mediator = inject(FMediator);
   private readonly _provider = inject(DocumentationStore);
   private readonly _router = inject(Router);
   private readonly _activatedRoute = inject(ActivatedRoute);
   private readonly _changeDetectorRef = inject(ChangeDetectorRef);
   private readonly _destroyRef = inject(DestroyRef);
+  private readonly _browser = inject(BrowserService);
 
   protected navigation: IMarkdownFooterNavigation = {};
   protected editLink: string | undefined;
@@ -95,6 +95,8 @@ export class FMarkdownFooterComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   protected _onDocumentClick(event: MouseEvent): void {
-    this._mediator.execute(new HandleNavigationLinksRequest(event));
+    new HandleNavigationLinksHandler().handle(
+      new HandleNavigationLinksRequest(event, this._browser, this._router),
+    );
   }
 }

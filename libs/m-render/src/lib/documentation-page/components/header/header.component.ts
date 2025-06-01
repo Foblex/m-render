@@ -5,11 +5,9 @@ import {
 import { HamburgerButtonComponent } from './hamburger-button';
 import { DocumentationStore } from '../../services';
 import {
-  DropdownMenuComponent,
   FSocialLinksComponent,
   FThemeButtonComponent,
   InlineMenuComponent,
-  NpmVersionComponent,
 } from '../../../common';
 
 @Component({
@@ -20,11 +18,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     HamburgerButtonComponent,
-    NpmVersionComponent,
     FSocialLinksComponent,
     FThemeButtonComponent,
     InlineMenuComponent,
-    DropdownMenuComponent,
   ],
 })
 export class HeaderComponent {

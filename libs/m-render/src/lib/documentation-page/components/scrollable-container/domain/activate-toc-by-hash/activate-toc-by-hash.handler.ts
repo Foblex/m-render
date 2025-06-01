@@ -1,14 +1,16 @@
-import { FExecutionRegister, IExecution } from '@foblex/mediator';
 import { ActivateTocByHashRequest } from './activate-toc-by-hash.request';
-import { inject, Injectable } from '@angular/core';
+import { Injector } from '@angular/core';
 import { DocumentationStore } from '../../../../services';
 
-@Injectable()
-@FExecutionRegister(ActivateTocByHashRequest)
-export class ActivateTocByHashHandler
-  implements IExecution<ActivateTocByHashRequest, void> {
+export class ActivateTocByHashHandler {
 
-  private readonly _provider = inject(DocumentationStore);
+  private readonly _provider: DocumentationStore;
+
+  constructor(
+    _injector: Injector,
+  ) {
+    this._provider = _injector.get(DocumentationStore);
+  }
 
   public handle(payload: ActivateTocByHashRequest): void {
     this._provider.tocData.update((data) => ({

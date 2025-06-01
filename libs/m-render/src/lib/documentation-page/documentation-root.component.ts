@@ -10,8 +10,6 @@ import {
   TOGGLE_NAVIGATION_COMPONENT,
 } from './components';
 import { DocumentationStore } from './services';
-import { FMediator } from '@foblex/mediator';
-import { COMMON_FEATURES } from './domain';
 import { F_SOCIAL_LINKS_PROVIDER, HEADER_CONFIGURATION_STORE, PopoverService } from '../common';
 import { FMetaService } from './analytics';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -42,8 +40,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       provide: TOGGLE_NAVIGATION_COMPONENT,
       useExisting: DocumentationRootComponent,
     },
-    FMediator,
-    ...COMMON_FEATURES,
   ],
   imports: [
     NavigationPanelComponent,

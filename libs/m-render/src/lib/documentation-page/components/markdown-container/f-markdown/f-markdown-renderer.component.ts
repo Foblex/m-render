@@ -12,7 +12,7 @@ import {
   signal,
   untracked,
 } from '@angular/core';
-import { debounceTime, startWith, switchMap } from 'rxjs';
+import { debounceTime, of, startWith, switchMap } from 'rxjs';
 import { SafeHtml } from '@angular/platform-browser';
 import { catchError, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,10 +20,14 @@ import { DocumentationStore } from '../../../services';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MarkdownService } from './markdown';
 import { BrowserService } from '@foblex/platform';
-import { CalculateTableOfContentDataRequest, RenderDynamicComponentsRequest } from '../../scrollable-container';
+import {
+  CalculateTableOfContentDataHandler,
+  CalculateTableOfContentDataRequest,
+  RenderDynamicComponentsHandler,
+  RenderDynamicComponentsRequest,
+} from '../../scrollable-container';
 import { FMarkdownFooterComponent } from './components';
-import { FMediator } from '@foblex/mediator';
-import { HandleNavigationLinksRequest } from '../../../domain';
+import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../../domain';
 
 @Component({
   selector: 'f-markdown-renderer',
@@ -48,7 +52,6 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
   private readonly _destroyRef = inject(DestroyRef);
   private readonly _injector = inject(Injector);
   private readonly _browser = inject(BrowserService);
-  private readonly _mediator = inject(FMediator);
   private readonly _markdown = inject(MarkdownService);
   private readonly _provider = inject(DocumentationStore);
 
@@ -72,7 +75,10 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
           ),
         ),
         tap((x) => this.value.set(x)),
-        catchError((e, data) => data),
+        catchError((e, data) => {
+          console.error('[MarkdownRenderer] parse error:', e);
+          return of(data);
+        }),
         takeUntilDestroyed(this._destroyRef),
       )
       .subscribe();
@@ -84,9 +90,13 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
         const html = this.value();
         if (html && this._browser.isBrowser()) {
           untracked(() => {
-            requestAnimationFrame(() => { // Wait for HTML to be rendered before initializing dynamic components and TOC
-              this._mediator.execute(new RenderDynamicComponentsRequest(this._hostElement));
-              this._mediator.execute(new CalculateTableOfContentDataRequest(this._hostElement));
+            raf(() => { // Wait for HTML to be rendered before initializing dynamic components and TOC
+              new RenderDynamicComponentsHandler(
+                this._injector,
+              ).handle(new RenderDynamicComponentsRequest(this._hostElement));
+              new CalculateTableOfContentDataHandler(
+                this._injector,
+              ).handle(new CalculateTableOfContentDataRequest(this._hostElement));
             });
           });
         }
@@ -97,10 +107,16 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   protected _onDocumentClick(event: MouseEvent): void {
-    this._mediator.execute(new HandleNavigationLinksRequest(event));
+    new HandleNavigationLinksHandler().handle(
+      new HandleNavigationLinksRequest(event, this._browser, this._router),
+    );
   }
 
   public ngOnDestroy(): void {
     this._provider.disposeDComponents();
   }
 }
+
+const raf = typeof requestAnimationFrame === 'function'
+  ? requestAnimationFrame
+  : (fn: FrameRequestCallback) => setTimeout(fn);
