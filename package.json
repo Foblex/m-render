@@ -2,7 +2,12 @@
   "name": "@m-render/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "heroku-postbuild": "nx build site --configuration=production && nx run site:server:production && nx run site:prerender:production"
+  },
+  "engines": {
+    "node": "20.x"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.2.11",

@@ -36,15 +36,15 @@ export const DOCUMENTATION_CONFIGURATION = {
       range: { start: 2, end: 6 },
     }),
     provideHeader(
-      provideHeaderNavigation([{
-        link: '/docs/what-is-mrender',
-        active: '/docs/what-is-mrender',
-        text: 'What is MRender?',
-      }, {
-        link: '/docs/getting-started',
-        active: '/docs/getting-started',
-        text: 'Examples',
-      }]),
+      // provideHeaderNavigation([{
+      //   link: '/docs/what-is-mrender',
+      //   active: '/docs/what-is-mrender',
+      //   text: 'What is MRender?',
+      // }, {
+      //   link: '/docs/getting-started',
+      //   active: '/docs/getting-started',
+      //   text: 'Examples',
+      // }]),
       provideHeaderMediaLinks([
         { icon: 'github', link: 'https://github.com/Foblex/m-render' },
         { icon: 'twitter', link: 'https://x.com/foblexflow' },

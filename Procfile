@@ -1,1 +1,1 @@
-web: node dist/m-render-portal/server/server.mjs
+web: node dist/apps/site/server/main.js

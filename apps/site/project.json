@@ -126,7 +126,7 @@
     "prerender": {
       "executor": "@angular-devkit/build-angular:prerender",
       "options": {
-        "routes": ["/"]
+        "routesFile": "routes.txt"
       },
       "configurations": {
         "development": {
