@@ -1,81 +1,158 @@
-﻿# Getting Started
+﻿# MRender: Markdown Renderer for Angular
 
-This guide helps you set up **MRender** in your Angular application.
+**MRender** is an Angular library for rendering Markdown-based documentation with SSR support, built-in Angular components, customizable UI, and extended syntax.
 
-## Install the Library
+## 🚀 Features
+
+* Render `.md` files in Angular apps
+* Extended syntax: `ng-component`, `code-group`, `preview-group`, alert blocks (`tip`, `info`, `danger`, etc.)
+* Fully SSR-compatible
+* Embed Angular components inside markdown
+* Provider-based configuration for homepage and documentation
+* Lazy loading of examples
+* Built-in Table of Contents, SEO and meta support
+
+## 📦 Installation
 
 ```bash
 npm install @foblex/m-render
 ```
 
-## Configure Routing
+## 🧩 Usage
 
-In your app.routes.ts:
+### Homepage Configuration
 
-```typescript
+```ts
+import {
+  provideBackground, provideComponents,
+  provideHero, provideHomeButtons, provideHomeFeatures,
+  provideHomeFooter, provideImage, provideLogo, provideTitle
+} from '@foblex/m-render';
+
+export const HOME_CONFIGURATION = {
+  providers: [
+    provideLogo('./logo.svg'),
+    provideTitle('Foblex Flow'),
+    provideHero({
+      headline: 'Foblex Flow',
+      tagline1: 'Built with Angular',
+      tagline2: 'Flow-Chart Library',
+      subDescription: 'Supports Angular 12+, SSR, and Composition API.',
+    }),
+    provideBackground(HomePageBackgroundComponent),
+    provideImage(HomePageImageComponent),
+    provideHomeButtons([...]),
+    provideHomeFeatures([...]),
+    provideHomeFooter({ text: 'MIT License | Copyright © 2022 - Present' }),
+  ],
+};
+```
+
+### Documentation Configuration
+
+```ts
+import {
+  provideDirectory, provideNavigation, provideComponents,
+  provideTocData, provideHeader, provideFooterNavigation,
+  provideDocumentationMeta
+} from '@foblex/m-render';
+
+export const DOCUMENTATION_CONFIGURATION = {
+  providers: [
+    provideDirectory('./markdown/guides/'),
+    provideNavigation(...),
+    provideComponents([...]),
+    provideTocData({ title: 'In this article', range: { start: 2, end: 6 } }),
+    provideHeader(...),
+    provideFooterNavigation(...),
+    provideDocumentationMeta({ ... }),
+  ],
+};
+```
+
+### Route Setup
+
+```ts
 import { provideDocumentation, provideHomePage } from '@foblex/m-render';
-import { DOCUMENTATION_CONFIGURATION } from './documentation.config';
-import { HOME_CONFIGURATION } from './home.config';
 
-export const APP_ROUTES: Routes = [
+export const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('@foblex/m-render').then(m =>
-        m.HOME_ROUTES.map(route => ({
-          ...route,
-          providers: [provideHomePage(HOME_CONFIGURATION)],
-        }))
-      ),
+    loadChildren: () => import('@foblex/m-render').then((m) =>
+      m.HOME_ROUTES.map((route) => ({
+        ...route,
+        providers: [provideHomePage(HOME_CONFIGURATION)],
+      }))
+    ),
   },
   {
     path: 'docs',
-    loadChildren: () =>
-      import('@foblex/m-render').then(m =>
-        m.DOCUMENTATION_ROUTES.map(route => ({
-          ...route,
-          providers: [provideDocumentation(DOCUMENTATION_CONFIGURATION)],
-        }))
-      ),
+    loadChildren: () => import('@foblex/m-render').then((m) =>
+      m.DOCUMENTATION_ROUTES.map((route) => ({
+        ...route,
+        providers: [provideDocumentation(DOCUMENTATION_CONFIGURATION)],
+      }))
+    ),
   },
 ];
 ```
 
-## Configure Documentation
+## ✨ Markdown Extensions
 
-In documentation.config.ts, define your setup:
+### `ng-component`
 
-```typescript
-provideDirectory('./markdown/docs/'),
-provide404Markdown('./markdown/404.md'),
-provideNavigation(...),
-provideComponents([
-  defineLazyComponent('example', () => import('./example.component')),
-])
-```
-
-## Add Markdown Files
-
-Put your .md files inside the configured directory (/public/markdown/docs/ by default).
-
-Use extended syntax like:
+Render Angular components with optional height and linked source code:
 
 ```markdown
-::: ng-component <example></example> [height]="600"
-[component.html] <<< LINK_TO_CODE_FILE.html
-[component.ts] <<< LINK_TO_CODE_FILE.ts
-[component.scss] <<< LINK_TO_CODE_FILE.scss
+::: ng-component <component-selector></component-selector> [height]="YOUR EXAMPLE HEIGHT"
+[component.ts] <<< /assets/component.ts
+[component.html] <<< /assets/component.html
 :::
 ```
 
+### `code-group`
 
-## Run the App
+Group multiple code snippets into tabs:
 
-Make sure Angular SSR or browser build is configured.  
-Now open `/docs/your-page` and see your content rendered dynamically!
+````markdown
+::: code-group
+```ts [Component]
+console.log('Component code');
+```
 
+```html [Template]
+<div>Hello</div>
+```
+:::
+````
 
+### `preview-group`
 
+Display preview groups with filters:
 
+```markdown
+::: preview-group
+[Nodes]
+[Connectors]
+[Connections]
+:::
+```
 
+### Alerts
+
+Use `tip`, `danger`, `info`, etc.:
+
+```markdown
+::: tip Title
+This is a tip block
+:::
+```
+
+---
+
+## 🧑‍💻 Contributing
+
+Open for contributions, feedback and PRs.
+
+GitHub: [https://github.com/Foblex/m-render](https://github.com/Foblex/m-render)
 

@@ -2,6 +2,7 @@ import container from 'markdown-it-container';
 import { EMarkdownContainerType } from './domain';
 import { IMarkdownItToken } from './domain';
 import { EParsedContainerType, IParsedContainerData } from "./domain";
+import { encodeDataAttr, isClosingToken, isOpeningToken } from './utils';
 
 type ContainerArgs = [typeof container, string, { render: any }]
 const F_CONTAINER_CLOSE_TAG = 'container_code-group_close';
@@ -11,17 +12,12 @@ export class ParseGroupedCodeItems {
   public render(): ContainerArgs {
     return [container, EMarkdownContainerType.CODE_GROUP, {
       render: (tokens: IMarkdownItToken[], index: number) => {
-        if (this._isOpeningToken(tokens, index)) {
-
+        if (isOpeningToken(tokens[index])) {
           return this._openingExampleGroupHTML(this._generateData(tokens, index));
         }
         return '</f-code-group>';
       },
     }];
-  }
-
-  private _isOpeningToken(tokens: IMarkdownItToken[], index: number): boolean {
-    return tokens[index].nesting === 1;
   }
 
   private _generateData(tokens: IMarkdownItToken[], index: number): IParsedContainerData[] {
@@ -44,7 +40,7 @@ export class ParseGroupedCodeItems {
   }
 
   private _isClosingToken(token: IMarkdownItToken[], index: number): boolean {
-    return token[index].nesting === -1 && token[index].type === F_CONTAINER_CLOSE_TAG;
+    return isClosingToken(token[index]) && token[index].type === F_CONTAINER_CLOSE_TAG;
   }
 
   private _isCodeFenceToken(token: IMarkdownItToken): boolean {
@@ -52,8 +48,7 @@ export class ParseGroupedCodeItems {
   }
 
   private _openingExampleGroupHTML(data: IParsedContainerData[]): string {
-    const jsonData = JSON.stringify(data).replace(/"/g, '&quot;');
-    return `<f-code-group data-data="${jsonData}">`;
+    return `<f-code-group data-data="${encodeDataAttr(data)}">`;
   }
 
   private _getCodeBlockTitle(data: string): string {

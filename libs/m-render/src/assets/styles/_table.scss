@@ -1,0 +1,51 @@
+.m-render {
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 16px 0;
+
+    thead {
+      background-color: var(--alt-background);
+      color: var(--primary-text);
+    }
+
+    th,
+    td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--divider-color);
+      color: var(--primary-text);
+    }
+
+    th {
+      font-weight: 600;
+    }
+
+    tr {
+      background-color: var(--background-color);
+
+      &:hover {
+        background-color: var(--soft-background);
+      }
+    }
+
+    code {
+      font-family: var(--font-family-mono);
+      font-size: 0.875em;
+      background-color: var(--not-pre-code-background);
+      color: var(--not-pre-code-color);
+      padding: 0.2em 0.4em;
+      border-radius: var(--border-radius);
+    }
+  }
+
+  table:not([class]) {
+    display: table;
+    width: 100%;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+}

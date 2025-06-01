@@ -3,7 +3,6 @@ import {
   Component,
 } from '@angular/core';
 
-
 @Component({
   selector: 'example',
   styleUrls: [ './example.component.scss' ],

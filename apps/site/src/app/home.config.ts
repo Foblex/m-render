@@ -30,6 +30,10 @@ export const HOME_CONFIGURATION = {
     }, {
       text: 'GitHub',
       href: 'https://github.com/Foblex/m-render',
+    }, {
+      icon: 'heart',
+      text: 'Support Us',
+      href: 'https://www.paypal.com/donate/?hosted_button_id=VXXQ5SRMEU256',
     }]),
     provideHomeFeatures([{
       headline: 'Easy to Use',

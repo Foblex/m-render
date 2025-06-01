@@ -29,6 +29,7 @@ export const DOCUMENTATION_CONFIGURATION = {
     ),
     provideComponents([
       defineLazyComponent('example', () => import('../../../../libs/public/example/example.component')),
+      defineLazyComponent('draggable-flow', () => import('../../../../libs/public/draggable-flow/draggable-flow.component')),
     ]),
     provideTocData({
       title: 'In this article',
@@ -36,12 +37,12 @@ export const DOCUMENTATION_CONFIGURATION = {
     }),
     provideHeader(
       provideHeaderNavigation([{
-        link: '/introduction/what-is-mrender',
-        active: '/introduction',
+        link: '/docs/what-is-mrender',
+        active: '/docs/what-is-mrender',
         text: 'What is MRender?',
       }, {
-        link: '/examples/overview',
-        active: '/examples',
+        link: '/docs/getting-started',
+        active: '/docs/getting-started',
         text: 'Examples',
       }]),
       provideHeaderMediaLinks([

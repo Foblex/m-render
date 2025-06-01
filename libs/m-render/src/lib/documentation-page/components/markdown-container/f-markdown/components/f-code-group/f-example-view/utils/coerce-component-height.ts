@@ -1,10 +1,10 @@
-export function coerceComponentHeight(value: string | number | undefined): string {
+export function coerceComponentHeight(value: string | number | undefined): string | undefined {
   if (value === undefined) {
-    return 'auto';
+    return undefined;
   }
   value = Number(value);
   if (value) {
     return value + 'px';
   }
-  return 'auto';
+  return undefined;
 }

@@ -84,7 +84,7 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
         const html = this.value();
         if (html && this._browser.isBrowser()) {
           untracked(() => {
-            requestAnimationFrame(() => { // Need to track after new html is rerendered
+            requestAnimationFrame(() => { // Wait for HTML to be rendered before initializing dynamic components and TOC
               this._mediator.execute(new RenderDynamicComponentsRequest(this._hostElement));
               this._mediator.execute(new CalculateTableOfContentDataRequest(this._hostElement));
             });

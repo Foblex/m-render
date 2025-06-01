@@ -10,21 +10,22 @@ export class MarkCodeFocusedBlocksPostProcessor implements IHandler<HTMLElement,
   }
 
   public handle(element: HTMLElement): Observable<HTMLElement> {
-    this._getCodeBlocks(element).forEach((block) => {
-      block.innerHTML = this._replaceFocus(block.innerHTML);
-      if (block.querySelector('.focused')) {
-        this._applyOpacity(block.parentElement as HTMLElement);
-      }
+    const html = element.innerHTML;
+    if (!FOCUS_REGEX.test(html)) {
+      console.warn('[MarkCodeFocusedBlocksPostProcessor] No focus markers found in the code block.', html);
+      return of(element);
+    }
+
+    element.innerHTML = html.replace(FOCUS_REGEX, (_match, content) => {
+      return `<focus class="focused"><div class="inline-focus">${content}</div></focus>`;
     });
+
+    const focused = element.querySelector('.focused');
+    if (focused) {
+      this._applyOpacity(element.parentElement as HTMLElement);
+    }
+
     return of(element);
-  }
-
-  private _getCodeBlocks(element: HTMLElement): HTMLElement[] {
-    return Array.from(element.querySelectorAll('pre code'));
-  }
-
-  private _replaceFocus(text: string): string {
-    return text.replace(RULE.regex, RULE.replacer);
   }
 
   private _applyOpacity(element: HTMLElement) {
@@ -45,9 +46,9 @@ export class MarkCodeFocusedBlocksPostProcessor implements IHandler<HTMLElement,
   }
 
   private _createRgbaString(color: string, opacity: number, isRgb = false): string {
-    const [ r, g, b, a ] = this._getRgbValues(color);
+    const [r, g, b, a] = this._getRgbValues(color);
     const alpha = Number(a) || 1;
-    return isRgb ? `rgb(${ r }, ${ g }, ${ b })` : `rgba(${ r }, ${ g }, ${ b }, ${ opacity * alpha })`;
+    return isRgb ? `rgb(${r}, ${g}, ${b})` : `rgba(${r}, ${g}, ${b}, ${opacity * alpha})`;
   }
 
   private _getRgbValues(color: string): RegExpMatchArray {
@@ -55,9 +56,4 @@ export class MarkCodeFocusedBlocksPostProcessor implements IHandler<HTMLElement,
   }
 }
 
-const RULE = {
-  regex: /\|foc-\|(.*?)\|-foc\|/g,
-  replacer: (match: any, p1: any) => {
-    return `<focus class="focused"><span>${ p1 }</span></focus>`;
-  },
-};
+const FOCUS_REGEX = /ƒƒƒ([\s\S]*?)¢¢¢/g;

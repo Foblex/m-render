@@ -1,6 +1,7 @@
 import MarkdownIt from 'markdown-it';
 import { IMarkdownItToken } from './domain';
-import { EParsedContainerType, IParsedContainerData } from "./domain";
+import { EParsedContainerType, IParsedContainerData } from './domain';
+import { encodeDataAttr } from './utils';
 
 export class ParseSingleCodeItem {
 
@@ -13,17 +14,13 @@ export class ParseSingleCodeItem {
     markdown.renderer.rules.fence = (tokens: IMarkdownItToken[], index: number) => {
       const data = this._getTokenData(tokens[index]);
       return (
-        `<f-code-group data-data="${this._coerceData(this._createCodeData(data))}"></f-code-group>`
+        `<f-code-group data-data="${encodeDataAttr([this._createCodeData(data)])}"></f-code-group>`
       );
-    }
+    };
   }
 
   private _getTokenData(token: IMarkdownItToken): ITokenData {
     return { value: token.content, language: token.info };
-  }
-
-  private _coerceData(data: IParsedContainerData): string {
-    return JSON.stringify([data]).replace(/"/g, '&quot;');
   }
 
   private _createCodeData({ value, language }: ITokenData): IParsedContainerData {
@@ -32,7 +29,7 @@ export class ParseSingleCodeItem {
       value,
       language,
       type: EParsedContainerType.CODE,
-    }
+    };
   }
 }
 

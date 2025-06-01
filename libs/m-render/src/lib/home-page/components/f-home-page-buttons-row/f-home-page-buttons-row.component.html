@@ -7,7 +7,12 @@
       {{ button.text }}
     </a>
   } @else if(button.href) {
-    <a class="f-button" [class.primary]="button.primary" href="{{ button.href }}">{{ button.text }}</a>
+    <a class="f-button" [class.primary]="button.primary" href="{{ button.href }}" target="_blank" rel="noopener noreferrer">
+      @if (button.icon) {
+        <span class="f-icon {{ button.icon }}"></span>
+      }
+      {{ button.text }}
+    </a>
   }
 }
 

@@ -1,9 +1,9 @@
 import { EMarkdownContainerType } from './domain';
 import { IMarkdownItToken } from './domain';
-import { getContent } from './utils';
 
 import container from 'markdown-it-container';
 import { IPreviewNavigationGroup } from './domain';
+import { getContent, isOpeningToken, parseSingleBracketText } from './utils';
 
 type ContainerArgs = [ typeof container, string, { render: any } ]
 
@@ -17,16 +17,12 @@ export class ParsePreviewGroup {
   public render(): ContainerArgs {
     return [ container, EMarkdownContainerType.PREVIEW_GROUP, {
       render: (tokens: IMarkdownItToken[], index: number) => {
-        if (this._isOpeningToken(tokens, index)) {
+        if (isOpeningToken(tokens[index])) {
           return this._getGroupsHTML(this._generateData(tokens, index));
         }
         return '';
       },
     } ];
-  }
-
-  private _isOpeningToken(tokens: IMarkdownItToken[], index: number): boolean {
-    return tokens[ index ].nesting === 1;
   }
 
   private _generateData(tokens: IMarkdownItToken[], index: number): IPreviewNavigationGroup[] {
@@ -43,12 +39,7 @@ export class ParsePreviewGroup {
   }
 
   private _parseData(data: string): string[] {
-    return data.split('\n').map(this._extractFileData).filter(Boolean) as string[];
-  }
-
-  private _extractFileData(line: string): string | null {
-    const match = line.match(/\[(.+?)\]/);
-    return match ? match[ 1 ] : null;
+    return data.split('\n').map(parseSingleBracketText).filter(Boolean) as string[];
   }
 
   private _getGroupsHTML(groups: IPreviewNavigationGroup[]): string {
