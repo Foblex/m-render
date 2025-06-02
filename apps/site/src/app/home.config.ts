@@ -5,10 +5,11 @@ import {
   provideHero,
   provideHomeButtons,
   provideHomeFeatures,
-  provideHomeFooter,
+  provideHomeFooter, provideImage,
   provideLogo,
   provideTitle,
 } from '@foblex/m-render';
+import { HomePageImageComponent } from './home-page-image/home-page-image.component';
 
 export const HOME_CONFIGURATION = {
   providers: [
@@ -20,6 +21,7 @@ export const HOME_CONFIGURATION = {
       tagline2: 'Easy Markdown Renderer',
       subDescription: 'Supports SSR, Angular Components, and Dynamic Themes',
     }),
+    provideImage(HomePageImageComponent),
     provideHomeButtons([{
       primary: true,
       text: 'What is MRender?',
