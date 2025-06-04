@@ -1,19 +1,18 @@
 import { inject, Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map, Observable, startWith } from 'rxjs';
-import { BrowserService } from '@foblex/platform';
 import { IMetaData } from './i-meta-data';
 import { FHeadTagService } from './f-head-tag.service';
 import { tap } from 'rxjs/operators';
 import { DOCUMENTATION_CONFIGURATION } from '../../domain';
 import { INavigationGroup, INavigationItem } from '../../components';
+import { LOCATION } from '../../../common';
 
 @Injectable()
 export class FMetaService {
-
+  private readonly _location = inject(LOCATION);
   private readonly _router = inject(Router);
   private readonly _headTag = inject(FHeadTagService);
-  private readonly _browser = inject(BrowserService);
   private readonly _configuration = inject(DOCUMENTATION_CONFIGURATION);
 
   public changes(): Observable<void> {
@@ -33,7 +32,7 @@ export class FMetaService {
         const item = this._findDocItemByUrl(this._findDocGroupByUrl(this._router.url), this._router.url);
         if (item) {
           data.title = `${item.text} - ${defaultData.app_name}`;
-          data.url = this._browser.window.location.href;
+          data.url = this._location.href;
           data.description = item.description || defaultData.description;
           data.image = item.image || defaultData.image;
           data.image_width = item.image_width || defaultData.image_width;
@@ -41,13 +40,13 @@ export class FMetaService {
           data.image_type = item.image_type || defaultData.image_type;
         }
         if (!data.url) {
-          data.url = this._browser.window.location.origin + this._router.url;
+          data.url = this._location.origin + this._router.url;
         }
         if (!data.image.startsWith('http') && !data.image.startsWith('www')) {
           if (data.image.startsWith('.')) {
-            data.image = this._browser.window.location.origin + data.image.slice(1);
+            data.image = this._location.origin + data.image.slice(1);
           } else {
-            data.image = this._browser.window.location.origin + data.image;
+            data.image = this._location.origin + data.image;
           }
         }
         if (!data.url.endsWith('/')) {

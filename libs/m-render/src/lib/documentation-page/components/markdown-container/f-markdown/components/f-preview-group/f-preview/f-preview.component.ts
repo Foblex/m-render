@@ -13,7 +13,7 @@ import { FPreviewBase } from './f-preview-base';
 import { FPreviewGroupService } from '../index';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { INavigationGroup, INavigationItem } from '../../../../../navigation-panel';
-import { ThemeService } from '../../../../../../../common';
+import { ThemeService } from '../../../../../../../theme';
 
 @Component({
   selector: 'a[f-preview]',
@@ -31,7 +31,7 @@ export class FPreviewComponent extends FPreviewBase implements OnInit, OnDestroy
   private _elementReference = inject(ElementRef);
   private _fEnvironment = inject(DocumentationStore);
   private _fPreviewGroupService = inject(FPreviewGroupService);
-  private _fState = inject(ThemeService);
+  private _themeService = inject(ThemeService, { optional: true });
   private _router = inject(Router);
   private _destroyRef = inject(DestroyRef);
 
@@ -61,7 +61,7 @@ export class FPreviewComponent extends FPreviewBase implements OnInit, OnDestroy
   }
 
   private _subscribeToThemeChanges(): void {
-    this._fState.theme$.pipe(
+    this._themeService?.theme$.pipe(
       startWith(null), takeUntilDestroyed(this._destroyRef),
     ).subscribe(() => this._updateTheme());
   }
@@ -79,7 +79,7 @@ export class FPreviewComponent extends FPreviewBase implements OnInit, OnDestroy
   }
 
   private _updateTheme(): void {
-    this.src.set(this._fState.getPreferredTheme() === 'dark' ? this.viewModel?.image_dark : this.viewModel?.image);
+    this.src.set(this._themeService?.getPreferredTheme() === 'dark' ? this.viewModel?.image_dark : this.viewModel?.image);
     if (!this.src()) {
       this.src.set(this.viewModel?.image);
     }

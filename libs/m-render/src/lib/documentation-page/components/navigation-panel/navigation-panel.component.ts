@@ -13,14 +13,12 @@ import { startWith } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { FNavigationItemComponent } from './f-navigation-item/f-navigation-item.component';
 import { NavigationGroupComponent } from './navigation-group/navigation-group.component';
-import {
-  INavigationItem,
-} from './domain';
+import { INavigationItem } from './domain';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TOGGLE_NAVIGATION_COMPONENT } from '../header';
 import { DocumentationStore } from '../../services';
 import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../domain';
-import { BrowserService } from '@foblex/platform';
+import { WINDOW } from '../../../common';
 
 @Component({
   selector: 'f-navigation-panel',
@@ -42,7 +40,7 @@ export class NavigationPanelComponent implements OnInit, AfterViewInit {
   private readonly _router = inject(Router);
   private readonly _changeDetectorRef = inject(ChangeDetectorRef);
   private readonly _destroyRef = inject(DestroyRef);
-  private readonly _browser = inject(BrowserService);
+  private readonly _window = inject(WINDOW);
 
   protected value: string | undefined;
   protected navigation = this._provider.getNavigation();
@@ -106,7 +104,7 @@ export class NavigationPanelComponent implements OnInit, AfterViewInit {
   @HostListener('click', ['$event'])
   protected _onDocumentClick(event: MouseEvent): void {
     new HandleNavigationLinksHandler().handle(
-      new HandleNavigationLinksRequest(event, this._browser, this._router),
+      new HandleNavigationLinksRequest(event, this._window, this._router),
     );
   }
 }

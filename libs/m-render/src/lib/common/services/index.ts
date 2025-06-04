@@ -1,2 +1,2 @@
 export * from './popover.service';
-export * from './theme.service';
+export * from '../../theme/theme.service';

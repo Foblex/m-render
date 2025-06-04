@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { defer, from, Observable, of, switchMap } from 'rxjs';
-import { BrowserService } from '@foblex/platform';
 import { MarkCodeFocusedBlocksPostProcessor } from './mark-code-focused-blocks.post-processor';
 import { BundledLanguage, BundledTheme, createHighlighter, HighlighterGeneric } from 'shiki';
 import { UNIVERSAL_THEME } from './theme';
 import { LANGUAGES } from '../components';
 import { catchError, shareReplay } from 'rxjs/operators';
+import { IS_BROWSER_PLATFORM, WINDOW } from '../../../../../common';
 
 type Highlighter = HighlighterGeneric<BundledLanguage, BundledTheme>;
 
@@ -13,7 +13,8 @@ type Highlighter = HighlighterGeneric<BundledLanguage, BundledTheme>;
   providedIn: 'root',
 })
 export class HighlightService {
-  private readonly _browser = inject(BrowserService);
+  private readonly _isBrowser = inject(IS_BROWSER_PLATFORM);
+  private readonly _window = inject(WINDOW);
   private readonly _highlighter$: Observable<Highlighter> = defer(() =>
     from(createHighlighter({ themes: [UNIVERSAL_THEME], langs: LANGUAGES })),
   ).pipe(
@@ -23,7 +24,7 @@ export class HighlightService {
   public highlight(
     element: HTMLElement, lang: string, content: string,
   ): Observable<HTMLElement> {
-    if (!this._browser.isBrowser()) {
+    if (!this._isBrowser) {
       console.warn('[HighlightService] Skipping highlight on server.');
       return of(element);
     }
@@ -63,7 +64,7 @@ export class HighlightService {
 
   private _postProcess(element: HTMLElement): Observable<HTMLElement> {
     return of(element).pipe(
-      switchMap((x) => new MarkCodeFocusedBlocksPostProcessor(this._browser).handle(x)),
+      switchMap((x) => new MarkCodeFocusedBlocksPostProcessor(this._window).handle(x)),
     );
   }
 }

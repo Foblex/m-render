@@ -1,10 +1,9 @@
 import { Observable, of } from 'rxjs';
-import { BrowserService } from '@foblex/platform';
 
 export class MarkCodeFocusedBlocksPostProcessor {
 
   constructor(
-    private _browser: BrowserService,
+    private _window: Window,
   ) {
   }
 
@@ -40,7 +39,7 @@ export class MarkCodeFocusedBlocksPostProcessor {
   }
 
   private _getElementColor(element: HTMLElement): string {
-    return this._browser.window.getComputedStyle(element).color;
+    return this._window.getComputedStyle(element).color;
   }
 
   private _createRgbaString(color: string, opacity: number, isRgb = false): string {

@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   F_PREVIEW_NAVIGATION_PROVIDER,
@@ -10,9 +18,17 @@ import {
   TOGGLE_NAVIGATION_COMPONENT,
 } from './components';
 import { DocumentationStore } from './services';
-import { F_SOCIAL_LINKS_PROVIDER, HEADER_CONFIGURATION_STORE, PopoverService } from '../common';
+import {
+  F_SOCIAL_LINKS_PROVIDER,
+  HEADER_CONFIGURATION_STORE,
+  IS_BROWSER_PLATFORM,
+  PopoverService,
+  ThemeService,
+} from '../common';
 import { FMetaService } from './analytics';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CookiePopupComponent } from '../analytics/cookie-popup/cookie-popup.component';
+import { GTagService } from '../analytics';
 
 @Component({
   selector: 'documentation-root',
@@ -46,6 +62,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     ScrollableContainerComponent,
     RouterOutlet,
     HeaderComponent,
+    CookiePopupComponent,
   ],
 })
 export class DocumentationRootComponent implements IToggleNavigationComponent, OnInit, OnDestroy {
@@ -54,8 +71,17 @@ export class DocumentationRootComponent implements IToggleNavigationComponent, O
 
   private readonly _metaService = inject(FMetaService);
   private readonly _destroyRef = inject(DestroyRef);
+  private readonly _gTagService = inject(GTagService, { optional: true });
+  private readonly _themeService = inject(ThemeService, { optional: true });
+
+  protected readonly isBrowser = inject(IS_BROWSER_PLATFORM);
 
   public ngOnInit() {
+    if (!this.isBrowser) {
+      return;
+    }
+    this._themeService?.initialize();
+    this._gTagService?.initialize();
     this._metaService.changes().pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe();
   }

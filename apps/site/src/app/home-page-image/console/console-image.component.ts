@@ -2,7 +2,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
+  ElementRef, inject, NgZone,
   viewChild,
 } from '@angular/core';
 
@@ -19,12 +19,16 @@ export class ConsoleImageComponent implements AfterViewInit {
   private readonly _COMMAND = 'npm install @foblex/m-render';
   private _index = 0;
 
+  private readonly _ngZone = inject(NgZone);
+
   public ngAfterViewInit(): void {
     this._print();
   }
 
   private _print(): void {
-    setTimeout(() => this._type(), 50);
+    this._ngZone.runOutsideAngular(() => {
+      setTimeout(() => this._type(), 50);
+    });
   }
 
   private _type(): void {
@@ -34,7 +38,7 @@ export class ConsoleImageComponent implements AfterViewInit {
       this._index++;
       setTimeout(() => this._type(), 100);
     } else {
-      setTimeout(() => this._reset(), 20000);
+      setTimeout(() => this._reset(), 10000);
     }
   }
 

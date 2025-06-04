@@ -6,9 +6,9 @@ import { HamburgerButtonComponent } from './hamburger-button';
 import { DocumentationStore } from '../../services';
 import {
   FSocialLinksComponent,
-  FThemeButtonComponent,
   InlineMenuComponent,
 } from '../../../common';
+import { ThemeButtonComponent } from '../../../theme';
 
 @Component({
   selector: 'f-header',
@@ -19,7 +19,7 @@ import {
   imports: [
     HamburgerButtonComponent,
     FSocialLinksComponent,
-    FThemeButtonComponent,
+    ThemeButtonComponent,
     InlineMenuComponent,
   ],
 })

@@ -8,7 +8,6 @@ import {
   provideFooterNavigation,
   provideHeader,
   provideHeaderMediaLinks,
-  provideHeaderNavigation,
   provideLanguage,
   provideLogo,
   provideNavigation,

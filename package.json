@@ -21,8 +21,6 @@
     "@angular/platform-server": "~19.2.0",
     "@angular/router": "~19.2.0",
     "@angular/ssr": "~19.2.0",
-    "@foblex/2d": "^1.1.5",
-    "@foblex/platform": "1.0.4",
     "express": "^4.21.2",
     "markdown-it": ">=14.1.0",
     "markdown-it-container": ">=4.0.0",

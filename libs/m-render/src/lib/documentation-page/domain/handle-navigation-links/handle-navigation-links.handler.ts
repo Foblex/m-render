@@ -1,6 +1,5 @@
 import { HandleNavigationLinksRequest } from './handle-navigation-links.request';
 import { Router } from '@angular/router';
-import { BrowserService } from '@foblex/platform';
 
 export class HandleNavigationLinksHandler {
 
@@ -14,7 +13,7 @@ export class HandleNavigationLinksHandler {
       if (!this._isExternalLink(href)) {
         this._navigateInternalLink(href, request.router);
       } else {
-        this._navigateExternalLink(href, request.browser);
+        window.open(href, '_blank')
       }
     }
   }
@@ -40,9 +39,5 @@ export class HandleNavigationLinksHandler {
       href = href.substring(1);
     }
     router.navigate([href]).then();
-  }
-
-  private _navigateExternalLink(href: string, browser: BrowserService): void {
-    browser.window.open(href, '_blank');
   }
 }

@@ -19,7 +19,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentationStore } from '../../../services';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MarkdownService } from './markdown';
-import { BrowserService } from '@foblex/platform';
 import {
   CalculateTableOfContentDataHandler,
   CalculateTableOfContentDataRequest,
@@ -28,6 +27,7 @@ import {
 } from '../../scrollable-container';
 import { FMarkdownFooterComponent } from './components';
 import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../../domain';
+import { IS_BROWSER_PLATFORM, WINDOW } from '../../../../common';
 
 @Component({
   selector: 'f-markdown-renderer',
@@ -51,7 +51,8 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
   private readonly _activatedRoute = inject(ActivatedRoute);
   private readonly _destroyRef = inject(DestroyRef);
   private readonly _injector = inject(Injector);
-  private readonly _browser = inject(BrowserService);
+  private readonly _isBrowser = inject(IS_BROWSER_PLATFORM);
+  private readonly _window = inject(WINDOW)
   private readonly _markdown = inject(MarkdownService);
   private readonly _provider = inject(DocumentationStore);
 
@@ -88,7 +89,7 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
     effect(
       () => {
         const html = this.value();
-        if (html && this._browser.isBrowser()) {
+        if (html && this._isBrowser) {
           untracked(() => {
             raf(() => { // Wait for HTML to be rendered before initializing dynamic components and TOC
               new RenderDynamicComponentsHandler(
@@ -108,7 +109,7 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
   @HostListener('click', ['$event'])
   protected _onDocumentClick(event: MouseEvent): void {
     new HandleNavigationLinksHandler().handle(
-      new HandleNavigationLinksRequest(event, this._browser, this._router),
+      new HandleNavigationLinksRequest(event, this._window, this._router),
     );
   }
 

@@ -12,3 +12,7 @@
 
 <div class="flex-space"></div>
 <footer f-home-page-footer></footer>
+
+@defer (when isBrowser) {
+  <cookie-popup/>
+}

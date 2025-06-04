@@ -9,3 +9,6 @@
 @if (popover()) {
   <div class="popover">{{ popover() }}</div>
 }
+@defer (when isBrowser) {
+  <cookie-popup/>
+}

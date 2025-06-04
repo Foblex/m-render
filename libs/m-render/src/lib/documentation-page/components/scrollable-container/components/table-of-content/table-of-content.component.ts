@@ -6,7 +6,6 @@ import {
   inject, Injector,
 } from '@angular/core';
 import { TableOfContentItemsComponent } from './table-of-content-items';
-import { BrowserService } from '@foblex/platform';
 import { DocumentationStore } from '../../../../services';
 import {
   ActivateTocByHashHandler,
@@ -14,6 +13,7 @@ import {
   ScrollToElementInContainerRequest,
 } from '../../index';
 import { ActivateTocByHashRequest } from '../../domain';
+import { WINDOW } from '../../../../../common';
 
 @Component({
   selector: 'aside[f-table-of-content]',
@@ -26,9 +26,9 @@ import { ActivateTocByHashRequest } from '../../domain';
 export class TableOfContentComponent {
 
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
-  private readonly _browser = inject(BrowserService);
   private readonly _provider = inject(DocumentationStore);
   private readonly _injector = inject(Injector);
+  private readonly _window = inject(WINDOW);
 
   protected readonly tocData = computed(() => {
     return this._provider.tocData();
@@ -50,7 +50,7 @@ export class TableOfContentComponent {
   }
 
   private _getComputedStyle(element: HTMLElement): CSSStyleDeclaration {
-    return this._browser.window.getComputedStyle(element);
+    return this._window.getComputedStyle(element);
   }
 
   @HostListener('click', ['$event'])

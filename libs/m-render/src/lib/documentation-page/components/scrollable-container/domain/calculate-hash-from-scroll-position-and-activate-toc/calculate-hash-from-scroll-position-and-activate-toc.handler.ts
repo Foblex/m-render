@@ -1,5 +1,4 @@
 import { GetAbsoluteTopToContainerHandler, GetAbsoluteTopToContainerRequest } from '../get-absolute-top-to-container';
-import { BrowserService } from '@foblex/platform';
 import { Injector } from '@angular/core';
 import {
   ActivateTocByHashHandler, IScrollableContainer,
@@ -7,6 +6,7 @@ import {
 } from '../../../index';
 import { ActivateTocByHashRequest } from '../activate-toc-by-hash';
 import { DocumentationStore } from '../../../../services';
+import { DOCUMENT_ELEMENT, WINDOW } from '../../../../../common';
 
 interface IHasTopItem {
   hash: string;
@@ -15,14 +15,16 @@ interface IHasTopItem {
 
 export class CalculateHashFromScrollPositionAndActivateTocHandler {
 
-  private readonly _browser: BrowserService;
+  private readonly _docElement: HTMLElement;
+  private readonly _window: Window;
   private readonly _provider: DocumentationStore;
   private readonly _scrollableContainer: IScrollableContainer;
 
   constructor(
     private _injector: Injector,
   ) {
-    this._browser = _injector.get(BrowserService);
+    this._docElement = _injector.get(DOCUMENT_ELEMENT);
+    this._window = _injector.get(WINDOW);
     this._provider = _injector.get(DocumentationStore);
     this._scrollableContainer = _injector.get(SCROLLABLE_CONTAINER);
   }
@@ -48,8 +50,8 @@ export class CalculateHashFromScrollPositionAndActivateTocHandler {
   }
 
   private _getHeaderHeight(): number {
-    return parseInt(this._browser.window
-      .getComputedStyle(this._browser.document.documentElement)
+    return parseInt(this._window
+      .getComputedStyle(this._docElement)
       .getPropertyValue('--header-height'), 10,
     );
   }
