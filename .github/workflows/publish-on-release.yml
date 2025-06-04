@@ -63,6 +63,14 @@ jobs:
         run: npx nx run m-render:build:production --skip-nx-cache
 
       - name: Publish library
-        run: npx nx run m-render:nx-release-publish
+        run: npx nx run m-render:nx-release-publish --skip-nx-cache
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create and push git tag
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          git tag v$VERSION
+          git push origin v$VERSION
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
