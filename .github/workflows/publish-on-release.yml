@@ -30,13 +30,25 @@ jobs:
           BRANCH="${GITHUB_REF##refs/heads/release/}"
           echo "VERSION=$BRANCH" >> $GITHUB_OUTPUT
 
-      - name: Set version in internal package.json
+      - name: Set version in internal package.json if needed
+        id: maybe-update-version
         run: |
           VERSION="${{ steps.version.outputs.VERSION }}"
-          jq --arg v "$VERSION" '.version = $v' libs/m-render/package.json > tmp.$$.json
-          mv tmp.$$.json libs/m-render/package.json
-
+          CURRENT=$(jq -r .version libs/m-render/package.json)
+      
+          echo "Current: $CURRENT, Target: $VERSION"
+          if [ "$VERSION" = "$CURRENT" ]; then
+            echo "Version already set to $VERSION, skipping update."
+            echo "UPDATED=false" >> $GITHUB_OUTPUT
+          else
+            echo "Updating version to $VERSION"
+            jq --arg v "$VERSION" '.version = $v' libs/m-render/package.json > tmp.$$.json
+            mv tmp.$$.json libs/m-render/package.json
+            echo "UPDATED=true" >> $GITHUB_OUTPUT
+          fi
+      
       - name: Commit and push version bump
+        if: steps.maybe-update-version.outputs.UPDATED == 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
