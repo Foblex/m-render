@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
     provideGTag({
-      id: 'AAAAA',
+      id: 'AW-16677977117',
     }),
     provideTheme(),
   ],
