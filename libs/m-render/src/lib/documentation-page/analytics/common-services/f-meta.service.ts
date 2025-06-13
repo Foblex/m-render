@@ -6,7 +6,7 @@ import { FHeadTagService } from './f-head-tag.service';
 import { tap } from 'rxjs/operators';
 import { DOCUMENTATION_CONFIGURATION } from '../../domain';
 import { INavigationGroup, INavigationItem } from '../../components';
-import { LOCATION } from '../../../common';
+import { LOCATION } from '@foblex/mr-common';
 
 @Injectable()
 export class FMetaService {

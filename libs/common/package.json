@@ -1,0 +1,29 @@
+{
+  "name": "@foblex/mr-common",
+  "version": "0.0.1",
+  "description": "MRender is a static site generator designed for creating fast and user-friendly documentation sites based on Markdown files. MarkEngine supports extended Markdown syntax and can render Angular components directly from Markdown files.",
+  "author": "Siarhei Huzarevich",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "angular",
+    "static site generator",
+    "ssg",
+    "markdown",
+    "javascript",
+    "typescript",
+    "foblex"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foblex/m-render.git"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=12.0.0",
+    "@angular/core": ">=12.0.0"
+  },
+  "dependencies": {
+    "tslib": ">=2.3.0"
+  },
+  "sideEffects": false
+}

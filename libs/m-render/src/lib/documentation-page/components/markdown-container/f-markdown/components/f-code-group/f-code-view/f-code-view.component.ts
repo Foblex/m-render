@@ -6,8 +6,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HighlightComponent } from './components/highlight.component';
 import { parseLanguageFromFileExtension, parseSyntaxLanguage } from './utils/parse-language';
 import { IParsedContainerData } from '../../../markdown';
-import { copyToClipboard, PopoverService } from '../../../../../../../common';
+import { PopoverService } from '../../../../../../../common';
 import { coerceComponentHeight } from '../f-example-view';
+import { copyToClipboard } from '@foblex/mr-common';
 
 @Component({
   selector: 'f-code-view',

@@ -17,9 +17,10 @@ import {
   FHomePageHeroComponent,
   FHomePageMembershipsComponent,
 } from './components';
-import { HEADER_CONFIGURATION_STORE, IS_BROWSER_PLATFORM, ThemeService } from '../common';
+import { HEADER_CONFIGURATION_STORE, ThemeService } from '../common';
 import { CookiePopupComponent } from '../analytics/cookie-popup/cookie-popup.component';
 import { GTagService } from '../analytics';
+import { IS_BROWSER_PLATFORM } from '@foblex/mr-common';
 
 @Component({
   selector: 'home-root',

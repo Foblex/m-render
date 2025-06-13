@@ -27,7 +27,7 @@ import {
 } from '../../scrollable-container';
 import { FMarkdownFooterComponent } from './components';
 import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../../domain';
-import { IS_BROWSER_PLATFORM, WINDOW } from '../../../../common';
+import { IS_BROWSER_PLATFORM, WINDOW } from '@foblex/mr-common';
 
 @Component({
   selector: 'f-markdown-renderer',

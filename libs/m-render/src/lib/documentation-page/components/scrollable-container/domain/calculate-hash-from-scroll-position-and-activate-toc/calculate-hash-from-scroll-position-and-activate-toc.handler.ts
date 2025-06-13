@@ -6,7 +6,7 @@ import {
 } from '../../../index';
 import { ActivateTocByHashRequest } from '../activate-toc-by-hash';
 import { DocumentationStore } from '../../../../services';
-import { DOCUMENT_ELEMENT, WINDOW } from '../../../../../common';
+import { DOCUMENT_ELEMENT, WINDOW } from '@foblex/mr-common';
 
 interface IHasTopItem {
   hash: string;

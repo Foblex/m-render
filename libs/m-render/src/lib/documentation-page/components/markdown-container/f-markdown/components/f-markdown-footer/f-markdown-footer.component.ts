@@ -15,7 +15,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DocumentationStore } from '../../../../../services';
 import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../../../../domain';
-import { WINDOW } from '../../../../../../common';
+import { WINDOW } from '@foblex/mr-common';
 
 @Component({
   selector: 'footer [f-markdown-footer]',

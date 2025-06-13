@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, input, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HighlightService } from '../../../../highlight';
+import { HighlightService } from '@foblex/mr-highlight';
 
 @Component({
   selector: 'highlight',

@@ -3,20 +3,18 @@ import { defer, from, Observable, of, switchMap } from 'rxjs';
 import { MarkCodeFocusedBlocksPostProcessor } from './mark-code-focused-blocks.post-processor';
 import { BundledLanguage, BundledTheme, createHighlighter, HighlighterGeneric } from 'shiki';
 import { UNIVERSAL_THEME } from './theme';
-import { LANGUAGES } from '../components';
 import { catchError, shareReplay } from 'rxjs/operators';
-import { IS_BROWSER_PLATFORM, WINDOW } from '../../../../../common';
+import { AVAILABLE_LANGUAGES } from './languages';
+import { IS_BROWSER_PLATFORM, WINDOW } from '@foblex/mr-common';
 
 type Highlighter = HighlighterGeneric<BundledLanguage, BundledTheme>;
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class HighlightService {
   private readonly _isBrowser = inject(IS_BROWSER_PLATFORM);
   private readonly _window = inject(WINDOW);
   private readonly _highlighter$: Observable<Highlighter> = defer(() =>
-    from(createHighlighter({ themes: [UNIVERSAL_THEME], langs: LANGUAGES })),
+    from(createHighlighter({ themes: [UNIVERSAL_THEME], langs: AVAILABLE_LANGUAGES })),
   ).pipe(
     shareReplay(1),
   );
