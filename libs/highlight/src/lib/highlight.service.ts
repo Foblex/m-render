@@ -11,6 +11,10 @@ type Highlighter = HighlighterGeneric<BundledLanguage, BundledTheme>;
 
 @Injectable()
 export class HighlightService {
+  /**
+   * Service for highlighting code blocks using Shiki.
+   * It supports syntax highlighting and post-processing for focused blocks.
+   */
   private readonly _isBrowser = inject(IS_BROWSER_PLATFORM);
   private readonly _window = inject(WINDOW);
   private readonly _highlighter$: Observable<Highlighter> = defer(() =>
