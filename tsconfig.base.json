@@ -23,11 +23,12 @@
         "libs/m-render/src/index.ts"
       ],
       "@foblex/mr-highlight": [
-        "libs/highlight/src/index.ts"
+        "dist/libs/mr-highlight"
       ],
       "@foblex/mr-common": [
-        "libs/common/src/index.ts"
-      ]
+        "dist/libs/mr-common"
+      ],
+
     }
   },
   "exclude": [
