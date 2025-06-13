@@ -26,9 +26,8 @@
         "dist/libs/mr-highlight"
       ],
       "@foblex/mr-common": [
-        "dist/libs/mr-common"
-      ],
-
+        "dist/libs/mr-common/index"
+      ]
     }
   },
   "exclude": [
