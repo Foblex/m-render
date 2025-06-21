@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { GTagService } from '../g-tag.service';
-import { LOCAL_STORAGE } from '@foblex/mr-common';
+import { LOCAL_STORAGE } from '../../common';
 
 export const F_ACCEPT_COOKIES_KEY = 'm-accepts-cookies';
 

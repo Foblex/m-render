@@ -5,7 +5,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { ThemeService } from '../theme.service';
-import { DOCUMENT_ELEMENT, IS_BROWSER_PLATFORM, LOCAL_STORAGE } from '@foblex/mr-common';
+import { DOCUMENT_ELEMENT, IS_BROWSER_PLATFORM, LOCAL_STORAGE } from '../../common';
 
 @Component({
   selector: 'button[theme-button]',

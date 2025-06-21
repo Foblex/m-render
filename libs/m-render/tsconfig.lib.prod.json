@@ -2,10 +2,6 @@
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
     "declarationMap": false,
-    "paths": {
-      "@foblex/mr-common": ["dist/libs/mr-common"],
-      "@foblex/mr-highlight": ["dist/libs/mr-highlight"],
-    }
   },
   "angularCompilerOptions": {
     "compilationMode": "partial"

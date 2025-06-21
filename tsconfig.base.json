@@ -21,12 +21,6 @@
     "paths": {
       "@foblex/m-render": [
         "libs/m-render/src/index.ts"
-      ],
-      "@foblex/mr-highlight": [
-        "dist/libs/mr-highlight"
-      ],
-      "@foblex/mr-common": [
-        "dist/libs/mr-common/index"
       ]
     }
   },

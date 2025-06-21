@@ -13,7 +13,7 @@ import {
   ScrollToElementInContainerRequest,
 } from '../../index';
 import { ActivateTocByHashRequest } from '../../domain';
-import { WINDOW } from '@foblex/mr-common';
+import { WINDOW } from '../../../../../common';
 
 @Component({
   selector: 'aside[f-table-of-content]',
