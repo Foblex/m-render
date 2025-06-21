@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { DOCUMENT_ELEMENT, LOCAL_STORAGE, WINDOW } from '@foblex/mr-common';
+import { DOCUMENT_ELEMENT, LOCAL_STORAGE, WINDOW } from '../common';
 
 @Injectable()
 export class ThemeService {

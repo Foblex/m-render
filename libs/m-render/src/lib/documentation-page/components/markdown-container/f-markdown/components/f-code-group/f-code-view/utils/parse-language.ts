@@ -1,4 +1,4 @@
-import { AVAILABLE_LANGUAGES } from '@foblex/mr-highlight';
+import { AVAILABLE_LANGUAGES } from '../../../../../../../../highlight';
 
 export function parseLanguageFromFileExtension(url: string): string {
   const match = url.match(/\.([0-9a-z]+)(?:[\?#]|$)/i);

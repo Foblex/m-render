@@ -5,7 +5,7 @@ import { BundledLanguage, BundledTheme, createHighlighter, HighlighterGeneric } 
 import { UNIVERSAL_THEME } from './theme';
 import { catchError, shareReplay } from 'rxjs/operators';
 import { AVAILABLE_LANGUAGES } from './languages';
-import { IS_BROWSER_PLATFORM, WINDOW } from '@foblex/mr-common';
+import { IS_BROWSER_PLATFORM, WINDOW } from '../common';
 
 type Highlighter = HighlighterGeneric<BundledLanguage, BundledTheme>;
 

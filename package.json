@@ -3,10 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build-common": "nx run @foblex/mr-common:build:production",
-    "build-highlight": "nx run @foblex/mr-highlight:build:production",
     "build-m-render": "nx run m-render:build:production",
-    "heroku-postbuild": "npm run build-common && npm run build-highlight && npm run build-m-render && nx build site --configuration=production && nx run site:server:production && nx run site:prerender:production"
+    "heroku-postbuild": "npm run build-m-render && nx build site --configuration=production && nx run site:server:production && nx run site:prerender:production"
   },
   "engines": {
     "node": "20.x"

@@ -20,7 +20,7 @@ import {
 import { DocumentationStore } from './services';
 import {
   F_SOCIAL_LINKS_PROVIDER,
-  HEADER_CONFIGURATION_STORE,
+  HEADER_CONFIGURATION_STORE, IS_BROWSER_PLATFORM,
   PopoverService,
   ThemeService,
 } from '../common';
@@ -28,8 +28,7 @@ import { FMetaService } from './analytics';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CookiePopupComponent } from '../analytics/cookie-popup/cookie-popup.component';
 import { GTagService } from '../analytics';
-import { IS_BROWSER_PLATFORM } from '@foblex/mr-common';
-import { HighlightService } from '@foblex/mr-highlight';
+import { HighlightService } from '../highlight';
 
 @Component({
   selector: 'documentation-root',

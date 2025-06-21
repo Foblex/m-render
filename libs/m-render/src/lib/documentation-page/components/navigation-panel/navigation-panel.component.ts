@@ -18,7 +18,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TOGGLE_NAVIGATION_COMPONENT } from '../header';
 import { DocumentationStore } from '../../services';
 import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../domain';
-import { WINDOW } from '@foblex/mr-common';
+import { WINDOW } from '../../../common';
 
 @Component({
   selector: 'f-navigation-panel',
