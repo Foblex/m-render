@@ -39,9 +39,19 @@ export class MarkdownService {
       .use(...new ParseAngularExampleWithCodeLinks().render());
   }
 
-  public parse(src: string): Observable<SafeHtml> {
+  public parseUrl(src: string): Observable<SafeHtml> {
     return this._httpClient.get(src, { responseType: 'text' }).pipe(take(1), catchError(() => of(''))).pipe(
       switchMap((text) => of(this._markdown.render(text))),
+      switchMap((x) => of(this._cleanupEmptyParagraphs(x))),
+      switchMap((x) => of(this._cleanupWasteParagraphFromExampleView(x))),
+      switchMap((x) => of(this._cleanupWasteParagraphFromPreviewGroup(x))),
+      switchMap((x) => of(this._normalizeLinks(x))),
+      switchMap((x) => of(this._domSanitizer.bypassSecurityTrustHtml(x))),
+    );
+  }
+
+  public parseText(value: string): Observable<SafeHtml> {
+    return of(this._markdown.render(value)).pipe(
       switchMap((x) => of(this._cleanupEmptyParagraphs(x))),
       switchMap((x) => of(this._cleanupWasteParagraphFromExampleView(x))),
       switchMap((x) => of(this._cleanupWasteParagraphFromPreviewGroup(x))),
