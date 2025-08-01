@@ -23,7 +23,7 @@ export class MarkdownService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _domSanitizer = inject(DomSanitizer);
   private readonly _router = inject(Router);
-  private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER);
+  private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER, {optional: true});
 
   constructor() {
     this._markdown
@@ -35,7 +35,7 @@ export class MarkdownService {
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_DANGER, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_SUCCESS, this._markdown))
       .use(...new ParseGroupedCodeItems().render())
-      .use(...new ParsePreviewGroup(this._provider.getNavigation()).render())
+      .use(...new ParsePreviewGroup(this._provider?.getNavigation() || []).render())
       .use(...new ParseAngularExampleWithCodeLinks().render());
   }
 
