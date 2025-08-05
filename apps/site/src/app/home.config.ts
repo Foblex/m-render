@@ -51,7 +51,7 @@ export const HOME_CONFIGURATION = {
       description: 'Enhance your documents with Angular components. Embed custom elements directly into the text for an intuitive representation of complex information.',
     }]),
     provideHeader(
-      provideHeaderSearch(true),
+      provideHeaderSearch(false),
       provideHeaderNavigation([
         {
           link: '/introduction/what-is-mrender',

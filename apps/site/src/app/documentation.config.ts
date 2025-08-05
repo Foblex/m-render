@@ -35,7 +35,7 @@ export const DOCUMENTATION_CONFIGURATION = {
       range: { start: 2, end: 6 },
     }),
     provideHeader(
-      provideHeaderSearch(true),
+      provideHeaderSearch(false),
       // provideHeaderNavigation([{
       //   link: '/docs/what-is-mrender',
       //   active: '/docs/what-is-mrender',
