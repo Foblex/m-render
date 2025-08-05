@@ -71,7 +71,7 @@ export class FMarkdownRendererComponent implements OnInit, OnDestroy {
         startWith(null),
         debounceTime(50),
         switchMap(() =>
-          this._markdown.parse(
+          this._markdown.parseUrl(
             this._provider.getMarkdownUrl(this._markdownPath),
           ),
         ),

@@ -1,6 +1,6 @@
 {
   "name": "@foblex/m-render",
-  "version": "2.7.4",
+  "version": "2.7.7",
   "description": "MRender is a static site generator designed for creating fast and user-friendly documentation sites based on Markdown files. MarkEngine supports extended Markdown syntax and can render Angular components directly from Markdown files.",
   "author": "Siarhei Huzarevich",
   "license": "MIT",

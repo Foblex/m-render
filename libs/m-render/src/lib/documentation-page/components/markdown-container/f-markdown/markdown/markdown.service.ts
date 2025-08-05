@@ -23,7 +23,7 @@ export class MarkdownService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _domSanitizer = inject(DomSanitizer);
   private readonly _router = inject(Router);
-  private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER);
+  private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER, {optional: true});
 
   constructor() {
     this._markdown
@@ -35,13 +35,23 @@ export class MarkdownService {
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_DANGER, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_SUCCESS, this._markdown))
       .use(...new ParseGroupedCodeItems().render())
-      .use(...new ParsePreviewGroup(this._provider.getNavigation()).render())
+      .use(...new ParsePreviewGroup(this._provider?.getNavigation() || []).render())
       .use(...new ParseAngularExampleWithCodeLinks().render());
   }
 
-  public parse(src: string): Observable<SafeHtml> {
+  public parseUrl(src: string): Observable<SafeHtml> {
     return this._httpClient.get(src, { responseType: 'text' }).pipe(take(1), catchError(() => of(''))).pipe(
       switchMap((text) => of(this._markdown.render(text))),
+      switchMap((x) => of(this._cleanupEmptyParagraphs(x))),
+      switchMap((x) => of(this._cleanupWasteParagraphFromExampleView(x))),
+      switchMap((x) => of(this._cleanupWasteParagraphFromPreviewGroup(x))),
+      switchMap((x) => of(this._normalizeLinks(x))),
+      switchMap((x) => of(this._domSanitizer.bypassSecurityTrustHtml(x))),
+    );
+  }
+
+  public parseText(value: string): Observable<SafeHtml> {
+    return of(this._markdown.render(value)).pipe(
       switchMap((x) => of(this._cleanupEmptyParagraphs(x))),
       switchMap((x) => of(this._cleanupWasteParagraphFromExampleView(x))),
       switchMap((x) => of(this._cleanupWasteParagraphFromPreviewGroup(x))),

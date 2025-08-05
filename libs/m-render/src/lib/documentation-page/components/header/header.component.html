@@ -1,9 +1,17 @@
 <button hamburger-button></button>
 <div class="title text-ellipsis">{{ title }}</div>
-<inline-menu/>
+<div class="flex-space"></div>
 <!--<npm-version/>-->
-<div class="divider"></div>
+@if (config?.navigation) {
+  <inline-menu/>
+  <div class="divider"></div>
+}
+
 <button theme-button></button>
 <div class="divider"></div>
 <f-social-links/>
+@if (config?.search) {
+  <div class="divider"></div>
+  <f-search-button/>
+}
 
