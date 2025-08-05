@@ -7,7 +7,7 @@ import {
   provideDocumentationMeta,
   provideFooterNavigation,
   provideHeader,
-  provideHeaderMediaLinks,
+  provideHeaderMediaLinks, provideHeaderSearch,
   provideLanguage,
   provideLogo,
   provideNavigation,
@@ -35,6 +35,7 @@ export const DOCUMENTATION_CONFIGURATION = {
       range: { start: 2, end: 6 },
     }),
     provideHeader(
+      provideHeaderSearch(true),
       // provideHeaderNavigation([{
       //   link: '/docs/what-is-mrender',
       //   active: '/docs/what-is-mrender',

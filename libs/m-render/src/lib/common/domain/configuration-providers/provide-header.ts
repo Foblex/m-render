@@ -1,5 +1,4 @@
 import { IHeaderMenuLink, ISocialLink } from '../../components';
-import { InjectionToken } from '@angular/core';
 
 export function provideHeader(
   ...configuration: Partial<IHeaderConfiguration>[]
@@ -11,13 +10,14 @@ export function provideHeader(
 
 export interface IHeaderConfiguration {
 
+  search?: boolean;
+
   navigation?: IHeaderMenuLink[];
 
   mediaLinks?: ISocialLink[];
 }
 
 export interface IHasHeaderConfiguration {
+
   header?: IHeaderConfiguration;
 }
-
-export const HEADER_CONFIGURATION = new InjectionToken<IHasHeaderConfiguration>('HEADER_CONFIGURATION');
