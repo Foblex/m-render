@@ -6,7 +6,7 @@ export * from './get-absolute-top-to-container';
 
 export * from './calculate-table-of-content-data';
 
-export * from './render-dynamic-components';
+export * from '../../../../dynamic-components/features/render-internal-components';
 
 export * from './scroll-to-element-in-container';
 

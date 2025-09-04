@@ -1,3 +1,5 @@
+export * from './code-view';
+
 export * from './highlight.service';
 
 export * from './languages';

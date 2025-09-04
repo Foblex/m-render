@@ -1,18 +1,18 @@
 import { IDocumentationConfiguration } from '../i-documentation-configuration';
 import { Type } from '@angular/core';
-import { IExampleComponent } from '../../components';
+import { IDynamicComponentItem } from '../../components';
 
 export function defineLazyComponent(
   selector: string,
   loader: () => Promise<Record<string, unknown>>,
-): IExampleComponent {
+): IDynamicComponentItem {
   return {
     selector,
     component: extractComponent(loader),
   };
 }
 
-export function provideComponents(components: IExampleComponent[]): Partial<IDocumentationConfiguration> {
+export function provideComponents(components: IDynamicComponentItem[]): Partial<IDocumentationConfiguration> {
   return {
     components,
   };

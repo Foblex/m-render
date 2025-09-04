@@ -1,0 +1,14 @@
+<f-navigation-panel [class.visible]="isNavigationVisible()"/>
+<div class="f-backdrop" [class.visible]="isNavigationVisible()" (click)="onToggleNavigation(false)"></div>
+
+<f-scrollable-container>
+  <f-header/>
+  <router-outlet/>
+</f-scrollable-container>
+
+@if (popover()) {
+  <div class="popover">{{ popover() }}</div>
+}
+@defer (when isBrowser) {
+  <cookie-popup/>
+}

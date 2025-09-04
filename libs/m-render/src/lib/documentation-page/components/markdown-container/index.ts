@@ -1,3 +1,3 @@
-export * from './f-markdown';
+export * from './markdown-renderer';
 
-export * from './markdown-container.component';
+export * from './markdown-container';

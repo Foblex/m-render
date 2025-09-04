@@ -1,4 +1,4 @@
-import { IExampleComponent, IMarkdownFooterNavigation, INavigationGroup, ITableOfContent } from '../components';
+import { IDynamicComponentItem, IMarkdownFooterNavigation, INavigationGroup, ITableOfContent } from '../components';
 import {
   IHasHeaderConfiguration,
   ILanguageConfiguration,
