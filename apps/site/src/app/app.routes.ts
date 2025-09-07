@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { DOCUMENTATION_CONFIGURATION } from './documentation.config';
 import { provideDocumentation, provideHomePage } from '@foblex/m-render';
 import { HOME_CONFIGURATION } from './home.config';
-import { SHOWCASE_CONFIGURATION } from './showcase.config';
 
 export const APP_ROUTES: Routes = [
   {
