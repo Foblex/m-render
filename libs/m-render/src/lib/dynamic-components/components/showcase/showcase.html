@@ -1,0 +1,11 @@
+<div class="filters-panel">
+  @for (tag of tags(); track tag) {
+    <span class="f-badge tip" (click)="tagClick(tag)" [class.info]="activeTag() === tag">{{ tag }}</span>
+  }
+</div>
+<div class="showcase-list">
+  @for (item of items(); track item.imageUrl) {
+    <showcase-item [model]="item"/>
+  }
+</div>
+

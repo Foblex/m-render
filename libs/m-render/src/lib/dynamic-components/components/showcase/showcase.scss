@@ -1,0 +1,20 @@
+.filters-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+
+  .f-badge {
+    cursor: pointer;
+  }
+}
+
+.showcase-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: normal;
+  flex-wrap: wrap;
+  gap: 32px;
+  pointer-events: all;
+  overflow: hidden;
+}

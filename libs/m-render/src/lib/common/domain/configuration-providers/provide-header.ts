@@ -1,4 +1,4 @@
-import { IHeaderMenuLink, ISocialLink } from '../../components';
+import { IHeaderMenuLink, IMediaLink } from '../../../documentation-page';
 
 export function provideHeader(
   ...configuration: Partial<IHeaderConfiguration>[]
@@ -14,7 +14,7 @@ export interface IHeaderConfiguration {
 
   navigation?: IHeaderMenuLink[];
 
-  mediaLinks?: ISocialLink[];
+  mediaLinks?: IMediaLink[];
 }
 
 export interface IHasHeaderConfiguration {

@@ -1,5 +1,3 @@
-export * from './components';
+export * from './models';
 
-export * from './domain';
-
-export * from './scrollable-container.component';
+export * from './scrollable-container';

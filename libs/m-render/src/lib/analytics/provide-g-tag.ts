@@ -16,6 +16,11 @@ export function provideGTag(config: GTagConfig): Provider[] {
 
 export interface GTagConfig {
   id: string;
+  extraIds?: string[];
+  autoPageview?: boolean;
+  initialConsent?: ConsentState;
 }
 
 export const GTAG_CONFIG = new InjectionToken<GTagConfig>('GTAG_CONFIG');
+
+export type ConsentState = 'granted' | 'denied';

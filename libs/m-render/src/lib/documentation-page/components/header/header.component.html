@@ -1,17 +1,28 @@
-<button hamburger-button></button>
-<div class="title text-ellipsis">{{ title }}</div>
-<div class="flex-space"></div>
-<!--<npm-version/>-->
-@if (config?.navigation) {
-  <inline-menu/>
-  <div class="divider"></div>
+@if (emptyNavigation) {
+  <a routerLink class="empty-navigation-title">
+    <img [src]="image" width="24" height="24" alt="logo" class="logo"/> {{ title }}
+  </a>
+} @else {
+  <div class="portal-title">
+    <button hamburger-button></button>
+    <div class="title text-ellipsis">{{ title }}</div>
+  </div>
 }
 
-<button theme-button></button>
-<div class="divider"></div>
-<f-social-links/>
-@if (config?.search) {
-  <div class="divider"></div>
-  <f-search-button/>
-}
+<div class="collapsable-row" #container>
+  <div #target class="target" [class.hidden]="initialized() && overflowed()">
+    @if (config.navigation) {
+      <inline-menu />
+      <div class="divider"></div>
+    }
+
+    <button theme-button></button>
+    <div class="divider"></div>
+    <media-links />
+  </div>
+
+  <div class="fallback" [class.hidden]="!initialized() || !overflowed()">
+    <dropdown-menu />
+  </div>
+</div>
 

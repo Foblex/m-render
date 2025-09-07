@@ -9,7 +9,9 @@ import { IS_BROWSER_PLATFORM, WINDOW } from '../common';
 
 type Highlighter = HighlighterGeneric<BundledLanguage, BundledTheme>;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class HighlightService {
   /**
    * Service for highlighting code blocks using Shiki.

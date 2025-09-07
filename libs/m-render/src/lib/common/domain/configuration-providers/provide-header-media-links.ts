@@ -1,7 +1,7 @@
 import { IHeaderConfiguration } from './provide-header';
-import { ISocialLink } from '../../components';
+import { IMediaLink } from '../../../documentation-page';
 
-export function provideHeaderMediaLinks(mediaLinks: ISocialLink[]): Partial<IHeaderConfiguration> {
+export function provideHeaderMediaLinks(mediaLinks: IMediaLink[]): Partial<IHeaderConfiguration> {
   return {
     mediaLinks,
   };

@@ -53,8 +53,8 @@ export const HOME_CONFIGURATION = {
 ```ts
 import {
   provideDirectory, provideNavigation, provideComponents,
-  provideTocData, provideHeader, provideFooterNavigation,
-  provideDocumentationMeta
+  provideTableOfContent, provideHeader, provideFooterNavigation,
+  provideMeta
 } from '@foblex/m-render';
 
 export const DOCUMENTATION_CONFIGURATION = {
@@ -62,10 +62,10 @@ export const DOCUMENTATION_CONFIGURATION = {
     provideDirectory('./markdown/guides/'),
     provideNavigation(...),
     provideComponents([...]),
-    provideTocData({ title: 'In this article', range: { start: 2, end: 6 } }),
+    provideTableOfContent({ title: 'In this article', range: { start: 2, end: 6 } }),
     provideHeader(...),
     provideFooterNavigation(...),
-    provideDocumentationMeta({ ... }),
+    provideMeta({ ... }),
   ],
 };
 ```

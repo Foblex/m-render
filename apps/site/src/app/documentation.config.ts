@@ -4,15 +4,15 @@ import {
   provide404Markdown,
   provideComponents,
   provideDirectory,
-  provideDocumentationMeta,
+  provideMeta,
   provideFooterNavigation,
   provideHeader,
-  provideHeaderMediaLinks, provideHeaderSearch,
+  provideHeaderMediaLinks,
   provideLanguage,
   provideLogo,
   provideNavigation,
   provideTitle,
-  provideTocData,
+  provideTableOfContent,
 } from '@foblex/m-render';
 
 export const DOCUMENTATION_CONFIGURATION = {
@@ -30,21 +30,8 @@ export const DOCUMENTATION_CONFIGURATION = {
       defineLazyComponent('example', () => import('../../../../libs/public/example/example.component')),
       defineLazyComponent('draggable-flow', () => import('../../../../libs/public/draggable-flow/draggable-flow.component')),
     ]),
-    provideTocData({
-      title: 'In this article',
-      range: { start: 2, end: 6 },
-    }),
+    provideTableOfContent(),
     provideHeader(
-      provideHeaderSearch(false),
-      // provideHeaderNavigation([{
-      //   link: '/docs/what-is-mrender',
-      //   active: '/docs/what-is-mrender',
-      //   text: 'What is MRender?',
-      // }, {
-      //   link: '/docs/getting-started',
-      //   active: '/docs/getting-started',
-      //   text: 'Examples',
-      // }]),
       provideHeaderMediaLinks([
         { icon: 'github', link: 'https://github.com/Foblex/m-render' },
         { icon: 'twitter', link: 'https://x.com/foblexflow' },
@@ -58,7 +45,7 @@ export const DOCUMENTATION_CONFIGURATION = {
       previous: 'Previous Page',
       next: 'Next Page',
     }),
-    provideDocumentationMeta({
+    provideMeta({
       url: 'https://m-render.foblex.com',
       type: 'website',
       title: 'Angular Library for rendering Markdown files - Foblex MRender',

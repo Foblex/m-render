@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  width: 100%;
+
+  @media (min-width: 1280px) {
+    width: calc(100% - var(--on-page-navigation-width) - var(--page-padding));
+  }
+
+  &.empty-navigation {
+    margin: auto;
+    max-width: 900px;
+  }
+}
+
+
+

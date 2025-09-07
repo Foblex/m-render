@@ -1,5 +1,5 @@
 import { IHeaderConfiguration } from './provide-header';
-import { IHeaderMenuLink } from '../../components';
+import { IHeaderMenuLink } from '../../../documentation-page';
 
 export function provideHeaderNavigation(navigation: IHeaderMenuLink[]): Partial<IHeaderConfiguration> {
   return {

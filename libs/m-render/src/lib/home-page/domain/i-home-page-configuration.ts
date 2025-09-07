@@ -1,9 +1,9 @@
 import { Type } from '@angular/core';
-import { IHasHeaderConfiguration, ILogoConfiguration, ITitleConfiguration } from '../../common';
+import { ILogoConfiguration, ITitleConfiguration } from '../../common';
 import { IHomePageFeature, IHomePageFooter, IHomePageHero, IHomePageLink } from './configuration-providers';
 
 export interface IHomePageConfiguration
-  extends ITitleConfiguration, ILogoConfiguration, IHasHeaderConfiguration {
+  extends ITitleConfiguration, ILogoConfiguration {
 
   background?: Type<any>;
 

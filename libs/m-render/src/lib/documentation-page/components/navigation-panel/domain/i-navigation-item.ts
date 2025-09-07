@@ -8,7 +8,11 @@ export interface INavigationItem {
 
   hideToc?: boolean;
 
+  pageTitle?: string;
+
   description?: string;
+
+  canonical?: string;
 
   image?: string;
 

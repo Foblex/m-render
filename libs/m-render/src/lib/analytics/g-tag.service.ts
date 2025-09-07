@@ -1,93 +1,109 @@
 import { inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { GTAG_CONFIG } from './provide-g-tag';
-
-interface IWindowWithGTag {
-  dataLayer?: unknown[];
-  gtag?: (...args: unknown[]) => void;
-}
-
-type ConsentState = 'granted' | 'denied';
+import { ConsentState, GTAG_CONFIG, GTagConfig } from './provide-g-tag';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class GTagService {
-  private readonly _config = inject(GTAG_CONFIG);
+  private readonly _config = inject<GTagConfig>(GTAG_CONFIG);
   private readonly _document = inject(DOCUMENT);
+  private readonly _router = inject(Router, { optional: true });
   private _initialized = false;
+  private _configuredIds = new Set<string>();
 
-  public initialize() {
-    console.log('[GTag] Initializing with ID:', this._config.id);
-    if (this._initialized) {
+  public initialize(): void {
+    if (this._initialized) return;
+
+    const win = this._document.defaultView as (Window & {
+      dataLayer?: unknown[];
+      gtag?: (...args: unknown[]) => void;
+      __gtagLoaded__?: boolean;
+    }) | null;
+
+    if (!win) {
       return;
     }
+
+    win.dataLayer = win.dataLayer || [];
+    win.gtag = win.gtag || ((...args: unknown[]) => win.dataLayer!.push(args));
+
+    const initialConsent: ConsentState = this._config.initialConsent ?? 'denied';
+    this._setConsent(initialConsent);
+
+    if (!win.__gtagLoaded__) {
+      this._appendScript(this._config.id);
+      win.__gtagLoaded__ = true;
+    }
+
+    win.gtag('js', new Date());
+
+    this._configAll([this._config.id, ...(this._config.extraIds ?? [])]);
+
+    if (this._config.autoPageview && this._router) {
+      this._router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
+        this.pageview();
+      });
+    }
+
     this._initialized = true;
-
-    const window = this._getGtagWindow();
-    if (!window) {
-      console.warn('[GTag] Initialization failed: No window available.');
-      this._initialized = false;
-      return;
-    }
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = (...args: unknown[]) => {
-      window.dataLayer?.push(args);
-    };
-
-    this._loadGtagScript(this._config.id);
-    window.gtag('js', new Date());
-    window.gtag('config', this._config.id);
-  }
-
-  private _getGtagWindow(): IWindowWithGTag | null {
-    const result = this._document.defaultView as unknown as IWindowWithGTag | null;
-
-    if (!result?.gtag) {
-      console.warn('[GTag] gtag function is not available. Ensure the script is loaded.');
-    }
-
-    return result;
-  }
-
-  private _loadGtagScript(id: string): void {
-    if (this._document.querySelector('#gtag-script')) return;
-
-    const script = this._document.createElement('script');
-    script.id = 'gtag-script';
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
-    this._document.head.appendChild(script);
   }
 
   public updateConsent(granted: boolean): void {
-    const window = this._getGtagWindow();
-    if (!window?.gtag) {
-      console.warn('[GTag] Cannot update consent: gtag not available.');
-      return;
+    this._setConsent(granted ? 'granted' : 'denied');
+  }
+
+  public event(action: string, params?: Record<string, unknown>): void {
+    const win = this._document.defaultView as any;
+    win?.gtag?.('event', action, params || {});
+  }
+
+  public pageview(path?: string): void {
+    const win = this._document.defaultView as any;
+    const p = path ?? this._document.location?.pathname ?? '/';
+    for (const id of this._getConfiguredIds()) {
+      win?.gtag?.('config', id, { page_path: p });
     }
+  }
 
-    const state: ConsentState = granted ? 'granted' : 'denied';
+  public adsConversion(sendTo: string, params?: Record<string, unknown>): void {
+    this.event('conversion', { send_to: sendTo, ...params });
+  }
 
-    const consentOptions = {
+  private _setConsent(state: ConsentState): void {
+    const win = this._document.defaultView as any;
+    const base = {
       ad_user_data: state,
       ad_personalization: state,
       ad_storage: state,
       analytics_storage: state,
     };
-
     if (state === 'denied') {
-      window.gtag('consent', 'default', {
-        ...consentOptions,
-        wait_for_update: 500,
-      });
+      win?.gtag?.('consent', 'default', { ...base, wait_for_update: 500 });
     } else {
-      window.gtag('consent', 'update', {
-        ...consentOptions,
-      });
+      win?.gtag?.('consent', 'update', base);
     }
   }
 
-  public trackEvent(action: string, params?: Record<string, unknown>): void {
-    this._getGtagWindow()?.gtag?.('event', action, params || {});
+  private _appendScript(id: string): void {
+    if (this._document.querySelector('#gtag-script')) return;
+    const s = this._document.createElement('script');
+    s.id = 'gtag-script';
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+    this._document.head.appendChild(s);
+  }
+
+  private _configAll(ids: string[]): void {
+    const win = this._document.defaultView as any;
+    ids.filter(Boolean).forEach(id => {
+      if (this._configuredIds.has(id)) return;
+      win?.gtag?.('config', id);
+      this._configuredIds.add(id);
+    });
+  }
+
+  private _getConfiguredIds(): string[] {
+    return Array.from(this._configuredIds.values());
   }
 }

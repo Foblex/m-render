@@ -1,0 +1,20 @@
+@let data = model();
+
+@if (data) {
+  <img [src]="src()" [alt]="data.description" [title]="data.name">
+  <div class="title">{{ data.name }}</div>
+  <div class="description">{{ data.description }}</div>
+  <div class="links">
+    @for (link of (data.links || []); track link.text) {
+      <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.text }}</a>
+    }
+  </div>
+  <div class="tags">
+    @for (tag of (data.tags || []); track tag) {
+      <span class="f-badge tip">{{ tag }}</span>
+    }
+  </div>
+}
+
+
+

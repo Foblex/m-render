@@ -6,6 +6,8 @@ export * from './domain';
 
 export * from './services';
 
-export * from './documentation-root.component';
+export * from './utils';
+
+export * from './documentation';
 
 export * from './routes';
