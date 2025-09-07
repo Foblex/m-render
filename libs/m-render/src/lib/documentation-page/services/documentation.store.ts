@@ -23,7 +23,7 @@ export class DocumentationStore
   public getMarkdownUrl(markdown: string): string {
     return calculateMarkdownUrl(
       markdown,
-      this._configuration.navigation,
+      (this._configuration.navigation || []),
       this._configuration.docsDir,
       this._configuration.notFoundMarkdown,
     );
@@ -46,7 +46,7 @@ export class DocumentationStore
   }
 
   public getNavigation(): INavigationGroup[] {
-    return this._configuration.navigation;
+    return this._configuration.navigation || [];
   }
 
   public getFooterNavigation(): IMarkdownFooterNavigation {

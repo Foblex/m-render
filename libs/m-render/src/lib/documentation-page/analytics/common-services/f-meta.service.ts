@@ -58,7 +58,7 @@ export class FMetaService {
   }
 
   private _findDocGroupByUrl(url: string): INavigationGroup | undefined {
-    return this._configuration.navigation.find((g: INavigationGroup) => g.items.find((i: INavigationItem) => url.endsWith(i.link)));
+    return (this._configuration.navigation || []).find((g: INavigationGroup) => g.items.find((i: INavigationItem) => url.endsWith(i.link)));
   }
 
   private _findDocItemByUrl(group: INavigationGroup | undefined, url: string): INavigationItem | undefined {

@@ -7,7 +7,7 @@ import {
   provideMeta,
   provideFooterNavigation,
   provideHeader,
-  provideHeaderMediaLinks, provideHeaderNavigation,
+  provideHeaderMediaLinks,
   provideLanguage,
   provideLogo,
   provideNavigation,
@@ -32,15 +32,6 @@ export const DOCUMENTATION_CONFIGURATION = {
     ]),
     provideTableOfContent(),
     provideHeader(
-      provideHeaderNavigation([{
-        link: '/docs/what-is-mrender',
-        active: '/docs',
-        text: 'What is MRender?',
-      }, {
-        link: '/showcase/overview',
-        active: '/showcase',
-        text: 'Showcase',
-      }]),
       provideHeaderMediaLinks([
         { icon: 'github', link: 'https://github.com/Foblex/m-render' },
         { icon: 'twitter', link: 'https://x.com/foblexflow' },

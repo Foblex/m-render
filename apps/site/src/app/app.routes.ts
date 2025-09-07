@@ -29,17 +29,6 @@ export const APP_ROUTES: Routes = [
     }))),
   },
   {
-    path: 'showcase',
-    loadChildren: () => import('@foblex/m-render').then((m) => m.DOCUMENTATION_ROUTES.map((route) => ({
-      ...route,
-      providers: [
-        provideDocumentation(
-          SHOWCASE_CONFIGURATION,
-        ),
-      ],
-    }))),
-  },
-  {
     path: '**',
     loadComponent: () =>
       import('./not-found-page/not-found-page.component').then(
