@@ -7,10 +7,9 @@ import {
   IHomePageLink,
   IHomePageMembership,
 } from '../domain';
-import { IHeaderConfiguration, IHeaderConfigurationStore } from '../../common';
 
 @Injectable()
-export class HomeStore implements IHeaderConfigurationStore {
+export class HomeStore {
   private readonly _configuration = inject(HOME_PAGE_CONFIGURATION);
 
   public getLogo(): string {
@@ -47,9 +46,5 @@ export class HomeStore implements IHeaderConfigurationStore {
 
   public getImageComponent(): Type<any> | undefined {
     return this._configuration.image;
-  }
-
-  public getHeader(): IHeaderConfiguration | undefined {
-    return this._configuration.header;
   }
 }

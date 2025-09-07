@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, viewChild, ViewContainerRef } from '@angular/core';
 import { coerceComponentHeight } from './utils/coerce-component-height';
 import { parseComponentTag } from './utils/parse-component-tag';
 import { IExampleViewData } from './domain/i-example-view-data';
@@ -17,7 +17,6 @@ import { RenderExternalComponentRequest } from '../../features';
   },
 })
 export class ExternalComponent implements OnInit {
-
   public readonly data = input.required<IExampleViewData, IParsedContainerData>({
     transform: (x) => {
       return {
@@ -28,9 +27,9 @@ export class ExternalComponent implements OnInit {
   });
 
   private readonly _mediatr = inject(Mediatr);
-  private readonly _viewContainerRef = inject(ViewContainerRef);
+  private readonly _viewContainerRef = viewChild.required('container', { read: ViewContainerRef });
 
   public ngOnInit(): void {
-    this._mediatr.execute(new RenderExternalComponentRequest(this.data().value, this._viewContainerRef));
+    this._mediatr.execute(new RenderExternalComponentRequest(this.data().value, this._viewContainerRef()));
   }
 }

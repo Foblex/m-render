@@ -7,8 +7,7 @@ import { RenderDynamicComponentRequest } from '../render-dynamic-component';
 
 @MExecution(RenderInternalComponentsRequest)
 @Injectable()
-export class RenderInternalComponents implements IExecution<RenderInternalComponentsRequest, void>  {
-
+export class RenderInternalComponents implements IExecution<RenderInternalComponentsRequest, void> {
   private readonly _dynamicStore = inject(DynamicComponentsStore);
   private readonly _mediatr = inject(Mediatr);
 
@@ -24,6 +23,10 @@ export class RenderInternalComponents implements IExecution<RenderInternalCompon
     {
       selector: 'f-preview-group-filters',
       component: extractComponent(() => import('../../components/preview-group/components/preview-action-bar/preview-action-bar')),
+    },
+    {
+      selector: 'showcase',
+      component: extractComponent(() => import('../../components/showcase/showcase')),
     },
   ];
 

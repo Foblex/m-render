@@ -4,8 +4,14 @@ import { EMPTY } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AVAILABLE_LANGUAGES, Highlight } from '../index';
-import { IParsedContainerData } from '../../documentation-page';
 import { copyToClipboard, PopoverService } from '../../common';
+
+interface ContainerData {
+  height?: string | number;
+  value: string;
+  isLink?: boolean;
+  language?: string;
+}
 
 @Component({
   selector: 'code-view',
@@ -13,7 +19,7 @@ import { copyToClipboard, PopoverService } from '../../common';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'code-view',
+    class: 'f-code-view',
     '[style.height]': 'height()',
   },
   imports: [
@@ -25,7 +31,7 @@ export class CodeView implements OnInit {
   private readonly _destroyRef = inject(DestroyRef);
   private readonly _popoverService = inject(PopoverService);
 
-  public readonly data = input<IParsedContainerData>();
+  public readonly data = input<ContainerData>();
 
   protected readonly height = computed(() => {
     return coerceComponentHeight(this.data()?.height);
@@ -48,13 +54,13 @@ export class CodeView implements OnInit {
     this.visibleLanguage.set(language);
   }
 
-  private _updateNotExistingData(data?: IParsedContainerData): void {
+  private _updateNotExistingData(data?: ContainerData): void {
     if (data?.isLink) {
       this._loadCodeByLink(data.value);
     }
   }
 
-  private _updateExistingData(data?: IParsedContainerData): void {
+  private _updateExistingData(data?: ContainerData): void {
     if (!data?.isLink) {
       this.content.set(data?.value || '');
     }

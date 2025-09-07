@@ -1,24 +1,21 @@
 import { inject, Injectable, signal } from '@angular/core';
 import {
-  IDynamicComponentItem,
+  IHeaderMenuLink,
   IMarkdownFooterNavigation,
+  IMediaLink,
+  IMediaLinksProvider,
   INavigationGroup,
   ITableOfContent,
   TableOfContentData,
 } from '../components';
-import {
-  IHeaderConfiguration,
-  IHeaderConfigurationStore,
-  IHeaderMenuLink,
-  ISocialLink,
-  ISocialLinksProvider,
-} from '../../common';
+import { IHeaderConfiguration, IHeaderConfigurationStore, } from '../../common';
 import { DOCUMENTATION_CONFIGURATION } from '../domain';
-import { calculateMarkdownUrl } from '../utils/calculate-markdown-url';
+import { IDynamicComponentItem, IShowcaseItem } from '../../dynamic-components';
+import { calculateMarkdownUrl } from '../utils';
 
 @Injectable()
 export class DocumentationStore
-  implements ISocialLinksProvider, IHeaderConfigurationStore {
+  implements IMediaLinksProvider, IHeaderConfigurationStore {
   private readonly _configuration = inject(DOCUMENTATION_CONFIGURATION);
 
   public readonly tocData = signal<TableOfContentData>(new TableOfContentData([], []));
@@ -44,11 +41,7 @@ export class DocumentationStore
     return this._configuration.header?.navigation || [];
   }
 
-  // public getNpmVersion(): IVersion | undefined {
-  //   return this._configuration.version;
-  // }
-
-  public getComponents(): IExampleComponent[] {
+  public getComponents(): IDynamicComponentItem[] {
     return this._configuration.components || [];
   }
 
@@ -60,24 +53,19 @@ export class DocumentationStore
     return this._configuration.footer?.navigation || {};
   }
 
-  public getSocialLinks(): ISocialLink[] {
+  public getMediaLinks(): IMediaLink[] {
     return this._configuration.header?.mediaLinks || [];
   }
 
-  public getToC(): ITableOfContent {
-    return (
-      this._configuration.toC || {
-        title: 'In this article',
-        range: { start: 2, end: 6 },
-      }
-    );
+  public getTableOfContent(): ITableOfContent | null {
+    return this._configuration.tableOfContent;
   }
-
-  // public getMetaData(): IMetaData | undefined {
-  //   return this._configuration.meta;
-  // }
 
   public getHeader(): IHeaderConfiguration | undefined {
     return this._configuration.header;
+  }
+
+  public getShowcaseItems(): IShowcaseItem[] {
+    return this._configuration.showcaseItems || [];
   }
 }

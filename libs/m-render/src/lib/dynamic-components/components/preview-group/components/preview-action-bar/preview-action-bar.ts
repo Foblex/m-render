@@ -1,8 +1,8 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DocumentationStore } from '../../../../../documentation-page';
 import { TitleCasePipe } from '@angular/common';
-import { PreviewGroupService } from '../../index';
 import { FCheckboxComponent, FRadioButtonComponent } from '../../../../../common';
+import { PreviewGroupService } from '../../preview-group.service';
 
 @Component({
   selector: 'div[preview-action-bar]',

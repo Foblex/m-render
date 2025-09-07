@@ -1,9 +1,7 @@
 import { inject, Injectable, Injector, Type } from '@angular/core';
 import { IExecution } from './i-execution';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class Mediatr {
   private readonly _injector = inject(Injector);
 

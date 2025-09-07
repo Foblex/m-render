@@ -9,7 +9,7 @@ import { EXTERNAL_COMPONENT_PROVIDER } from '../../providers';
 export class RenderExternalComponent implements IExecution<RenderExternalComponentRequest, void> {
 
   private readonly _mediatr = inject(Mediatr);
-  private readonly _componentsMap = inject(EXTERNAL_COMPONENT_PROVIDER);
+  private readonly _componentsMap = inject(EXTERNAL_COMPONENT_PROVIDER, { optional: true }) ?? [];
 
   public handle({ selector, viewContainerRef }: RenderExternalComponentRequest): void {
     const item = this._componentsMap.find((x) => {

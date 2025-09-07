@@ -1,4 +1,4 @@
-import { IDynamicComponentItem, IMarkdownFooterNavigation, INavigationGroup, ITableOfContent } from '../components';
+import { IMarkdownFooterNavigation, INavigationGroup, ITableOfContent } from '../components';
 import {
   IHasHeaderConfiguration,
   ILanguageConfiguration,
@@ -6,6 +6,7 @@ import {
   ITitleConfiguration,
 } from '../../common';
 import { IMetaData } from '../analytics';
+import { IDynamicComponentItem, IShowcaseItem } from '../../dynamic-components';
 
 export interface IDocumentationConfiguration
   extends ILanguageConfiguration, ITitleConfiguration, ILogoConfiguration, IHasHeaderConfiguration {
@@ -16,13 +17,17 @@ export interface IDocumentationConfiguration
 
   navigation: INavigationGroup[];
 
+  blogNavigation?: boolean;
+
   footer?: IDocumentationFooterConfiguration;
 
-  components?: IExampleComponent[];
+  components?: IDynamicComponentItem[];
 
-  toC?: ITableOfContent;
+  tableOfContent: ITableOfContent | null;
 
   meta?: IMetaData;
+
+  showcaseItems?: IShowcaseItem[];
 }
 
 export interface IDocumentationFooterConfiguration {

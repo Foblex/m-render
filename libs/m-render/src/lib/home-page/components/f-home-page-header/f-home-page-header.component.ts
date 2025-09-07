@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { HomeStore } from '../../services';
 import { ThemeButtonComponent } from '../../../theme';
-import { FSearchButtonComponent } from '../../../common';
 
 @Component({
   selector: 'header[f-home-page-header]',
@@ -10,12 +9,9 @@ import { FSearchButtonComponent } from '../../../common';
   standalone: true,
   imports: [
     ThemeButtonComponent,
-    FSearchButtonComponent,
   ],
 })
 export class FHomePageHeaderComponent {
   protected logo = inject(HomeStore).getLogo();
   protected title = inject(HomeStore).getTitle();
-
-  protected config = inject(HomeStore).getHeader();
 }

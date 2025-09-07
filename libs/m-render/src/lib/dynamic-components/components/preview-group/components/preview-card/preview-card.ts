@@ -1,19 +1,20 @@
 import {
   ChangeDetectionStrategy,
-  Component, DestroyRef,
+  Component,
+  DestroyRef,
   ElementRef,
   inject,
   OnDestroy,
-  OnInit, signal,
+  OnInit,
+  signal,
 } from '@angular/core';
 import { startWith } from 'rxjs';
 import { Router } from '@angular/router';
-import { DocumentationStore } from '../../../../../documentation-page';
 import { PreviewCardBase } from './preview-card-base';
-import { PreviewGroupService } from '../../index';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { INavigationGroup, INavigationItem } from '../../../../../documentation-page';
 import { ThemeService } from '../../../../../theme';
+import { DocumentationStore, INavigationGroup, INavigationItem } from '../../../../../documentation-page';
+import { PreviewGroupService } from '../../preview-group.service';
 
 @Component({
   selector: 'a[preview-card]',
@@ -27,7 +28,6 @@ import { ThemeService } from '../../../../../theme';
   },
 })
 export class PreviewCard extends PreviewCardBase implements OnInit, OnDestroy {
-
   private readonly _elementReference = inject(ElementRef);
   private readonly _fEnvironment = inject(DocumentationStore);
   private readonly _fPreviewGroupService = inject(PreviewGroupService);

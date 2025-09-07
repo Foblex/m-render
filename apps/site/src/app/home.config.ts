@@ -1,7 +1,4 @@
 import {
-  provideHeader, provideHeaderSearch,
-  provideHeaderMediaLinks,
-  provideHeaderNavigation,
   provideHero,
   provideHomeButtons,
   provideHomeFeatures,
@@ -50,25 +47,6 @@ export const HOME_CONFIGURATION = {
       headline: 'Advanced Features',
       description: 'Enhance your documents with Angular components. Embed custom elements directly into the text for an intuitive representation of complex information.',
     }]),
-    provideHeader(
-      provideHeaderSearch(false),
-      provideHeaderNavigation([
-        {
-          link: '/introduction/what-is-mrender',
-          active: '/introduction',
-          text: 'What is MRender?',
-        },
-        {
-          link: '/examples/overview',
-          active: '/examples',
-          text: 'Examples',
-        },
-      ]),
-      provideHeaderMediaLinks([
-        { icon: 'github', link: 'https://github.com/Foblex/m-render' },
-        { icon: 'twitter', link: 'https://x.com/foblexflow' },
-      ]),
-    ),
     provideHomeFooter({
       text: 'MIT License | Copyright © 2022 - Present',
     }),

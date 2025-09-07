@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  margin-top: 64px;
+}
+
+.footer-edit-link {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  border: 0;
+  line-height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-1);
+  cursor: pointer;
+  padding-bottom: 18px;
+
+  .edit-link-icon {
+    margin-right: 8px;
+    width: 14px;
+    height: 14px;
+    color: inherit;
+  }
+
+  &:hover {
+    color: var(--primary-2);
+  }
+
+  @media (min-width: 640px) {
+    padding-bottom: 14px;
+  }
+}
+
+.footer-navigation {
+  border-top: 1px solid var(--divider-color);
+  padding-top: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+}

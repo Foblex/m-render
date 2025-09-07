@@ -15,24 +15,22 @@ export class FMetaService {
   private readonly _headTag = inject(FHeadTagService);
   private readonly _configuration = inject(DOCUMENTATION_CONFIGURATION);
 
-  public changes(): Observable<void> {
+  public changes(): Observable<string> {
     return this._router.events.pipe(
-      startWith(new NavigationEnd(1, '', '')),
-      filter(event => event instanceof NavigationEnd),
-      map(() => void 0),
-      tap(() => {
-        if (!this._configuration.meta) {
-          return;
-        }
+      startWith(null),
+      filter((e): e is NavigationEnd | null => e === null || e instanceof NavigationEnd),
+      map(() =>this._router.url),
+      tap((currentUrl) => {
         const defaultData = this._configuration.meta;
+        if (!defaultData) return;
 
-        const data = {
-          ...defaultData,
-        };
-        const item = this._findDocItemByUrl(this._findDocGroupByUrl(this._router.url), this._router.url);
+        const data = { ...defaultData };
+
+        const item = this._findDocItemByUrl(this._findDocGroupByUrl(currentUrl), currentUrl);
         if (item) {
-          data.title = `${item.text} - ${defaultData.app_name}`;
-          data.url = this._location.href;
+          data.title = `${item.pageTitle || item.text} | ${defaultData.app_name}`;
+          data.url = this._buildAbsoluteUrl(currentUrl);
+          data.canonical = item.canonical;
           data.description = item.description || defaultData.description;
           data.image = item.image || defaultData.image;
           data.image_width = item.image_width || defaultData.image_width;
@@ -40,17 +38,11 @@ export class FMetaService {
           data.image_type = item.image_type || defaultData.image_type;
         }
         if (!data.url) {
-          data.url = this._location.origin + this._router.url;
+          data.url = this._buildAbsoluteUrl(currentUrl);
         }
-        if (!data.image.startsWith('http') && !data.image.startsWith('www')) {
-          if (data.image.startsWith('.')) {
-            data.image = this._location.origin + data.image.slice(1);
-          } else {
-            data.image = this._location.origin + data.image;
-          }
-        }
-        if (!data.url.endsWith('/')) {
-          data.url += '/';
+
+        if (data.image) {
+          data.image = this._toAbsoluteUrl(data.image);
         }
 
         this._updateMetaTags(data);
@@ -73,10 +65,26 @@ export class FMetaService {
     return (group?.items || []).find((i: INavigationItem) => url.endsWith(i.link));
   }
 
+  private _buildAbsoluteUrl(url: string): string {
+    try {
+     return new URL(url, this._location.origin).toString();
+    } catch {
+     return this._location.origin + url;
+    }
+  }
+
+  private _toAbsoluteUrl(maybeRelative: string): string {
+    try {
+     return new URL(maybeRelative, this._location.origin).toString();
+    } catch {
+     return maybeRelative;
+    }
+  }
+
   private _updateMetaTags(item: IMetaData): void {
     this._headTag.setTitle(item.title);
     this._headTag.setDescription(item.description);
-    this._headTag.setCanonical(item.url);
+    this._headTag.setCanonical(item.canonical || item.url);
 
     this._headTag.updateTag({ property: 'og:url', content: item.url });
     this._headTag.updateTag({ property: 'og:type', content: item.type });

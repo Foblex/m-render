@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { DOCUMENTATION_CONFIGURATION } from './documentation.config';
 import { provideDocumentation, provideHomePage } from '@foblex/m-render';
 import { HOME_CONFIGURATION } from './home.config';
+import { SHOWCASE_CONFIGURATION } from './showcase.config';
 
 export const APP_ROUTES: Routes = [
   {
@@ -23,6 +24,17 @@ export const APP_ROUTES: Routes = [
       providers: [
         provideDocumentation(
           DOCUMENTATION_CONFIGURATION,
+        ),
+      ],
+    }))),
+  },
+  {
+    path: 'showcase',
+    loadChildren: () => import('@foblex/m-render').then((m) => m.DOCUMENTATION_ROUTES.map((route) => ({
+      ...route,
+      providers: [
+        provideDocumentation(
+          SHOWCASE_CONFIGURATION,
         ),
       ],
     }))),

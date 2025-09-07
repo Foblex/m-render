@@ -1,7 +1,7 @@
-import { INavigationGroup } from '@foblex/m-render';
+import { INavigationGroup } from '../components';
 
 export function calculateMarkdownUrl(markdown: string, navigation: INavigationGroup[], docsDir: string, notFoundMd = ''): string {
-  if (!markdown || !_isMarkdownExist(markdown, navigation)) {
+  if (!markdown || !_isMarkdownExist(markdown, navigation) && navigation.length) {
     return notFoundMd;
   }
   let url = docsDir + markdown;

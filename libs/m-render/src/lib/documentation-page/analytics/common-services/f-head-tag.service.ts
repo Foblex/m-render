@@ -4,7 +4,7 @@ import { inject, Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class FHeadTagService {
 
-  private _document = inject(DOCUMENT);
+  private readonly _document = inject(DOCUMENT);
 
   public setTitle(title: string): void {
     this._document.title = title || '';

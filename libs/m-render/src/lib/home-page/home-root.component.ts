@@ -17,7 +17,7 @@ import {
   FHomePageHeroComponent,
   FHomePageMembershipsComponent,
 } from './components';
-import { HEADER_CONFIGURATION_STORE, IS_BROWSER_PLATFORM, ThemeService } from '../common';
+import { HEADER_CONFIGURATION_PROVIDER, IS_BROWSER_PLATFORM, ThemeService } from '../common';
 import { CookiePopupComponent } from '../analytics/cookie-popup/cookie-popup.component';
 import { GTagService } from '../analytics';
 
@@ -29,10 +29,6 @@ import { GTagService } from '../analytics';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     HomeStore,
-    {
-      provide: HEADER_CONFIGURATION_STORE,
-      useExisting: HomeStore,
-    },
   ],
   imports: [
     FHomePageFooterComponent,
@@ -44,7 +40,6 @@ import { GTagService } from '../analytics';
   ],
 })
 export class HomeRootComponent implements AfterViewInit, OnInit {
-
   private readonly _environment = inject(HomeStore);
   private readonly _gTagService = inject(GTagService, { optional: true });
   private readonly _themeService = inject(ThemeService, { optional: true });

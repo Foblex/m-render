@@ -7,7 +7,7 @@ export const DOCUMENTATION_ROUTES: Routes = [
     children: [
       {
         path: '**',
-        loadComponent: () => import('./components/markdown-container').then(m => m.MarkdownContainer),
+        loadComponent: () => import('./components/markdown-router').then(m => m.MarkdownRouter),
       },
     ],
   },

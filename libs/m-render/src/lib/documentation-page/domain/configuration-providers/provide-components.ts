@@ -1,6 +1,6 @@
 import { IDocumentationConfiguration } from '../i-documentation-configuration';
 import { Type } from '@angular/core';
-import { IDynamicComponentItem } from '../../components';
+import { IDynamicComponentItem } from '../../../dynamic-components';
 
 export function defineLazyComponent(
   selector: string,

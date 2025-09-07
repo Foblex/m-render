@@ -2,6 +2,8 @@ export interface IMetaData {
 
   url: string;
 
+  canonical?: string;
+
   type: string;
 
   title: string;

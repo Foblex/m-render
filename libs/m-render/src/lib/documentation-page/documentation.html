@@ -1,10 +1,12 @@
-<f-navigation-panel [class.visible]="isNavigationVisible()"/>
-<div class="f-backdrop" [class.visible]="isNavigationVisible()" (click)="onToggleNavigation(false)"></div>
+@if (!emptyNavigation) {
+  <f-navigation-panel [class.visible]="isNavigationVisible()"/>
+  <div class="f-backdrop" [class.visible]="isNavigationVisible()" (click)="onToggleNavigation(false)"></div>
+}
 
-<f-scrollable-container>
-  <f-header/>
+<scrollable-container>
+  <f-header [class.empty-navigation]="emptyNavigation"/>
   <router-outlet/>
-</f-scrollable-container>
+</scrollable-container>
 
 @if (popover()) {
   <div class="popover">{{ popover() }}</div>
