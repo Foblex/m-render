@@ -1,5 +1,5 @@
 export class ScrollToElementInContainerRequest {
-  public static fToken = Symbol('ScrollToElementInContainerRequest');
+  public static requestToken = Symbol('ScrollToElementInContainerRequest');
 
   constructor(public hash: string) {
   }

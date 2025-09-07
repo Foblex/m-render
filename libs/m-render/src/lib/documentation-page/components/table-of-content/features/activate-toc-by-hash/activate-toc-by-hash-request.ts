@@ -1,5 +1,5 @@
 export class ActivateTocByHashRequest {
-  public static fToken = Symbol('ActivateTocByHashRequest');
+  public static requestToken = Symbol('ActivateTocByHashRequest');
 
   constructor(
     public hash: string | undefined,

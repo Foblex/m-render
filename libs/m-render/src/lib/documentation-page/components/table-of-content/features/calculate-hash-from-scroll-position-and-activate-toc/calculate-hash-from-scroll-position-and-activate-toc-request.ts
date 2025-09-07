@@ -1,3 +1,3 @@
 export class CalculateHashFromScrollPositionAndActivateTocRequest {
-  public static fToken = Symbol('CalculateHashFromScrollPositionAndActivateTocRequest');
+  public static requestToken = Symbol('CalculateHashFromScrollPositionAndActivateTocRequest');
 }

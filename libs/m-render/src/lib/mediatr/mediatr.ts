@@ -9,18 +9,18 @@ export class Mediatr {
 
   public static register<TRequest, TResponse>(
     type: {
-      fToken: symbol;
+      requestToken: symbol;
     }, handler: Type<IExecution<TRequest, TResponse>>,
   ): void {
 
-    if (!type?.fToken) {
-      throw new Error('Type must have static fToken');
+    if (!type?.requestToken) {
+      throw new Error('Type must have static requestToken');
     }
-    Mediatr._executions.set(type?.fToken, handler);
+    Mediatr._executions.set(type?.requestToken, handler);
   }
 
   public execute<TResponse>(request: any): TResponse {
-    const token = request.constructor.fToken;
+    const token = request.constructor.requestToken;
 
     const handlerType = Mediatr._executions.get(token);
     if (!handlerType) {

@@ -4,7 +4,7 @@ import { Mediatr } from './mediatr';
 type Constructor<T = any> = new (...args: any[]) => T;
 
 export function MExecution<TRequest, TResponse>(requestType: {
-  fToken: symbol;
+  requestToken: symbol;
 }) {
   return function (constructor: Constructor<IExecution<TRequest, TResponse>>) {
     Mediatr.register(requestType, constructor);
