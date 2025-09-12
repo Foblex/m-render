@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build-m-render": "nx run m-render:build:production",
-    "heroku-postbuild": "npm run build-m-render && nx build site --configuration=production && nx run site:server:production && nx run site:prerender:production"
+    "heroku-postbuild": "npm run build-m-render && nx build site --configuration=production && nx run site:server:production && nx run site:prerender:production",
+    "publish": "npx nx run m-render:build:production --skip-nx-cache && npx nx run m-render:nx-release-publish --skip-nx-cache"
   },
   "engines": {
     "node": "20.x"

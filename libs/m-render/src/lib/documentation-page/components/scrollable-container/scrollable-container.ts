@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, forwardRef, inject, OnInit, } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, forwardRef, inject, Injector, OnInit, } from '@angular/core';
 import { IScrollableContainer, SCROLLABLE_CONTAINER } from './models';
 import { debounceTime, fromEvent, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
-  CalculateHashFromScrollPositionAndActivateTocRequest,
+  CalculateHashFromScrollPosition,
   TABLE_OF_CONTENT_MODULE_PROVIDERS,
   TableOfContent,
 } from '../table-of-content';
@@ -35,7 +35,7 @@ import { DOCUMENTATION_CONFIGURATION } from '../../domain';
 })
 export class ScrollableContainer implements OnInit, IScrollableContainer {
   private readonly _destroyRef = inject(DestroyRef);
-  private readonly _mediatr = inject(Mediatr);
+  private readonly _injector = inject(Injector);
   protected readonly tableOfContent = inject(DOCUMENTATION_CONFIGURATION).tableOfContent;
 
   public readonly htmlElement = inject(ElementRef<HTMLElement>).nativeElement;
@@ -56,7 +56,7 @@ export class ScrollableContainer implements OnInit, IScrollableContainer {
   }
 
   private _calculateHashAndActivate(): void {
-    this._mediatr.execute(new CalculateHashFromScrollPositionAndActivateTocRequest());
+    this._injector.get(CalculateHashFromScrollPosition).handle();
   }
 }
 

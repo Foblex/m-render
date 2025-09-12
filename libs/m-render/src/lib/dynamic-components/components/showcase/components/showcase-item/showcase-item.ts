@@ -4,7 +4,7 @@ import {
   inject, input,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { map, startWith } from 'rxjs';
 import { IShowcaseItem } from '../../models';
 import { ThemeService } from '../../../../../theme';
 
@@ -18,7 +18,7 @@ import { ThemeService } from '../../../../../theme';
 export class ShowcaseItem {
   private readonly _themeService = inject(ThemeService);
 
-  private readonly _themeChanges = toSignal(this._themeService.theme$.pipe(map(() => this._themeService.getPreferredTheme())));
+  private readonly _themeChanges = toSignal(this._themeService.theme$.pipe(startWith(null), map(() => this._themeService.getPreferredTheme())));
   public readonly model = input.required<IShowcaseItem>();
 
   protected readonly src = computed(() => {

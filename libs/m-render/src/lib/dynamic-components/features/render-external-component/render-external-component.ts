@@ -4,8 +4,8 @@ import { IExecution, Mediatr, MExecution } from '../../../mediatr';
 import { RenderDynamicComponentRequest } from '../render-dynamic-component';
 import { EXTERNAL_COMPONENT_PROVIDER } from '../../providers';
 
-@MExecution(RenderExternalComponentRequest)
 @Injectable()
+@MExecution(RenderExternalComponentRequest)
 export class RenderExternalComponent implements IExecution<RenderExternalComponentRequest, void> {
 
   private readonly _mediatr = inject(Mediatr);

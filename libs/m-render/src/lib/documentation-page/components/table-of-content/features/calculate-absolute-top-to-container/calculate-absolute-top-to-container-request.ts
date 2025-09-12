@@ -1,5 +1,5 @@
 export class CalculateAbsoluteTopToContainerRequest {
-  public static requestToken = Symbol('CalculateAbsoluteTopToContainerRequest');
+  public static readonly requestToken = Symbol('CalculateAbsoluteTopToContainerRequest');
 
   constructor(
     public element: HTMLElement,

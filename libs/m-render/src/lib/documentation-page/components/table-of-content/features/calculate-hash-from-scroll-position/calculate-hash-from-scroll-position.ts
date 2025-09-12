@@ -2,22 +2,15 @@ import { CalculateAbsoluteTopToContainerRequest } from '../calculate-absolute-to
 import { inject, Injectable } from '@angular/core';
 import {
   ActivateTocByHashRequest,
-  CalculateHashFromScrollPositionAndActivateTocRequest,
   SCROLLABLE_CONTAINER,
 } from '../../../index';
 import { DocumentationStore } from '../../../../services';
 import { DOCUMENT_ELEMENT, WINDOW } from '../../../../../common';
-import { IExecution, Mediatr, MExecution } from '../../../../../mediatr';
-
-interface IHasTopItem {
-  hash: string;
-  top: number;
-}
+import { IExecution, Mediatr } from '../../../../../mediatr';
 
 @Injectable()
-@MExecution(CalculateHashFromScrollPositionAndActivateTocRequest)
-export class CalculateHashFromScrollPositionAndActivateToc
-  implements IExecution<CalculateHashFromScrollPositionAndActivateTocRequest, number> {
+export class CalculateHashFromScrollPosition
+  implements IExecution<void, void> {
 
   private readonly _docElement = inject(DOCUMENT_ELEMENT);
   private readonly _window = inject(WINDOW);
@@ -77,4 +70,9 @@ export class CalculateHashFromScrollPositionAndActivateToc
     }
     return result;
   }
+}
+
+interface IHasTopItem {
+  hash: string;
+  top: number;
 }

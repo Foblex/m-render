@@ -1,7 +1,7 @@
 import {
   ActivateTocByHash,
   CalculateAbsoluteTopToContainer,
-  CalculateHashFromScrollPositionAndActivateToc,
+  CalculateHashFromScrollPosition,
   CalculateTableOfContent,
   ScrollToElementInContainer,
 } from './features';
@@ -11,5 +11,5 @@ export const TABLE_OF_CONTENT_MODULE_PROVIDERS = [
   CalculateTableOfContent,
   ScrollToElementInContainer,
   CalculateAbsoluteTopToContainer,
-  CalculateHashFromScrollPositionAndActivateToc,
+  CalculateHashFromScrollPosition,
 ];

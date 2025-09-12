@@ -5,7 +5,8 @@ import { IExecution, MExecution } from '../../../../../mediatr';
 
 @Injectable()
 @MExecution(CalculateAbsoluteTopToContainerRequest)
-export class CalculateAbsoluteTopToContainer implements IExecution<CalculateAbsoluteTopToContainerRequest, number> {
+export class CalculateAbsoluteTopToContainer
+  implements IExecution<CalculateAbsoluteTopToContainerRequest, number> {
 
   private readonly _scrollableContainer = inject(SCROLLABLE_CONTAINER);
 

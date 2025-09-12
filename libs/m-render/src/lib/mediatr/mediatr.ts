@@ -8,15 +8,12 @@ export class Mediatr {
   private static _executions = new Map<symbol, Type<IExecution<any, any>>>();
 
   public static register<TRequest, TResponse>(
-    type: {
-      requestToken: symbol;
-    }, handler: Type<IExecution<TRequest, TResponse>>,
+    type: any, handler: Type<IExecution<TRequest, TResponse>>,
   ): void {
-
-    if (!type?.requestToken) {
-      throw new Error('Type must have static requestToken');
+    if (!type || !type.requestToken) {
+      throw new Error('Type must have a requestToken static property');
     }
-    Mediatr._executions.set(type?.requestToken, handler);
+    Mediatr._executions.set(type.requestToken, handler);
   }
 
   public execute<TResponse>(request: any): TResponse {
