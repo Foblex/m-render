@@ -62,6 +62,26 @@ provideComponents([
 [component.scss] <<< [https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.scss](https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.scss)
 :::
 
+## 🧩 Markdown Pages Preview 
+
+Group multiple markdown pages into a carded preview using `preview-group`.
+
+### Markdown usage
+
+```markdown
+::: preview-group
+[Introduction] <<< Name of Navigation group in router module
+[Writing] <<< Name of Navigation group in router module
+:::
+```
+### Rendered output
+
+::: preview-group
+[Introduction] 
+[Writing]
+:::
+
+
 ## ⚠️ Alert Containers
 
 Use alerts to visually highlight sections of your documentation. Available types:
