@@ -2,7 +2,7 @@ export * from './activate-toc-by-hash';
 
 export * from './calculate-table-of-content';
 
-export * from './calculate-hash-from-scroll-position-and-activate-toc';
+export * from './calculate-hash-from-scroll-position';
 
 export * from './calculate-absolute-top-to-container';
 

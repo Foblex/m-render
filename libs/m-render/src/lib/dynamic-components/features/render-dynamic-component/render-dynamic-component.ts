@@ -4,8 +4,8 @@ import { DynamicComponentsStore } from '../../dynamic-components.store';
 import { IExecution, MExecution } from '../../../mediatr';
 import { IDynamicComponentItem } from '../../models';
 
-@MExecution(RenderDynamicComponentRequest)
 @Injectable()
+@MExecution(RenderDynamicComponentRequest)
 export class RenderDynamicComponent implements IExecution<RenderDynamicComponentRequest, void>{
 
   private readonly _dynamicStore = inject(DynamicComponentsStore);

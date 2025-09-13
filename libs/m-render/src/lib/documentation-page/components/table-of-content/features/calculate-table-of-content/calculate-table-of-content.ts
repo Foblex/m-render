@@ -1,18 +1,18 @@
 import { CalculateTableOfContentRequest } from './calculate-table-of-content-request';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import { DocumentationStore } from '../../../../services';
 import { ITableOfContentItem, TableOfContentData } from '../../models';
-import { IExecution, Mediatr, MExecution } from '../../../../../mediatr';
+import { IExecution, MExecution } from '../../../../../mediatr';
 import {
-  CalculateHashFromScrollPositionAndActivateTocRequest,
-} from '../calculate-hash-from-scroll-position-and-activate-toc';
+  CalculateHashFromScrollPosition,
+} from '../calculate-hash-from-scroll-position';
 
 @Injectable()
 @MExecution(CalculateTableOfContentRequest)
 export class CalculateTableOfContent implements IExecution<CalculateTableOfContentRequest, void>{
 
   private readonly _dataProvider = inject(DocumentationStore);
-  private readonly _mediatr = inject(Mediatr);
+  private readonly _injector = inject(Injector);
 
   public handle(request: CalculateTableOfContentRequest): void {
     const flat: ITableOfContentItem[] = [];
@@ -26,7 +26,7 @@ export class CalculateTableOfContent implements IExecution<CalculateTableOfConte
     });
 
     this._dataProvider.tocData.set(new TableOfContentData(flat, tree));
-    this._mediatr.execute(new CalculateHashFromScrollPositionAndActivateTocRequest());
+    this._injector.get(CalculateHashFromScrollPosition).handle();
   }
 
   private _getNavigationSelectors(fMarkdownPage: HTMLElement, tocRange?: {

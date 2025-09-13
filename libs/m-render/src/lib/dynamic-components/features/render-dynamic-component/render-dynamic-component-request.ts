@@ -2,7 +2,7 @@ import { ViewContainerRef } from '@angular/core';
 import { IDynamicComponentItem } from '../../models';
 
 export class RenderDynamicComponentRequest {
-  public static fToken = Symbol('RenderDynamicComponentRequest');
+  static readonly requestToken = Symbol('RenderDynamicComponentRequest');
 
   constructor(
     public readonly item: IDynamicComponentItem,

@@ -12,7 +12,7 @@ import { RenderExternalComponentRequest } from '../../features';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'external-component',
+    class: 'f-example-view',
     '[style.height]': 'data().height',
   },
 })
