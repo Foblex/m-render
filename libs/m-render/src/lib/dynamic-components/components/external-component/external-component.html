@@ -1,2 +1,19 @@
-<ng-container #container />
+@if (canToggleFullscreen()) {
+  <button class="f-fullscreen-button"
+          type="button"
+          [class.exit]="isFullscreen()"
+          [attr.aria-label]="fullscreenLabel()"
+          [attr.title]="fullscreenLabel()"
+          (click)="toggleFullscreen()"></button>
+}
 
+@if (iframeUrl()) {
+  <iframe class="f-example-iframe"
+          [src]="iframeUrl()!"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          allow="fullscreen"
+          allowfullscreen></iframe>
+}
+
+<ng-container #container />

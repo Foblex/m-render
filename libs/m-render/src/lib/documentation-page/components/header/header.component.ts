@@ -16,7 +16,7 @@ import { InlineMenu } from './components/inline-menu';
 import { MediaLinks } from './components/media-links';
 import { DropdownMenu } from './components/dropdown-menu';
 import { HEADER_CONFIGURATION_PROVIDER } from '../../../common';
-import { RouterLink } from '@angular/router';
+import { FBrandLinkComponent } from '../../../shared';
 
 @Component({
   selector: 'f-header',
@@ -26,13 +26,11 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     HamburgerButton,
+    FBrandLinkComponent,
     ThemeButtonComponent,
     InlineMenu,
     DropdownMenu,
-    InlineMenu,
     MediaLinks,
-    DropdownMenu,
-    RouterLink,
   ],
 })
 export class HeaderComponent implements AfterViewInit, OnDestroy {

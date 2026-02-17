@@ -2,6 +2,33 @@
 
 MRender extends standard Markdown syntax with custom containers and helpers to improve interactivity, clarity, and integration with Angular components.
 
+## ⚙️ Page Frontmatter (TOC + SEO)
+
+You can control layout and SEO directly from a markdown file using frontmatter at the top of the file:
+
+```markdown
+---
+toc: false
+wideContent: true
+title: "Markdown Extensions | MRender"
+description: "Custom markdown containers, TOC controls, and SEO frontmatter support."
+keywords: "angular, markdown, docs"
+robots: "index, follow"
+ogImage: "https://m-render.foblex.com/site-preview.png"
+twitterCard: "summary_large_image"
+---
+```
+
+Available frontmatter keys:
+
+| Key | Purpose |
+| --- | --- |
+| `toc` | Enables/disables Table of Contents for current page (`false` hides TOC) |
+| `wideContent` | Expands content width into TOC area (works when `toc: false`) |
+| `title`, `description`, `canonical`, `keywords`, `robots` | Page-level SEO overrides |
+| `ogType`, `ogTitle`, `ogDescription`, `ogImage` | Open Graph overrides |
+| `twitterCard`, `twitterTitle`, `twitterDescription`, `twitterImage` | Twitter card overrides |
+
 ## 📑 Code Group
 
 Use `code-group` to display multiple code blocks as tabs. Each block will appear in a separate tab with the name defined inside `[...]`.
@@ -34,7 +61,7 @@ console.log('Hello World');
 
 ## 🧩 Angular Component Preview (`ng-component`)
 
-Embed an Angular component and attach source code tabs using the `ng-component` container. This allows for live demos alongside their source files.
+Embed an Angular component or a URL in an `iframe` and attach source code tabs using the `ng-component` container. This allows for live demos alongside their source files.
 
 ### Register the component
 
@@ -54,6 +81,12 @@ provideComponents([
 :::
 ```
 
+```markdown
+::: ng-component [url]="https://example.com" [height]="60vh"
+[component.ts] <<< LINK_TO_TS
+:::
+```
+
 ### Example rendered output
 
 ::: ng-component <example></example> [height]="300"
@@ -61,6 +94,8 @@ provideComponents([
 [component.ts] <<< [https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.ts](https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.ts)
 [component.scss] <<< [https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.scss](https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.scss)
 :::
+
+`ng-component` supports full-screen mode for both Angular preview and URL iframe preview.
 
 ## 🧩 Markdown Pages Preview 
 
@@ -117,7 +152,7 @@ This is a critical warning.
 | Syntax                                        | Purpose                                    |
 | --------------------------------------------- | ------------------------------------------ |
 | `code-group`                                  | Group multiple code examples into tabs     |
-| `ng-component`                                | Render Angular component with source files |
+| `ng-component`                                | Render Angular component or URL iframe with source files |
 | `preview-group`                               | Visual group of preview components         |
 | `tip`, `danger`, `info`, `warning`, `success` | Highlight content with alert styles        |
 

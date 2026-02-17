@@ -7,11 +7,11 @@ export const F_ACCEPT_COOKIES_KEY = 'm-accepts-cookies';
 @Component({
   selector: 'cookie-popup',
   standalone: true,
-  templateUrl: './cookie-popup.component.html',
-  styleUrls: ['./cookie-popup.component.scss'],
+  templateUrl: './cookie-popup.html',
+  styleUrls: ['./cookie-popup.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CookiePopupComponent {
+export class CookiePopup {
   private readonly _localStorage = inject(LOCAL_STORAGE);
   private readonly _gtag = inject(GTagService, { optional: true });
 

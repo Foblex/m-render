@@ -1,7 +1,8 @@
 @if (emptyNavigation) {
-  <a routerLink class="empty-navigation-title">
-    <img [src]="image" width="24" height="24" alt="logo" class="logo"/> {{ title }}
-  </a>
+  <f-brand-link class="empty-navigation-title"
+                [routerLink]="''"
+                [title]="title"
+                [logo]="image" />
 } @else {
   <div class="portal-title">
     <button hamburger-button></button>
@@ -25,4 +26,3 @@
     <dropdown-menu />
   </div>
 </div>
-

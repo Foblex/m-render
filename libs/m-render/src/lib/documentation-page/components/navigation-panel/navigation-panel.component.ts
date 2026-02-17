@@ -14,11 +14,11 @@ import { filter } from 'rxjs/operators';
 import { FNavigationItemComponent } from './f-navigation-item/f-navigation-item.component';
 import { NavigationGroupComponent } from './navigation-group/navigation-group.component';
 import { INavigationItem } from './domain';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TOGGLE_NAVIGATION_COMPONENT } from '../header';
 import { DocumentationStore } from '../../services';
 import { HandleNavigationLinksHandler, HandleNavigationLinksRequest } from '../../domain';
 import { WINDOW } from '../../../common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'f-navigation-panel',

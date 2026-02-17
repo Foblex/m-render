@@ -8,7 +8,7 @@ import {
   ITableOfContent,
   TableOfContentData,
 } from '../components';
-import { IHeaderConfiguration, IHeaderConfigurationStore, } from '../../common';
+import { IHeaderConfiguration, IHeaderConfigurationStore } from '../../common';
 import { DOCUMENTATION_CONFIGURATION } from '../domain';
 import { IDynamicComponentItem, IShowcaseItem } from '../../dynamic-components';
 import { calculateMarkdownUrl } from '../utils';

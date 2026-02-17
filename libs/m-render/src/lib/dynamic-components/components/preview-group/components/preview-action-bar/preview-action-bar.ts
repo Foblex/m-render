@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DocumentationStore } from '../../../../../documentation-page';
 import { TitleCasePipe } from '@angular/common';
-import { FCheckboxComponent, FRadioButtonComponent } from '../../../../../common';
+import { FCheckboxComponent, FRadioButtonComponent } from '../../../../../shared';
 import { PreviewGroupService } from '../../preview-group.service';
 
 @Component({

@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, forwardRef, inject, Injector, OnInit, } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  forwardRef,
+  inject,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { IScrollableContainer, SCROLLABLE_CONTAINER } from './models';
 import { debounceTime, fromEvent, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -36,18 +46,23 @@ import { DOCUMENTATION_CONFIGURATION } from '../../domain';
 export class ScrollableContainer implements OnInit, IScrollableContainer {
   private readonly _destroyRef = inject(DestroyRef);
   private readonly _injector = inject(Injector);
+  private readonly _markdown = inject(MarkdownService);
   protected readonly tableOfContent = inject(DOCUMENTATION_CONFIGURATION).tableOfContent;
+  protected readonly canShowTableOfContent = computed(() => {
+    return !!this.tableOfContent && !this._markdown.pageLayout().hideTableOfContent;
+  });
 
   public readonly htmlElement = inject(ElementRef<HTMLElement>).nativeElement;
 
   public ngOnInit(): void {
-    fromEvent(this.htmlElement, 'scroll',{ passive: true })
+    fromEvent<Event>(this.htmlElement, 'scroll', { passive: true })
       .pipe(
         debounceTime(100),
-        startWith(null),
-        filter((event: any) => {
-          const ignoreProgrammatic = event?.target?._ignoreProgrammatic ?? false;
-          this.htmlElement._ignoreProgrammatic = false;
+        startWith<Event | null>(null),
+        filter((event: Event | null) => {
+          const target = event?.target as IScrollableTarget | null;
+          const ignoreProgrammatic = target?._ignoreProgrammatic ?? false;
+          (this.htmlElement as IScrollableTarget)._ignoreProgrammatic = false;
           return !ignoreProgrammatic;
         }),
         takeUntilDestroyed(this._destroyRef),
@@ -60,3 +75,6 @@ export class ScrollableContainer implements OnInit, IScrollableContainer {
   }
 }
 
+interface IScrollableTarget extends EventTarget {
+  _ignoreProgrammatic?: boolean;
+}

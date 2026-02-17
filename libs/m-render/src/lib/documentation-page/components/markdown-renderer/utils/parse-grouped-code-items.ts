@@ -56,7 +56,7 @@ export class ParseGroupedCodeItems {
   }
 
   private _getCodeLanguage(data: string): string {
-    const match = data.trim().match(/^([a-zA-Z0-9_-]+)\s*\[.*\]$/);
+    const match = data.trim().match(/^([a-zA-Z0-9_-]+)/);
     return match ? match[1] : '';
   }
 }

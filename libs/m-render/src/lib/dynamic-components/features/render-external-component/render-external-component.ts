@@ -12,12 +12,18 @@ export class RenderExternalComponent implements IExecution<RenderExternalCompone
   private readonly _componentsMap = inject(EXTERNAL_COMPONENT_PROVIDER, { optional: true }) ?? [];
 
   public handle({ selector, viewContainerRef }: RenderExternalComponentRequest): void {
+    if (!selector) {
+      console.warn('Empty selector passed to RenderExternalComponentRequest.');
+      return;
+    }
+
     const item = this._componentsMap.find((x) => {
       return x.selector === selector;
-    })
+    });
 
-    if(!item) {
-      throw new Error(`Component for tag "${selector}" could not be found in external components map.`)
+    if (!item) {
+      console.error(`Component for tag "${selector}" could not be found in external components map.`);
+      return;
     }
 
     this._mediatr.execute(

@@ -89,7 +89,7 @@ export class MarkdownFooter {
   }
 
   @HostListener('click', ['$event'])
-  private _click(event: MouseEvent): void {
+  protected _click(event: MouseEvent): void {
     new HandleNavigationLinksHandler().handle(
       new HandleNavigationLinksRequest(event, this._window, this._router),
     );

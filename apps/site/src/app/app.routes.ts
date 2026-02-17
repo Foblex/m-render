@@ -3,6 +3,8 @@ import { DOCUMENTATION_CONFIGURATION } from './documentation.config';
 import { provideDocumentation, provideHomePage } from '@foblex/m-render';
 import { HOME_CONFIGURATION } from './home.config';
 import { SHOWCASE_CONFIGURATION } from './showcase.config';
+import { BLOG_CONFIGURATION } from './blog.config';
+import { RELEASES_CONFIGURATION } from './releases.config';
 
 export const APP_ROUTES: Routes = [
   {
@@ -19,25 +21,19 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'docs',
-    loadChildren: () => import('@foblex/m-render').then((m) => m.DOCUMENTATION_ROUTES.map((route) => ({
-      ...route,
-      providers: [
-        provideDocumentation(
-          DOCUMENTATION_CONFIGURATION,
-        ),
-      ],
-    }))),
+    loadChildren: () => createDocumentationRoutes(DOCUMENTATION_CONFIGURATION),
   },
   {
     path: 'showcase',
-    loadChildren: () => import('@foblex/m-render').then((m) => m.DOCUMENTATION_ROUTES.map((route) => ({
-      ...route,
-      providers: [
-        provideDocumentation(
-          SHOWCASE_CONFIGURATION,
-        ),
-      ],
-    }))),
+    loadChildren: () => createDocumentationRoutes(SHOWCASE_CONFIGURATION),
+  },
+  {
+    path: 'blog',
+    loadChildren: () => createDocumentationRoutes(BLOG_CONFIGURATION),
+  },
+  {
+    path: 'releases',
+    loadChildren: () => createDocumentationRoutes(RELEASES_CONFIGURATION),
   },
   {
     path: '**',
@@ -47,3 +43,14 @@ export const APP_ROUTES: Routes = [
       ),
   },
 ];
+
+function createDocumentationRoutes(configuration: { providers: object[] }) {
+  return import('@foblex/m-render').then((m) => m.DOCUMENTATION_ROUTES.map((route) => ({
+    ...route,
+    providers: [
+      provideDocumentation(
+        configuration,
+      ),
+    ],
+  })));
+}

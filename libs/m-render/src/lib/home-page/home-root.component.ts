@@ -17,8 +17,8 @@ import {
   FHomePageHeroComponent,
   FHomePageMembershipsComponent,
 } from './components';
-import { HEADER_CONFIGURATION_PROVIDER, IS_BROWSER_PLATFORM, ThemeService } from '../common';
-import { CookiePopupComponent } from '../analytics/cookie-popup/cookie-popup.component';
+import { IS_BROWSER_PLATFORM, ThemeService } from '../common';
+import { CookiePopup } from '../analytics/cookie-popup/cookie-popup';
 import { GTagService } from '../analytics';
 
 @Component({
@@ -36,7 +36,7 @@ import { GTagService } from '../analytics';
     FHomePageFeaturesComponent,
     FHomePageHeroComponent,
     FHomePageMembershipsComponent,
-    CookiePopupComponent,
+    CookiePopup,
   ],
 })
 export class HomeRootComponent implements AfterViewInit, OnInit {
@@ -85,7 +85,7 @@ export class HomeRootComponent implements AfterViewInit, OnInit {
     return this._heroImageContainer!.createComponent(component);
   }
 
-  private _requestComponentRedraw(componentRef: ComponentRef<any>): void {
+  private _requestComponentRedraw(componentRef: ComponentRef<unknown>): void {
     componentRef.changeDetectorRef.markForCheck();
   }
 }

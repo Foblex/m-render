@@ -1,10 +1,14 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Observable, of, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import MarkdownIt from 'markdown-it';
 
 import {
+  DEFAULT_MARKDOWN_PAGE_LAYOUT_OPTIONS,
   EMarkdownContainerType,
+  IMarkdownFrontMatterData,
+  IMarkdownFrontMatterParseResult,
+  IMarkdownPageLayoutOptions,
   ParseAlerts,
   ParseAngularExampleWithCodeLinks,
   ParseGroupedCodeItems,
@@ -15,6 +19,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { catchError, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { F_PREVIEW_NAVIGATION_PROVIDER } from './domain';
+import { ISeoOverrides } from '../../../analytics';
 
 @Injectable()
 export class MarkdownService {
@@ -23,7 +28,12 @@ export class MarkdownService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _domSanitizer = inject(DomSanitizer);
   private readonly _router = inject(Router);
-  private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER, {optional: true});
+  private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER, { optional: true });
+  private readonly _pageLayout = signal<IMarkdownPageLayoutOptions>({ ...DEFAULT_MARKDOWN_PAGE_LAYOUT_OPTIONS });
+  private readonly _pageSeo = signal<ISeoOverrides | null>(null);
+
+  public readonly pageLayout = this._pageLayout.asReadonly();
+  public readonly pageSeo = this._pageSeo.asReadonly();
 
   constructor() {
     this._markdown
@@ -31,7 +41,6 @@ export class MarkdownService {
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_TIP, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_INFO, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_WARNING, this._markdown))
-      .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_DANGER, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_DANGER, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_SUCCESS, this._markdown))
       .use(...new ParseGroupedCodeItems().render())
@@ -41,8 +50,10 @@ export class MarkdownService {
   }
 
   public parseUrl(src: string): Observable<SafeHtml> {
+    this._resetPageContext();
+
     return this._httpClient.get(src, { responseType: 'text' }).pipe(take(1), catchError(() => of(''))).pipe(
-      switchMap((text) => of(this._markdown.render(text))),
+      switchMap((text) => of(this._renderMarkdownWithPageContext(text))),
       switchMap((x) => of(this._cleanupEmptyParagraphs(x))),
       switchMap((x) => of(this._cleanupWasteParagraphFromExampleView(x))),
       switchMap((x) => of(this._cleanupWasteParagraphFromPreviewGroup(x))),
@@ -52,7 +63,9 @@ export class MarkdownService {
   }
 
   public parseText(value: string): Observable<SafeHtml> {
-    return of(this._markdown.render(value)).pipe(
+    this._resetPageContext();
+
+    return of(this._renderMarkdownWithPageContext(value)).pipe(
       switchMap((x) => of(this._cleanupEmptyParagraphs(x))),
       switchMap((x) => of(this._cleanupWasteParagraphFromExampleView(x))),
       switchMap((x) => of(this._cleanupWasteParagraphFromPreviewGroup(x))),
@@ -92,5 +105,222 @@ export class MarkdownService {
   private _cleanupWasteParagraphFromPreviewGroup(html: string): string {
     return html.replace(/<p>(\[[^\]]+\](\s*\[[^\]]+\])*)<\/p>/g, '');
   }
-}
 
+  private _renderMarkdownWithPageContext(markdown: string): string {
+    const result = this._parseFrontMatter(markdown);
+    this._applyPageContext(result.data);
+
+    return this._markdown.render(result.markdown);
+  }
+
+  private _parseFrontMatter(markdown: string): IMarkdownFrontMatterParseResult {
+    const source = (markdown || '').replace(/^\uFEFF/, '');
+    const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
+
+    const defaults = this._getDefaultFrontMatterData();
+    if (!match || !match[1].includes(':')) {
+      return {
+        markdown: source,
+        data: defaults,
+      };
+    }
+
+    const rawFrontMatter = match[1];
+    const parsedData = this._parseFrontMatterData(rawFrontMatter);
+
+    return {
+      markdown: source.slice(match[0].length),
+      data: parsedData,
+    };
+  }
+
+  private _parseFrontMatterData(rawFrontMatter: string): IMarkdownFrontMatterData {
+    const layout: IMarkdownPageLayoutOptions = { ...DEFAULT_MARKDOWN_PAGE_LAYOUT_OPTIONS };
+    const seo: ISeoOverrides = {};
+
+    rawFrontMatter
+      .split(/\r?\n/)
+      .forEach((line) => this._parseFrontMatterLine(line, layout, seo));
+
+    return {
+      layout,
+      seo: Object.keys(seo).length ? seo : null,
+    };
+  }
+
+  private _parseFrontMatterLine(line: string, layout: IMarkdownPageLayoutOptions, seo: ISeoOverrides): void {
+    const normalizedLine = line.trim();
+    if (!normalizedLine || normalizedLine.startsWith('#')) {
+      return;
+    }
+
+    const separatorIndex = normalizedLine.indexOf(':');
+    if (separatorIndex < 0) {
+      return;
+    }
+
+    const key = normalizedLine.slice(0, separatorIndex).trim().toLowerCase();
+    const value = this._normalizeFrontMatterValue(normalizedLine.slice(separatorIndex + 1));
+    if (!key || !value) {
+      return;
+    }
+
+    const boolValue = this._parseBoolean(value);
+    this._applyLayoutKey(key, boolValue, layout);
+    this._applySeoKey(key, value, boolValue, seo);
+  }
+
+  private _normalizeFrontMatterValue(value: string): string {
+    const trimmed = value.trim();
+    if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith('\'') && trimmed.endsWith('\''))) {
+      return trimmed.slice(1, -1).trim();
+    }
+    return trimmed;
+  }
+
+  private _parseBoolean(value: string): boolean | null {
+    const normalized = value.toLowerCase();
+    if ([ 'true', '1', 'yes', 'on' ].includes(normalized)) {
+      return true;
+    }
+
+    if ([ 'false', '0', 'no', 'off' ].includes(normalized)) {
+      return false;
+    }
+
+    return null;
+  }
+
+  private _applyLayoutKey(key: string, boolValue: boolean | null, layout: IMarkdownPageLayoutOptions): void {
+    if (boolValue === null) {
+      return;
+    }
+
+    switch (key) {
+      case 'toc':
+      case 'showtoc':
+      case 'tableofcontent':
+      case 'table_of_content':
+        layout.hideTableOfContent = !boolValue;
+        return;
+      case 'hidetoc':
+      case 'hide_toc':
+        layout.hideTableOfContent = boolValue;
+        return;
+      case 'widecontent':
+      case 'expandcontent':
+      case 'expandwithouttoc':
+      case 'expand_no_toc':
+      case 'widetableofcontentgap':
+        layout.expandContentWithoutTableOfContent = boolValue;
+        return;
+    }
+  }
+
+  private _applySeoKey(key: string, value: string, boolValue: boolean | null, seo: ISeoOverrides): void {
+    switch (key) {
+      case 'title':
+      case 'seotitle':
+        seo.title = value;
+        return;
+      case 'description':
+      case 'seodescription':
+        seo.description = value;
+        return;
+      case 'canonical':
+      case 'seocanonical':
+        seo.canonical = value;
+        return;
+      case 'keywords':
+      case 'seokeywords':
+        seo.keywords = value;
+        return;
+      case 'robots':
+      case 'seorobots':
+        seo.robots = value;
+        return;
+      case 'image':
+      case 'seoimage':
+        seo.image = value;
+        return;
+      case 'imagetype':
+      case 'image_type':
+        seo.image_type = value;
+        return;
+      case 'imagewidth':
+      case 'image_width':
+        seo.image_width = this._parseNumberOrDefault(value, seo.image_width);
+        return;
+      case 'imageheight':
+      case 'image_height':
+        seo.image_height = this._parseNumberOrDefault(value, seo.image_height);
+        return;
+      case 'ogtype':
+      case 'og_type':
+        seo.og_type = value;
+        return;
+      case 'ogtitle':
+      case 'og_title':
+        seo.og_title = value;
+        return;
+      case 'ogdescription':
+      case 'og_description':
+        seo.og_description = value;
+        return;
+      case 'ogimage':
+      case 'og_image':
+        seo.og_image = value;
+        return;
+      case 'twittercard':
+      case 'twitter_card':
+        seo.twitter_card = value;
+        return;
+      case 'twittertitle':
+      case 'twitter_title':
+        seo.twitter_title = value;
+        return;
+      case 'twitterdescription':
+      case 'twitter_description':
+        seo.twitter_description = value;
+        return;
+      case 'twitterimage':
+      case 'twitter_image':
+        seo.twitter_image = value;
+        return;
+      case 'noindex':
+        if (boolValue !== null) {
+          seo.noindex = boolValue;
+        }
+        return;
+      case 'nofollow':
+        if (boolValue !== null) {
+          seo.nofollow = boolValue;
+        }
+        return;
+    }
+  }
+
+  private _parseNumberOrDefault(value: string, fallback: number | undefined): number | undefined {
+    const numericValue = Number(value);
+    if (!Number.isFinite(numericValue) || numericValue <= 0) {
+      return fallback;
+    }
+    return numericValue;
+  }
+
+  private _applyPageContext(data: IMarkdownFrontMatterData): void {
+    this._pageLayout.set({ ...data.layout });
+    this._pageSeo.set(data.seo ? { ...data.seo } : null);
+  }
+
+  private _resetPageContext(): void {
+    this._applyPageContext(this._getDefaultFrontMatterData());
+  }
+
+  private _getDefaultFrontMatterData(): IMarkdownFrontMatterData {
+    return {
+      layout: { ...DEFAULT_MARKDOWN_PAGE_LAYOUT_OPTIONS },
+      seo: null,
+    };
+  }
+}

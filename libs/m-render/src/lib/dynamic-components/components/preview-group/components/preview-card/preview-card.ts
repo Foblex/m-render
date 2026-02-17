@@ -11,10 +11,10 @@ import {
 import { startWith } from 'rxjs';
 import { Router } from '@angular/router';
 import { PreviewCardBase } from './preview-card-base';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThemeService } from '../../../../../theme';
 import { DocumentationStore, INavigationGroup, INavigationItem } from '../../../../../documentation-page';
 import { PreviewGroupService } from '../../preview-group.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'a[preview-card]',

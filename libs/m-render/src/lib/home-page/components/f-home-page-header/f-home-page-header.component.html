@@ -1,10 +1,6 @@
 <div class="content">
-  <a class="logo-link" href="" aria-label="Home">
-    <img [src]="logo" class="logo" alt="{{ title }} Logo" width="24" height="24"/>
-    <span class="title">{{ title }}</span>
-  </a>
+  <f-brand-link class="logo-link" [title]="title" [logo]="logo" [logoAlt]="title + ' Logo'" />
 
   <div class="flex-space"></div>
   <button theme-button aria-label="Change theme"></button>
 </div>
-

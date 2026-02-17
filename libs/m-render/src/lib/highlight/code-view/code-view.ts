@@ -3,7 +3,7 @@ import { catchError, take } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AVAILABLE_LANGUAGES, Highlight } from '../index';
+import { Highlight, resolveHighlightLanguage } from '../index';
 import { copyToClipboard, PopoverService } from '../../common';
 
 interface ContainerData {
@@ -89,19 +89,38 @@ export class CodeView implements OnInit {
 }
 
 function coerceComponentHeight(value: string | number | undefined): string | undefined {
-  if (value === undefined) {
+  if (value === undefined || value === null) {
     return undefined;
   }
-  value = Number(value);
-  if (value) {
-    return value + 'px';
+
+  if (typeof value === 'number') {
+    return Number.isFinite(value) && value > 0 ? `${ value }px` : undefined;
   }
+
+  const normalizedValue = value.trim();
+  if (!normalizedValue) return undefined;
+
+  if (normalizedValue === 'auto') return 'auto';
+
+  const numericValue = Number(normalizedValue);
+  if (Number.isFinite(numericValue) && numericValue > 0) {
+    return `${ numericValue }px`;
+  }
+
+  if (/^-?\d+(\.\d+)?(px|%|vh|vw|vmin|vmax|rem|em|ch|ex|cm|mm|in|pt|pc)$/i.test(normalizedValue)) {
+    return normalizedValue;
+  }
+
+  if (/^calc\(.+\)$/i.test(normalizedValue)) {
+    return normalizedValue;
+  }
+
   return undefined;
 }
 
 
 function parseLanguageFromFileExtension(url: string): string {
-  const match = url.match(/\.([0-9a-z]+)(?:[\?#]|$)/i);
+  const match = url.match(/\.([0-9a-z]+)(?:[?#]|$)/i);
 
   if (match) {
     let extension = match[1];
@@ -132,13 +151,10 @@ function parseSyntaxLanguage(language: string): string {
     default:
       result = extractLanguage(language);
   }
-  if(!AVAILABLE_LANGUAGES.includes(result)) {
-    result = 'text';
-  }
-  return result;
+  return resolveHighlightLanguage(result);
 }
 
 function extractLanguage(language: string): string {
-  const match = language.match(/^([^\s\[]+)/);
+  const match = language.match(/^([^\s[]+)/);
   return match ? match[1].toLowerCase() : language;
 }

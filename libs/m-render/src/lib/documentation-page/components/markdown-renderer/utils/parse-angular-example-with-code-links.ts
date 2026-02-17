@@ -25,16 +25,17 @@ export class ParseAngularExampleWithCodeLinks {
   private _collectData(tokens: IMarkdownItToken[], index: number): IParsedContainerData[] {
     const result: IParsedContainerData[] = [];
 
-    const component = this._parseNgComponent(tokens[index]);
-    const height = component?.height || 'auto';
-    if (component) {
+    const source = this._parseNgComponent(tokens[index]);
+    const height = source?.height || 'auto';
+    if (source) {
       result.push({
         tab: 'Example',
-        value: component.tag,
+        value: source.value,
         type: EParsedContainerType.EXAMPLE,
-        height: component.height || 'auto',
+        height,
       });
     }
+
     const content = getContent(tokens, index, EMarkdownContainerType.EXAMPLE_GROUP);
     const items = (content || '').split('\n').map(parseFileLinkLine).filter(Boolean) as {
       fileName: string,
@@ -52,15 +53,43 @@ export class ParseAngularExampleWithCodeLinks {
   }
 
   private _parseNgComponent(token: IMarkdownItToken): IMarkdownContainerData | null {
-    const cleanedInput = token.info.replace(/ng-component\s*/, '');
-    const tagMatch = cleanedInput.match(/<([a-zA-Z0-9-]+)>.*<\/\1>/);
-    const heightMatch = cleanedInput.match(/\[height\]="(\d+)"/);
+    const cleanedInput = token.info.replace(/^ng-component\s*/, '').trim();
+    const height = this._parseHeight(cleanedInput);
 
-    if (!tagMatch) return null;
+    const componentTag = cleanedInput.match(/<([a-zA-Z][a-zA-Z0-9-]*)(\s[^>]*)?>\s*<\/\1>/s)?.[0]?.trim();
+    if (componentTag) {
+      return {
+        value: componentTag,
+        height,
+      };
+    }
+
+    const explicitUrl = cleanedInput.match(/\[url\]=["']([^"']+)["']/)?.[1]?.trim();
+    if (explicitUrl) {
+      return {
+        value: explicitUrl,
+        height,
+      };
+    }
+
+    const implicitUrl = cleanedInput
+      .replace(/\[height\]=["'][^"']*["']/g, '')
+      .trim()
+      .replace(/^["']|["']$/g, '');
+
+    if (!implicitUrl || implicitUrl.includes('<')) return null;
 
     return {
-      tag: tagMatch[0],
-      height: heightMatch?.[1],
+      value: implicitUrl,
+      height,
     };
+  }
+
+  private _parseHeight(input: string): string | number | undefined {
+    const rawHeight = input.match(/\[height\]=["']([^"']+)["']/)?.[1]?.trim();
+    if (!rawHeight) return undefined;
+
+    const numericHeight = Number(rawHeight);
+    return Number.isFinite(numericHeight) ? numericHeight : rawHeight;
   }
 }
