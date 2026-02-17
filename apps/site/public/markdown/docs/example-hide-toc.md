@@ -6,19 +6,40 @@ toc: false
 
 This page disables table of contents using markdown frontmatter.
 
-## Frontmatter
+## When to use
+
+* Short pages where TOC adds visual noise.
+* Landing-style docs pages with only a few headings.
+* Blog posts where right-side navigation is not required.
+
+## Copy-paste template
 
 ```markdown
 ---
 toc: false
 ---
+
+# My page title
+
+Page content...
 ```
 
 ## Expected behavior
 
 * The on-page navigation block is hidden.
 * Page content width remains in standard mode.
-* Headings still render normally.
+* Heading anchors still work.
+
+## Verification steps
+
+1. Open the page.
+2. Confirm right-side TOC is not rendered.
+3. Confirm heading links still navigate by hash.
+
+## Common mistakes
+
+* Expecting content to become wider automatically.
+* Forgetting that `wideContent: true` is a separate flag.
 
 ## Additional section
 

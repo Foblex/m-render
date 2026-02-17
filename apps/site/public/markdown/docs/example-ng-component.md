@@ -5,7 +5,29 @@ This page demonstrates both modes of `ng-component`:
 * Angular component rendering
 * URL iframe rendering
 
+## Prerequisites
+
+1. Register component aliases in your configuration.
+2. Ensure source links are reachable in browser.
+3. Ensure iframe URLs allow embedding.
+
+## Register components
+
+```ts
+provideComponents([
+  defineLazyComponent('example', () => import('./example.component')),
+]);
+```
+
 ## Angular component mode
+
+```markdown
+::: ng-component <example></example> [height]="300"
+[component.html] <<< /assets/example.component.html
+[component.ts] <<< /assets/example.component.ts
+[component.scss] <<< /assets/example.component.scss
+:::
+```
 
 ::: ng-component <example></example> [height]="300"
 [component.html] <<< [https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.html](https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.html)
@@ -16,8 +38,8 @@ This page demonstrates both modes of `ng-component`:
 ## URL iframe mode
 
 ```markdown
-::: ng-component [url]="https://example.com" [height]="60vh"
-[component.ts] <<< /assets/component.ts
+::: ng-component [url]="https://example.com" [height]="420"
+[sample.ts] <<< /assets/sample.ts
 :::
 ```
 
@@ -25,7 +47,15 @@ This page demonstrates both modes of `ng-component`:
 [sample.ts] <<< [https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.ts](https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.ts)
 :::
 
+## Validation steps
+
+1. Confirm preview renders for component mode.
+2. Confirm source tabs open and switch correctly.
+3. Confirm iframe mode renders external page.
+4. Confirm full-screen toggle works in both modes.
+
 ## Notes
 
 * Full-screen mode is available in preview controls.
 * Some external URLs may block iframe embedding via CSP or `X-Frame-Options`.
+* If preview is empty, verify component alias registration and import path.
