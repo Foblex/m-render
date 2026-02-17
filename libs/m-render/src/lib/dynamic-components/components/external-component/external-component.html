@@ -7,9 +7,9 @@
           (click)="toggleFullscreen()"></button>
 }
 
-@if (iframeUrl()) {
+@if (iframeResourceUrl()) {
   <iframe class="f-example-iframe"
-          [src]="iframeUrl()!"
+          [src]="iframeResourceUrl()"
           loading="lazy"
           referrerpolicy="no-referrer"
           allow="fullscreen"

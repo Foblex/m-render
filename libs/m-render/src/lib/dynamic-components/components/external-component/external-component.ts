@@ -20,6 +20,7 @@ import { RenderExternalComponentRequest } from '../../features';
 import { parseIframeUrl } from './utils/parse-iframe-url';
 import { DOCUMENT } from '@angular/common';
 import { IS_BROWSER_PLATFORM } from '../../../common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'external-component',
@@ -46,6 +47,13 @@ export class ExternalComponent implements OnInit {
   });
 
   protected readonly iframeUrl = computed(() => this.data().iframeUrl);
+  protected readonly iframeResourceUrl = computed<SafeResourceUrl | undefined>(() => {
+    const url = this.iframeUrl();
+    if (!url) {
+      return undefined;
+    }
+    return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+  });
   protected readonly hasContent = computed(() => !!this.data().selector || !!this.data().iframeUrl);
   protected readonly canToggleFullscreen = computed(() => {
     return this._isBrowser
@@ -61,6 +69,7 @@ export class ExternalComponent implements OnInit {
   private readonly _isBrowser = inject(IS_BROWSER_PLATFORM);
   private readonly _mediatr = inject(Mediatr);
   private readonly _viewContainerRef = viewChild.required('container', { read: ViewContainerRef });
+  private readonly _sanitizer = inject(DomSanitizer);
 
   public ngOnInit(): void {
     const selector = this.data().selector;
