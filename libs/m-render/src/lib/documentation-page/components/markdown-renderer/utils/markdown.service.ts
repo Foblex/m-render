@@ -23,7 +23,7 @@ export class MarkdownService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _domSanitizer = inject(DomSanitizer);
   private readonly _router = inject(Router);
-  private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER, {optional: true});
+  private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER, { optional: true });
 
   constructor() {
     this._markdown

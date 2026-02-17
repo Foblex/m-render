@@ -120,7 +120,7 @@ function coerceComponentHeight(value: string | number | undefined): string | und
 
 
 function parseLanguageFromFileExtension(url: string): string {
-  const match = url.match(/\.([0-9a-z]+)(?:[\?#]|$)/i);
+  const match = url.match(/\.([0-9a-z]+)(?:[?#]|$)/i);
 
   if (match) {
     let extension = match[1];
@@ -158,6 +158,6 @@ function parseSyntaxLanguage(language: string): string {
 }
 
 function extractLanguage(language: string): string {
-  const match = language.match(/^([^\s\[]+)/);
+  const match = language.match(/^([^\s[]+)/);
   return match ? match[1].toLowerCase() : language;
 }
