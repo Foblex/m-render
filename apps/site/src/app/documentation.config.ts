@@ -25,6 +25,7 @@ export const DOCUMENTATION_CONFIGURATION = {
     provideNavigation(
       introduction(),
       writing(),
+      examples(),
     ),
     provideHeader(
       provideHeaderNavigation([{
@@ -95,5 +96,33 @@ function writing() {
     image: './images/extensions-preview.png',
     image_width: 3188,
     image_height: 1740,
+  }]);
+}
+
+function examples() {
+  return defineNavigationGroup('Examples', [{
+    link: 'examples-overview',
+    text: 'Examples Overview',
+    description: 'Overview page with links and explanation of all examples.',
+  }, {
+    link: 'example-hide-toc',
+    text: 'TOC Disabled',
+    description: 'Demonstrates how to disable table of contents for a single markdown page.',
+  }, {
+    link: 'example-hide-toc-wide-content',
+    text: 'TOC Disabled + Wide',
+    description: 'Demonstrates wider content layout when table of contents is hidden.',
+  }, {
+    link: 'example-seo-overrides',
+    text: 'SEO Overrides',
+    description: 'Demonstrates page-level SEO and social metadata overrides from markdown frontmatter.',
+  }, {
+    link: 'example-ng-component',
+    text: 'ng-component Demo',
+    description: 'Demonstrates Angular component preview and URL iframe mode in markdown.',
+  }, {
+    link: 'example-code-group-alerts',
+    text: 'Code Group and Alerts',
+    description: 'Demonstrates code tabs, alert containers and grouped preview blocks.',
   }]);
 }

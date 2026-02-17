@@ -6,11 +6,16 @@
     width: calc(100% - var(--on-page-navigation-width) - var(--page-padding));
   }
 
+  &.expand-no-toc {
+    @media (min-width: 1280px) {
+      width: 100%;
+    }
+  }
+
   &.empty-navigation {
     margin: auto;
     max-width: 900px;
   }
 }
-
 
 

@@ -21,4 +21,14 @@ export interface IMetaData {
   image_width: number;
 
   image_height: number;
+
+  keywords?: string;
+
+  robots?: string;
+
+  twitter_card?: string;
+
+  twitter_site?: string;
+
+  twitter_creator?: string;
 }

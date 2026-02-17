@@ -2,6 +2,33 @@
 
 MRender extends standard Markdown syntax with custom containers and helpers to improve interactivity, clarity, and integration with Angular components.
 
+## ⚙️ Page Frontmatter (TOC + SEO)
+
+You can control layout and SEO directly from a markdown file using frontmatter at the top of the file:
+
+```markdown
+---
+toc: false
+wideContent: true
+title: "Markdown Extensions | MRender"
+description: "Custom markdown containers, TOC controls, and SEO frontmatter support."
+keywords: "angular, markdown, docs"
+robots: "index, follow"
+ogImage: "https://m-render.foblex.com/site-preview.png"
+twitterCard: "summary_large_image"
+---
+```
+
+Available frontmatter keys:
+
+| Key | Purpose |
+| --- | --- |
+| `toc` | Enables/disables Table of Contents for current page (`false` hides TOC) |
+| `wideContent` | Expands content width into TOC area (works when `toc: false`) |
+| `title`, `description`, `canonical`, `keywords`, `robots` | Page-level SEO overrides |
+| `ogType`, `ogTitle`, `ogDescription`, `ogImage` | Open Graph overrides |
+| `twitterCard`, `twitterTitle`, `twitterDescription`, `twitterImage` | Twitter card overrides |
+
 ## 📑 Code Group
 
 Use `code-group` to display multiple code blocks as tabs. Each block will appear in a separate tab with the name defined inside `[...]`.
