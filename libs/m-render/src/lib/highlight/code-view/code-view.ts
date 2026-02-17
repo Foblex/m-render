@@ -3,7 +3,7 @@ import { catchError, take } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AVAILABLE_LANGUAGES, Highlight } from '../index';
+import { Highlight, resolveHighlightLanguage } from '../index';
 import { copyToClipboard, PopoverService } from '../../common';
 
 interface ContainerData {
@@ -151,10 +151,7 @@ function parseSyntaxLanguage(language: string): string {
     default:
       result = extractLanguage(language);
   }
-  if(!AVAILABLE_LANGUAGES.includes(result)) {
-    result = 'text';
-  }
-  return result;
+  return resolveHighlightLanguage(result);
 }
 
 function extractLanguage(language: string): string {
