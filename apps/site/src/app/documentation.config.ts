@@ -1,52 +1,23 @@
 import {
-  defineLazyComponent,
   defineNavigationGroup,
-  provide404Markdown,
-  provideComponents,
-  provideDirectory,
-  provideMeta,
   provideFooterNavigation,
-  provideHeader,
-  provideHeaderMediaLinks,
-  provideLanguage,
-  provideLogo,
-  provideNavigation,
-  provideTitle,
-  provideTableOfContent, provideHeaderNavigation,
 } from '@foblex/m-render';
+import { createDocumentationSectionConfiguration } from './documentation-section.factory';
+
+const BASE_DOCUMENTATION_CONFIGURATION = createDocumentationSectionConfiguration({
+  docsDir: './markdown/docs/',
+  withDemoComponents: true,
+  withTableOfContent: true,
+  navigation: [
+    introduction(),
+    writing(),
+    examples(),
+  ],
+});
 
 export const DOCUMENTATION_CONFIGURATION = {
   providers: [
-    provideLanguage('en'),
-    provideDirectory('./markdown/docs/'),
-    provide404Markdown('./markdown/404.md'),
-    provideLogo('./logo.svg'),
-    provideTitle('MRender'),
-    provideNavigation(
-      introduction(),
-      writing(),
-      examples(),
-    ),
-    provideHeader(
-      provideHeaderNavigation([{
-        link: '/docs/what-is-mrender',
-        active: '/docs',
-        text: 'What is MRender?',
-      }, {
-        link: '/showcase/overview',
-        active: '/showcase',
-        text: 'Showcase',
-      }]),
-      provideHeaderMediaLinks([
-        { icon: 'github', link: 'https://github.com/Foblex/m-render' },
-        { icon: 'twitter', link: 'https://x.com/foblexflow' },
-      ]),
-    ),
-    provideComponents([
-      defineLazyComponent('example', () => import('../../../../libs/public/example/example.component')),
-      defineLazyComponent('draggable-flow', () => import('../../../../libs/public/draggable-flow/draggable-flow.component')),
-    ]),
-    provideTableOfContent(),
+    ...BASE_DOCUMENTATION_CONFIGURATION.providers,
     provideFooterNavigation({
       editLink: {
         pattern: 'https://github.com/foblex/m-render/edit/main/public/docs/en/',
@@ -54,18 +25,6 @@ export const DOCUMENTATION_CONFIGURATION = {
       },
       previous: 'Previous Page',
       next: 'Next Page',
-    }),
-    provideMeta({
-      url: 'https://m-render.foblex.com',
-      type: 'website',
-      title: 'Angular Library for rendering Markdown files - Foblex MRender',
-      app_name: 'Foblex MRender',
-      locale: 'en',
-      description: 'Foblex MRender is an Angular library for rendering Markdown files by extending their functionality with support for Angular components and code snippets.',
-      image: 'https://m-render.foblex.com/site-preview.png',
-      image_type: 'image/png',
-      image_width: 2986,
-      image_height: 1926,
     }),
   ],
 };

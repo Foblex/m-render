@@ -4,11 +4,11 @@ This section contains practical pages that demonstrate MRender features in isola
 
 ## What is included
 
-* [TOC Disabled](./example-hide-toc)
-* [TOC Disabled + Wide Content](./example-hide-toc-wide-content)
-* [SEO Overrides](./example-seo-overrides)
-* [ng-component Demo](./example-ng-component)
-* [Code Group and Alerts](./example-code-group-alerts)
+* [TOC Disabled](example-hide-toc)
+* [TOC Disabled + Wide Content](example-hide-toc-wide-content)
+* [SEO Overrides](example-seo-overrides)
+* [ng-component Demo](example-ng-component)
+* [Code Group and Alerts](example-code-group-alerts)
 
 ## Why separate pages
 
