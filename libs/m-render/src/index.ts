@@ -5,5 +5,5 @@ export * from './lib/dynamic-components';
 export * from './lib/highlight';
 export * from './lib/home-page';
 export * from './lib/mediatr';
+export * from './lib/shared';
 export * from './lib/theme';
-

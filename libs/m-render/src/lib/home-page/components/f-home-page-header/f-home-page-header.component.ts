@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { HomeStore } from '../../services';
 import { ThemeButtonComponent } from '../../../theme';
+import { FBrandLinkComponent } from '../../../shared';
 
 @Component({
   selector: 'header[f-home-page-header]',
@@ -8,6 +9,7 @@ import { ThemeButtonComponent } from '../../../theme';
   styleUrl: './f-home-page-header.component.scss',
   standalone: true,
   imports: [
+    FBrandLinkComponent,
     ThemeButtonComponent,
   ],
 })

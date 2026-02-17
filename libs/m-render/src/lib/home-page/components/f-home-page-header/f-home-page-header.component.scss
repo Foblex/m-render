@@ -6,7 +6,11 @@
   .logo-link {
     display: flex;
     align-items: center;
-    text-decoration: none;
+    color: var(--primary-text);
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    min-width: 0;
   }
 
   .content {
@@ -19,20 +23,6 @@
     margin: 0 auto;
   }
 
-  .logo {
-    margin-right: 8px;
-  }
-
-  .title {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid transparent;
-    width: 100%;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--primary-text);
-  }
-
   @media (min-width: 640px) {
     padding: 0 48px;
   }
@@ -40,13 +30,4 @@
   @media (min-width: 960px) {
     padding: 0 64px;
   }
-}
-
-.divider {
-  margin-right: 8px;
-  margin-left: 8px;
-  width: 1px;
-  height: 24px;
-  background-color: var(--divider-color);
-  content: "";
 }
