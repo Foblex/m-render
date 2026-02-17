@@ -18,4 +18,21 @@
   }
 }
 
+.origin-link {
+  margin: 0 0 16px;
+  border-left: 2px solid var(--divider-color);
+  padding: 8px 12px;
+  background-color: var(--soft-background);
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.origin-link-label {
+  margin-right: 4px;
+  font-weight: 600;
+}
+
+.origin-link a {
+  overflow-wrap: anywhere;
+}
 

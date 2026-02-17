@@ -26,6 +26,13 @@ You can override:
 * `keywords`, `robots`
 * Open Graph and Twitter fields
 
+## Origin link for reposted articles
+
+For articles that were published first on another platform (for example Medium), we add:
+
+* `origin` with the external URL
+* `originLabel` with custom text (optional)
+
 ## Example snippet
 
 ```markdown
@@ -34,5 +41,7 @@ toc: false
 wideContent: true
 title: "My article"
 description: "My article description"
+origin: "https://medium.com/@your-name/my-post"
+originLabel: "Originally published on Medium"
 ---
 ```

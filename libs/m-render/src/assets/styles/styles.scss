@@ -1,15 +1,15 @@
-@import "./_variables";
-@import "./_badge";
-@import "./_alert";
-@import "./_button";
-@import "./_fonts";
-@import "./_icons";
-@import "./_preview-group";
-@import "./_code-group";
-@import "./_code-view";
-@import "./_code-highlight";
-@import './_doc-text';
-@import "./_table";
+@use "./variables";
+@use "./badge";
+@use "./alert";
+@use "./button";
+@use "./fonts";
+@use "./icons";
+@use "./preview-group";
+@use "./code-group";
+@use "./code-view";
+@use "./code-highlight";
+@use "./doc-text";
+@use "./table";
 
 html {
   height: 100%;

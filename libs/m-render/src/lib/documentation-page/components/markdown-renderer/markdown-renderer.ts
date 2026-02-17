@@ -23,6 +23,7 @@ import { Mediatr } from '../../../mediatr';
 import { RenderInternalComponentsRequest } from '../../../dynamic-components';
 import { CalculateTableOfContentRequest } from '../table-of-content';
 import { SCROLLABLE_CONTAINER } from '../scrollable-container';
+import type { IMarkdownOriginData } from './utils';
 
 @Component({
   selector: 'markdown-renderer',
@@ -37,6 +38,7 @@ import { SCROLLABLE_CONTAINER } from '../scrollable-container';
 })
 export class MarkdownRenderer implements OnInit, OnDestroy {
   public readonly value = input.required<SafeHtml | undefined>();
+  public readonly origin = input<IMarkdownOriginData | null>(null);
 
   private readonly _hostElement = inject(ElementRef).nativeElement;
   private readonly _router = inject(Router);

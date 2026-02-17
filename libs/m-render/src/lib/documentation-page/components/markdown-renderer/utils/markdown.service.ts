@@ -8,6 +8,7 @@ import {
   EMarkdownContainerType,
   IMarkdownFrontMatterData,
   IMarkdownFrontMatterParseResult,
+  IMarkdownOriginData,
   IMarkdownPageLayoutOptions,
   ParseAlerts,
   ParseAngularExampleWithCodeLinks,
@@ -21,6 +22,11 @@ import { Router } from '@angular/router';
 import { F_PREVIEW_NAVIGATION_PROVIDER } from './domain';
 import { ISeoOverrides } from '../../../analytics';
 
+interface IMarkdownOriginDraft {
+  url: string | null;
+  label: string | null;
+}
+
 @Injectable()
 export class MarkdownService {
 
@@ -31,9 +37,11 @@ export class MarkdownService {
   private readonly _provider = inject(F_PREVIEW_NAVIGATION_PROVIDER, { optional: true });
   private readonly _pageLayout = signal<IMarkdownPageLayoutOptions>({ ...DEFAULT_MARKDOWN_PAGE_LAYOUT_OPTIONS });
   private readonly _pageSeo = signal<ISeoOverrides | null>(null);
+  private readonly _pageOrigin = signal<IMarkdownOriginData | null>(null);
 
   public readonly pageLayout = this._pageLayout.asReadonly();
   public readonly pageSeo = this._pageSeo.asReadonly();
+  public readonly pageOrigin = this._pageOrigin.asReadonly();
 
   constructor() {
     this._markdown
@@ -137,18 +145,25 @@ export class MarkdownService {
   private _parseFrontMatterData(rawFrontMatter: string): IMarkdownFrontMatterData {
     const layout: IMarkdownPageLayoutOptions = { ...DEFAULT_MARKDOWN_PAGE_LAYOUT_OPTIONS };
     const seo: ISeoOverrides = {};
+    const origin: IMarkdownOriginDraft = { url: null, label: null };
 
     rawFrontMatter
       .split(/\r?\n/)
-      .forEach((line) => this._parseFrontMatterLine(line, layout, seo));
+      .forEach((line) => this._parseFrontMatterLine(line, layout, seo, origin));
 
     return {
       layout,
       seo: Object.keys(seo).length ? seo : null,
+      origin: this._resolveOrigin(origin),
     };
   }
 
-  private _parseFrontMatterLine(line: string, layout: IMarkdownPageLayoutOptions, seo: ISeoOverrides): void {
+  private _parseFrontMatterLine(
+    line: string,
+    layout: IMarkdownPageLayoutOptions,
+    seo: ISeoOverrides,
+    origin: IMarkdownOriginDraft,
+  ): void {
     const normalizedLine = line.trim();
     if (!normalizedLine || normalizedLine.startsWith('#')) {
       return;
@@ -168,6 +183,7 @@ export class MarkdownService {
     const boolValue = this._parseBoolean(value);
     this._applyLayoutKey(key, boolValue, layout);
     this._applySeoKey(key, value, boolValue, seo);
+    this._applyOriginKey(key, value, origin);
   }
 
   private _normalizeFrontMatterValue(value: string): string {
@@ -300,6 +316,77 @@ export class MarkdownService {
     }
   }
 
+  private _applyOriginKey(key: string, value: string, origin: IMarkdownOriginDraft): void {
+    switch (key) {
+      case 'origin':
+      case 'originurl':
+      case 'origin_url':
+      case 'original':
+      case 'originalurl':
+      case 'original_url':
+      case 'source':
+      case 'sourceurl':
+      case 'source_url': {
+        const normalizedUrl = this._normalizeOriginUrl(value);
+        if (normalizedUrl) {
+          origin.url = normalizedUrl;
+        }
+        return;
+      }
+      case 'originlabel':
+      case 'origin_label':
+      case 'origintext':
+      case 'origin_text':
+      case 'sourcelabel':
+      case 'source_label':
+        origin.label = value;
+        return;
+    }
+  }
+
+  private _normalizeOriginUrl(value: string): string | null {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return null;
+    }
+
+    const candidate = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${ trimmed }`;
+
+    try {
+      const url = new URL(candidate);
+      if (![ 'http:', 'https:' ].includes(url.protocol)) {
+        return null;
+      }
+      return url.toString();
+    } catch {
+      return null;
+    }
+  }
+
+  private _resolveOrigin(origin: IMarkdownOriginDraft): IMarkdownOriginData | null {
+    if (!origin.url) {
+      return null;
+    }
+
+    return {
+      url: origin.url,
+      label: origin.label || this._getOriginLabel(origin.url),
+    };
+  }
+
+  private _getOriginLabel(originUrl: string): string {
+    try {
+      const hostname = new URL(originUrl).hostname.toLowerCase().replace(/^www\./, '');
+      if (hostname === 'medium.com' || hostname.endsWith('.medium.com')) {
+        return 'Originally published on Medium';
+      }
+
+      return `Originally published on ${ hostname }`;
+    } catch {
+      return 'Originally published externally';
+    }
+  }
+
   private _parseNumberOrDefault(value: string, fallback: number | undefined): number | undefined {
     const numericValue = Number(value);
     if (!Number.isFinite(numericValue) || numericValue <= 0) {
@@ -311,6 +398,7 @@ export class MarkdownService {
   private _applyPageContext(data: IMarkdownFrontMatterData): void {
     this._pageLayout.set({ ...data.layout });
     this._pageSeo.set(data.seo ? { ...data.seo } : null);
+    this._pageOrigin.set(data.origin ? { ...data.origin } : null);
   }
 
   private _resetPageContext(): void {
@@ -321,6 +409,7 @@ export class MarkdownService {
     return {
       layout: { ...DEFAULT_MARKDOWN_PAGE_LAYOUT_OPTIONS },
       seo: null,
+      origin: null,
     };
   }
 }

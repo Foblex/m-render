@@ -30,6 +30,7 @@ export class MarkdownRouter {
   private readonly _metaService = inject(FMetaService, { optional: true });
 
   protected readonly emptyNavigation = !this._dataProvider.getNavigation().length;
+  protected readonly pageOrigin = this._markdown.pageOrigin;
   protected readonly shouldExpandContent = computed(() => {
     const layout = this._markdown.pageLayout();
     return layout.hideTableOfContent && layout.expandContentWithoutTableOfContent;

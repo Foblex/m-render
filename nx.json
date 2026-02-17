@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "neverConnectToCloud": true,
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
@@ -22,7 +23,6 @@
       "{workspaceRoot}/.github/workflows/ci.yml"
     ]
   },
-  "nxCloudId": "6829b93bf0eb866e6f42d0e5",
   "targetDefaults": {
     "@angular-devkit/build-angular:browser": {
       "cache": true,

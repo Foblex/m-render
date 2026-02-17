@@ -5,9 +5,15 @@ export interface IMarkdownPageLayoutOptions {
   expandContentWithoutTableOfContent: boolean;
 }
 
+export interface IMarkdownOriginData {
+  url: string;
+  label: string;
+}
+
 export interface IMarkdownFrontMatterData {
   layout: IMarkdownPageLayoutOptions;
   seo: ISeoOverrides | null;
+  origin: IMarkdownOriginData | null;
 }
 
 export interface IMarkdownFrontMatterParseResult {

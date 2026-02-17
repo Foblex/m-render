@@ -14,6 +14,8 @@ title: "Markdown Extensions | MRender"
 description: "Custom markdown containers, TOC controls, and SEO frontmatter support."
 keywords: "angular, markdown, docs"
 robots: "index, follow"
+origin: "https://medium.com/@your-name/my-post"
+originLabel: "Originally published on Medium"
 ogImage: "https://m-render.foblex.com/site-preview.png"
 twitterCard: "summary_large_image"
 ---
@@ -25,6 +27,7 @@ Available frontmatter keys:
 | --- | --- |
 | `toc` | Enables/disables Table of Contents for current page (`false` hides TOC) |
 | `wideContent` | Expands content width into TOC area (works when `toc: false`) |
+| `origin`, `originLabel` | Shows external article origin link above content (for reposted articles) |
 | `title`, `description`, `canonical`, `keywords`, `robots` | Page-level SEO overrides |
 | `ogType`, `ogTitle`, `ogDescription`, `ogImage` | Open Graph overrides |
 | `twitterCard`, `twitterTitle`, `twitterDescription`, `twitterImage` | Twitter card overrides |
