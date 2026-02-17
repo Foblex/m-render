@@ -24,7 +24,7 @@ import {
 } from '../common';
 import { FMetaService } from './analytics';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CookiePopupComponent } from '../analytics/cookie-popup/cookie-popup.component';
+import { CookiePopup } from '../analytics/cookie-popup/cookie-popup';
 import { GTagService } from '../analytics';
 import { EXTERNAL_COMPONENT_PROVIDER, SHOWCASE_DATA } from '../dynamic-components';
 
@@ -71,7 +71,7 @@ import { EXTERNAL_COMPONENT_PROVIDER, SHOWCASE_DATA } from '../dynamic-component
     ScrollableContainer,
     RouterOutlet,
     HeaderComponent,
-    CookiePopupComponent,
+    CookiePopup,
   ],
 })
 export class Documentation implements IToggleNavigationComponent, OnInit, OnDestroy {
