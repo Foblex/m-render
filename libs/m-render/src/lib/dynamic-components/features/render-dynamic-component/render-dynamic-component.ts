@@ -20,14 +20,15 @@ export class RenderDynamicComponent implements IExecution<RenderDynamicComponent
 
   private _renderComponent({ selector, component }: IDynamicComponentItem, viewContainerRef: ViewContainerRef, element?: HTMLElement): void {
     component.then(extracted => {
+      if (!extracted) {
+        this._logComponentResolutionError(selector);
+        return;
+      }
+
       const componentRef = viewContainerRef.createComponent(extracted);
       this._dynamicStore.addComponent(componentRef, element);
 
       element?.replaceWith(this._extractComponentRoot(componentRef));
-
-      if (!extracted) {
-        this._logComponentResolutionError(selector);
-      }
     }).catch(error => this._logComponentLoadingError(selector, error));
   }
 

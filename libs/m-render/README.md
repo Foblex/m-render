@@ -109,7 +109,7 @@ export const routes: Routes = [
 
 ### `ng-component`
 
-Render Angular components with optional height and linked source code:
+Render Angular components or external URLs (via `iframe`) with optional height and linked source code:
 
 ```markdown
 ::: ng-component <component-selector></component-selector> [height]="YOUR EXAMPLE HEIGHT"
@@ -117,6 +117,14 @@ Render Angular components with optional height and linked source code:
 [component.html] <<< /assets/component.html
 :::
 ```
+
+```markdown
+::: ng-component [url]="https://example.com" [height]="60vh"
+[component.ts] <<< /assets/component.ts
+:::
+```
+
+`ng-component` supports full-screen mode out of the box for both Angular previews and iframe previews.
 
 ### `code-group`
 

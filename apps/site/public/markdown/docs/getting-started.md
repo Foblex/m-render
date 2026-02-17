@@ -101,7 +101,7 @@ export const routes: Routes = [
 
 ### `ng-component`
 
-Render Angular components with optional height and linked source code:
+Render Angular components or external URLs (via `iframe`) with optional height and linked source code:
 
 ```markdown
 ::: ng-component <component-selector></component-selector> [height]="YOUR EXAMPLE HEIGHT"
@@ -109,6 +109,14 @@ Render Angular components with optional height and linked source code:
 [component.html] <<< /assets/component.html
 :::
 ```
+
+```markdown
+::: ng-component [url]="https://example.com/demo" [height]="60vh"
+[component.ts] <<< /assets/component.ts
+:::
+```
+
+`ng-component` supports full-screen mode for both Angular previews and iframe previews.
 
 ### `code-group`
 
@@ -151,6 +159,5 @@ This is a tip block
 ## 🧑‍💻 Contributing
 
 Open for contributions, feedback and PRs. [GitHub](https://github.com/Foblex/m-render)
-
 
 

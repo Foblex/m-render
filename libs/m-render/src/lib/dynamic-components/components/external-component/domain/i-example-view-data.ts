@@ -1,4 +1,5 @@
 export interface IExampleViewData {
-  value: string;
+  selector?: string;
+  iframeUrl?: string;
   height?: string | number;
 }

@@ -32,8 +32,23 @@ export function isClosingToken(token: IMarkdownItToken): boolean {
 }
 
 export function parseFileLinkLine(line: string): { fileName: string, url: string } | null {
-  const match = line.match(/\[(.+?)\] <<< (.+)/);
-  return match ? { fileName: match[1], url: match[2] } : null;
+  const match = line.match(/\[(.+?)\]\s*<<<\s*(.+)/);
+  if (!match) return null;
+
+  const fileName = match[1].trim();
+  let url = match[2].trim();
+
+  const markdownLink = url.match(/^\[[^\]]+]\((.+)\)$/);
+  if (markdownLink) {
+    url = markdownLink[1].trim();
+  }
+
+  const angleWrapped = url.match(/^<(.+)>$/);
+  if (angleWrapped) {
+    url = angleWrapped[1].trim();
+  }
+
+  return url ? { fileName, url } : null;
 }
 
 export function parseSingleBracketText(line: string): string | null {

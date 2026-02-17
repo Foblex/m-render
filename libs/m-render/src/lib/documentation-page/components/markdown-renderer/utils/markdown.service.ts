@@ -32,7 +32,6 @@ export class MarkdownService {
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_INFO, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_WARNING, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_DANGER, this._markdown))
-      .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_DANGER, this._markdown))
       .use(...new ParseAlerts().render(EMarkdownContainerType.ALERT_SUCCESS, this._markdown))
       .use(...new ParseGroupedCodeItems().render())
       .use(...new ParsePreviewGroup(this._provider?.getNavigation() || []).render())
@@ -93,4 +92,3 @@ export class MarkdownService {
     return html.replace(/<p>(\[[^\]]+\](\s*\[[^\]]+\])*)<\/p>/g, '');
   }
 }
-

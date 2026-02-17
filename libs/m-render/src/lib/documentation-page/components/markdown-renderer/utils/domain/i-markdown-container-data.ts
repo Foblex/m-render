@@ -1,4 +1,4 @@
 export interface IMarkdownContainerData {
-  tag: string;
-  height?: string;
+  value: string;
+  height?: string | number;
 }

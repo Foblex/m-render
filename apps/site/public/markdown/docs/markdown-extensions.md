@@ -34,7 +34,7 @@ console.log('Hello World');
 
 ## 🧩 Angular Component Preview (`ng-component`)
 
-Embed an Angular component and attach source code tabs using the `ng-component` container. This allows for live demos alongside their source files.
+Embed an Angular component or a URL in an `iframe` and attach source code tabs using the `ng-component` container. This allows for live demos alongside their source files.
 
 ### Register the component
 
@@ -54,6 +54,12 @@ provideComponents([
 :::
 ```
 
+```markdown
+::: ng-component [url]="https://example.com" [height]="60vh"
+[component.ts] <<< LINK_TO_TS
+:::
+```
+
 ### Example rendered output
 
 ::: ng-component <example></example> [height]="300"
@@ -61,6 +67,8 @@ provideComponents([
 [component.ts] <<< [https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.ts](https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.ts)
 [component.scss] <<< [https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.scss](https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.scss)
 :::
+
+`ng-component` supports full-screen mode for both Angular preview and URL iframe preview.
 
 ## 🧩 Markdown Pages Preview 
 
@@ -117,7 +125,7 @@ This is a critical warning.
 | Syntax                                        | Purpose                                    |
 | --------------------------------------------- | ------------------------------------------ |
 | `code-group`                                  | Group multiple code examples into tabs     |
-| `ng-component`                                | Render Angular component with source files |
+| `ng-component`                                | Render Angular component or URL iframe with source files |
 | `preview-group`                               | Visual group of preview components         |
 | `tip`, `danger`, `info`, `warning`, `success` | Highlight content with alert styles        |
 
