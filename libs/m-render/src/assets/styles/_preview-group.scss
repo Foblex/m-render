@@ -9,3 +9,12 @@
     overflow: hidden;
   }
 }
+
+@media (max-width: 959px) {
+  .m-render {
+    .f-preview-group {
+      width: calc(100% + (var(--page-padding) * 2));
+      margin-inline: calc(var(--page-padding) * -1);
+    }
+  }
+}
