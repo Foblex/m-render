@@ -76,6 +76,10 @@ function examples() {
     text: 'SEO Overrides',
     description: 'Demonstrates page-level SEO and social metadata overrides from markdown frontmatter.',
   }, {
+    link: 'example-origin-link',
+    text: 'Origin Link',
+    description: 'Demonstrates source/origin block rendered from markdown frontmatter.',
+  }, {
     link: 'example-ng-component',
     text: 'ng-component Demo',
     description: 'Demonstrates Angular component preview and URL iframe mode in markdown.',

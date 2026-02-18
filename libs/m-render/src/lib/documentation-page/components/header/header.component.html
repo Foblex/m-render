@@ -10,6 +10,11 @@
   </div>
 }
 
+@if (config.search) {
+  <f-search-button [configuration]="config.searchConfiguration"></f-search-button>
+  <div class="divider search-divider"></div>
+}
+
 <div class="collapsable-row" #container>
   <div #target class="target" [class.hidden]="initialized() && overflowed()">
     @if (config.navigation) {

@@ -16,7 +16,7 @@ import { InlineMenu } from './components/inline-menu';
 import { MediaLinks } from './components/media-links';
 import { DropdownMenu } from './components/dropdown-menu';
 import { HEADER_CONFIGURATION_PROVIDER } from '../../../common';
-import { FBrandLinkComponent } from '../../../shared';
+import { FBrandLinkComponent, FSearchButtonComponent } from '../../../shared';
 
 @Component({
   selector: 'f-header',
@@ -27,6 +27,7 @@ import { FBrandLinkComponent } from '../../../shared';
   imports: [
     HamburgerButton,
     FBrandLinkComponent,
+    FSearchButtonComponent,
     ThemeButtonComponent,
     InlineMenu,
     DropdownMenu,

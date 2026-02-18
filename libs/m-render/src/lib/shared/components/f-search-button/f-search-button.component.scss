@@ -1,13 +1,46 @@
-.f-icon {
+:host {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fallback-search {
   display: block;
   width: 20px;
   height: 20px;
-  margin-left: 8px;
   color: var(--sponsor);
   cursor: pointer;
-  transition: transform 0.2s ease;
+}
 
-  &:hover {
-    transform: scale(1.1);
-  }
+:host ::ng-deep .DocSearch-Button {
+  margin: 0;
+  border: 1px solid var(--divider-color);
+  border-radius: 6px;
+  width: 36px;
+  min-width: 36px;
+  height: 32px;
+  padding: 0;
+  background: var(--code-view-copy-button-background);
+  color: var(--secondary-text);
+}
+
+:host ::ng-deep .DocSearch-Button:hover {
+  background: var(--soft-background);
+}
+
+:host ::ng-deep .DocSearch-Button-Placeholder,
+:host ::ng-deep .DocSearch-Button-Keys,
+:host ::ng-deep .DocSearch-Search-Icon + span {
+  display: none;
+}
+
+:host ::ng-deep .DocSearch-Search-Icon {
+  width: 18px;
+  height: 18px;
 }

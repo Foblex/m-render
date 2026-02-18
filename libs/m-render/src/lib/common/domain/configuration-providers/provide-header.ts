@@ -11,6 +11,7 @@ export function provideHeader(
 export interface IHeaderConfiguration {
 
   search?: boolean;
+  searchConfiguration?: IHeaderSearchConfiguration;
 
   navigation?: IHeaderMenuLink[];
 
@@ -20,4 +21,13 @@ export interface IHeaderConfiguration {
 export interface IHasHeaderConfiguration {
 
   header?: IHeaderConfiguration;
+}
+
+export interface IHeaderSearchConfiguration {
+  appId: string;
+  apiKey: string;
+  indexName: string;
+  placeholder?: string;
+  insights?: boolean;
+  searchParameters?: Record<string, unknown>;
 }

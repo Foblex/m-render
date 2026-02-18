@@ -54,7 +54,7 @@ export const HOME_CONFIGURATION = {
 import {
   provideDirectory, provideNavigation, provideComponents,
   provideTableOfContent, provideHeader, provideFooterNavigation,
-  provideMeta
+  provideMeta, provideHeaderSearchAlgolia
 } from '@foblex/m-render';
 
 export const DOCUMENTATION_CONFIGURATION = {
@@ -68,6 +68,22 @@ export const DOCUMENTATION_CONFIGURATION = {
     provideMeta({ ... }),
   ],
 };
+```
+
+### Algolia Search + Ask AI
+
+Configure the header search button with your Algolia index.
+If Ask AI is enabled for this index in Algolia, it appears automatically in the search modal.
+
+```ts
+provideHeader(
+  provideHeaderSearchAlgolia({
+    appId: 'YOUR_APP_ID',
+    apiKey: 'YOUR_SEARCH_ONLY_API_KEY',
+    indexName: 'YOUR_INDEX_NAME',
+    placeholder: 'Ask AI / Search',
+  }),
+);
 ```
 
 ### Route Setup
@@ -159,5 +175,4 @@ This is a tip block
 ## 🧑‍💻 Contributing
 
 Open for contributions, feedback and PRs. [GitHub](https://github.com/Foblex/m-render)
-
 

@@ -1,12 +1,16 @@
-@if (origin(); as pageOrigin) {
-  <p class="origin-link">
-    <span class="origin-link-label">{{ pageOrigin.label }}:</span>
-    <a [href]="pageOrigin.url"
-       target="_blank"
-       rel="noopener noreferrer nofollow">{{ pageOrigin.url }}</a>
-  </p>
-}
 <div [innerHTML]="value()"></div>
+@if (origin(); as pageOrigin) {
+  <aside class="origin-link" role="note">
+    <span class="origin-link-icon" aria-hidden="true"></span>
+    <div class="origin-link-content">
+      <span class="origin-link-label">{{ pageOrigin.label }}</span>
+      <a class="origin-link-url"
+         [href]="pageOrigin.url"
+         target="_blank"
+         rel="noopener noreferrer nofollow">{{ pageOrigin.url }}</a>
+    </div>
+  </aside>
+}
 @if (value()) {
   <markdown-footer />
 }

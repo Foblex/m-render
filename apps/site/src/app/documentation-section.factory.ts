@@ -4,6 +4,7 @@ import {
   provideComponents,
   provideDirectory,
   provideHeader,
+  provideHeaderSearchAlgolia,
   provideHeaderMediaLinks,
   provideHeaderNavigation,
   provideLanguage,
