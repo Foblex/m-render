@@ -1,36 +1,36 @@
 .m-render {
-  --token-tag: var(--primary-2);
-  --token-attr-name: var(--purple-2);
-  --token-attr-value: var(--green-3);
-  --token-string: var(--green-2);
-  --token-punctuation: var(--primary-text);
-  --token-keyword: var(--purple-2);
-  --token-function: var(--primary-3);
-  --token-number: var(--yellow-3);
-  --token-operator: var(--secondary-text);
-  --token-interpolation: var(--purple-2);
-  --token-expression: var(--green-3);
-  --token-comment: var(--gray-1);
-  --token-selector: var(--primary-2);
-  --token-variable: #d17adf;
+  --token-tag: #1d4ed8;
+  --token-attr-name: #7c3aed;
+  --token-attr-value: #0f7a43;
+  --token-string: #0f8a55;
+  --token-punctuation: #2f3441;
+  --token-keyword: #6d28d9;
+  --token-function: #1e40af;
+  --token-number: #b45309;
+  --token-operator: #4b5563;
+  --token-interpolation: #8b3cf6;
+  --token-expression: #0c7a4c;
+  --token-comment: #6b7280;
+  --token-selector: #1d4ed8;
+  --token-variable: #9b2fae;
 }
 
 .dark {
   .m-render {
-    --token-tag: var(--indigo-1);
-    --token-attr-name: var(--purple-1);
-    --token-attr-value: var(--green-1);
-    --token-string: var(--green-2);
-    --token-punctuation: var(--primary-text);
-    --token-keyword: var(--purple-1);
-    --token-function: var(--primary-2);
-    --token-number: var(--yellow-1);
-    --token-operator: var(--secondary-text);
-    --token-interpolation: var(--purple-1);
-    --token-expression: var(--green-2);
-    --token-comment: var(--gray-1);
-    --token-selector: var(--indigo-1);
-    --token-variable: #e0b3ff;
+    --token-tag: #8fb5ff;
+    --token-attr-name: #d2b4ff;
+    --token-attr-value: #7fe3a0;
+    --token-string: #84e1a8;
+    --token-punctuation: #ececf2;
+    --token-keyword: #cab8ff;
+    --token-function: #79a6ff;
+    --token-number: #f3c97a;
+    --token-operator: #b6bbca;
+    --token-interpolation: #e4b8ff;
+    --token-expression: #8fe7b8;
+    --token-comment: #8d95a5;
+    --token-selector: #8fb5ff;
+    --token-variable: #ffb4d8;
   }
 }
 

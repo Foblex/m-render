@@ -62,6 +62,32 @@ console.log('Hello World');
 
 :::
 
+### Focus / blur in code
+
+Use opening marker `|:|` and closing marker `|:|` around the fragment you want to keep in focus.
+
+Raw syntax:
+
+````markdown
+```ts
+const state = getState();
+&#124;:&#124;if (!state.ready) return;&#124;:&#124;
+render(state);
+```
+````
+
+Rendered result:
+
+```ts
+const state = getState();
+|:|if (!state.ready) return;|:|
+render(state);
+```
+
+Markers are service tokens and are hidden in rendered output.
+
+For a complete page with all code features, see [Code Features Playground](example-code-features).
+
 ## 🧩 Angular Component Preview (`ng-component`)
 
 Embed an Angular component or a URL in an `iframe` and attach source code tabs using the `ng-component` container. This allows for live demos alongside their source files.
@@ -155,6 +181,7 @@ This is a critical warning.
 | Syntax                                        | Purpose                                    |
 | --------------------------------------------- | ------------------------------------------ |
 | `code-group`                                  | Group multiple code examples into tabs     |
+| `|:| ... |:|`                                 | Focus a code fragment and dim surrounding code |
 | `ng-component`                                | Render Angular component or URL iframe with source files |
 | `preview-group`                               | Visual group of preview components         |
 | `tip`, `danger`, `info`, `warning`, `success` | Highlight content with alert styles        |

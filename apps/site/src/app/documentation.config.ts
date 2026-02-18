@@ -83,5 +83,9 @@ function examples() {
     link: 'example-code-group-alerts',
     text: 'Code Group and Alerts',
     description: 'Demonstrates code tabs, alert containers and grouped preview blocks.',
+  }, {
+    link: 'example-code-features',
+    text: 'Code Features Playground',
+    description: 'Comprehensive examples of code rendering features including focus/blur markers and preview modes.',
   }]);
 }

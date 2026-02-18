@@ -13,7 +13,8 @@ This section contains practical pages that demonstrate MRender features in isola
 1. Start with layout examples (`TOC Disabled`, `TOC Disabled + Wide Content`).
 2. Continue with metadata example (`SEO Overrides`).
 3. Move to dynamic rendering (`ng-component Demo`).
-4. Finish with rich markdown composition (`Code Group and Alerts`).
+4. Continue with rich markdown composition (`Code Group and Alerts`).
+5. Finish with full code capabilities (`Code Features Playground`).
 
 ## Included examples
 
@@ -22,6 +23,7 @@ This section contains practical pages that demonstrate MRender features in isola
 * [SEO Overrides](example-seo-overrides): override title, description, Open Graph and Twitter metadata.
 * [ng-component Demo](example-ng-component): render Angular component preview and iframe preview.
 * [Code Group and Alerts](example-code-group-alerts): tabbed code samples and contextual alert blocks.
+* [Code Features Playground](example-code-features): all code-related features including focus/blur and preview modes.
 
 ## Quick verification checklist
 
@@ -30,6 +32,7 @@ This section contains practical pages that demonstrate MRender features in isola
 3. Open `SEO Overrides` and check title/description/Open Graph tags in DevTools.
 4. Open `ng-component Demo` and verify Angular preview and URL iframe mode.
 5. Open `Code Group and Alerts` and verify tabs and alert containers.
+6. Open `Code Features Playground` and verify focus/blur markers and fullscreen behavior.
 
 ## Recommended way to use examples in your project
 
