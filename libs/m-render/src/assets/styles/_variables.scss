@@ -230,8 +230,8 @@
 }
 
 :root {
-  --navigation-panel-padding: 18px;
-  --navigation-panel-width: 216px;
+  --navigation-panel-padding: 20px;
+  --navigation-panel-width: clamp(236px, 24vw, 252px);
   --navigation-panel-background: var(--surface-glass-strong);
 }
 
