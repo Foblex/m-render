@@ -42,33 +42,73 @@
 
     .f-code-controls {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: 4px;
       z-index: 3;
+      padding: 10px 10px 0 0;
+      border-radius: inherit;
+      background-color: var(--code-view-background);
     }
 
     .f-copy-button {
-      border: 1px solid var(--code-view-copy-button-border-color);
-      border-radius: 10px;
-      min-width: 58px;
-      height: 28px;
-      padding: 0 12px;
-      background-color: var(--code-view-copy-button-background);
+      border: none;
+      border-radius: 8px;
+      position: relative;
+      min-width: 32px;
+      height: 32px;
+      width: 32px;
+      padding: 0;
+      background-color: transparent;
       opacity: 1;
       cursor: pointer;
-      color: var(--primary-text);
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1;
-      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      color: var(--secondary-text);
+      line-height: 0;
+      transition: background-color 0.2s ease, color 0.2s ease;
 
       &:hover {
         background-color: var(--code-view-copy-button-hover-background);
-        border-color: var(--dark-divider-color);
+        color: var(--primary-text);
+      }
+    }
+
+    .f-copy-icon,
+    .f-copy-success-icon {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 16px;
+      height: 16px;
+      background-color: currentColor;
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: 16px 16px;
+      transition: transform 0.22s ease, opacity 0.18s ease;
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .f-copy-icon {
+      mask-image: var(--copy-icon);
+
+      &.hidden {
+        transform: scale(0.6);
+        opacity: 0;
+      }
+    }
+
+    .f-copy-success-icon {
+      mask-image: var(--check-icon);
+      color: var(--success-2);
+      transform: scale(0.6);
+      opacity: 0;
+
+      &.visible {
+        transform: scale(1);
+        opacity: 1;
       }
     }
 
@@ -118,8 +158,8 @@
     .f-code-language {
       pointer-events: none;
       position: absolute;
-      top: 2px;
-      right: 2px;
+      top: 12px;
+      right: 12px;
       font-size: 10px;
       font-weight: 400;
       color: var(--code-view-lang-color);

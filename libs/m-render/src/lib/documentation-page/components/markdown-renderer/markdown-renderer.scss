@@ -1,7 +1,7 @@
 :host {
   display: block;
   width: 100%;
-  max-width: 960px;
+  max-width: 860px;
 
   @media (min-width: 1280px) {
     width: calc(100% - var(--on-page-navigation-width) - var(--page-padding));
@@ -15,7 +15,7 @@
 
   &.empty-navigation {
     margin: auto;
-    max-width: 1040px;
+    max-width: 980px;
   }
 }
 

@@ -40,7 +40,8 @@ export class CodeView implements OnInit {
   protected readonly content = signal<string>('');
   protected readonly visibleLanguage = signal<string>('');
   protected readonly syntaxLanguage = signal<string>('');
-  protected readonly copyButtonLabel = signal('Copy');
+  protected readonly isCopied = signal(false);
+  protected readonly copyButtonLabel = computed(() => this.isCopied() ? 'Copied' : 'Copy');
 
   public constructor() {
     this._destroyRef.onDestroy(() => {
@@ -86,6 +87,10 @@ export class CodeView implements OnInit {
   }
 
   protected onCopyClick(): void {
+    if (this.isCopied()) {
+      return;
+    }
+
     this._copyContentToClipboard(this.content());
   }
 
@@ -97,16 +102,16 @@ export class CodeView implements OnInit {
   }
 
   private _setCopiedFeedback(): void {
-    this.copyButtonLabel.set('Copied');
+    this.isCopied.set(true);
 
     if (this._copyFeedbackTimeout) {
       clearTimeout(this._copyFeedbackTimeout);
     }
 
     this._copyFeedbackTimeout = setTimeout(() => {
-      this.copyButtonLabel.set('Copy');
+      this.isCopied.set(false);
       this._copyFeedbackTimeout = null;
-    }, 1500);
+    }, 1300);
   }
 }
 

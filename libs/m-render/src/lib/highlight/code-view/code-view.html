@@ -1,5 +1,12 @@
 <div class="f-code-controls">
-  <button class="f-copy-button" type="button" (click)="onCopyClick()">{{ copyButtonLabel() }}</button>
+  <button class="f-copy-button"
+          type="button"
+          [attr.aria-label]="copyButtonLabel()"
+          [attr.title]="copyButtonLabel()"
+          (click)="onCopyClick()">
+    <span class="f-copy-icon" [class.hidden]="isCopied()" aria-hidden="true"></span>
+    <span class="f-copy-success-icon" [class.visible]="isCopied()" aria-hidden="true"></span>
+  </button>
   <span class="f-code-language">{{ visibleLanguage() }}</span>
 </div>
 @if (content()) {

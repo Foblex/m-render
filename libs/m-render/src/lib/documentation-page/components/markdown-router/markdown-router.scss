@@ -1,7 +1,7 @@
 :host {
   display: block;
   width: 100%;
-  padding: 36px var(--page-padding) 120px;
+  padding: 48px var(--page-padding) 140px;
 
   @media (min-width: 1280px) {
     padding-right: max(var(--page-padding), calc((100vw - var(--layout-max-width)) / 2));
