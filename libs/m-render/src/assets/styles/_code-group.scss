@@ -70,6 +70,22 @@
   }
 }
 
+@media (hover: hover) {
+  .m-render {
+    .f-code-group {
+      .f-code-group-body > .f-code-view .f-copy-button {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      &:hover .f-code-group-body > .f-code-view .f-copy-button {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+}
+
 @media (max-width: 959px) {
   .m-render {
     .f-code-group {
