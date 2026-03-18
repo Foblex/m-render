@@ -3,15 +3,18 @@
 }
 
 .label {
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: 4px;
+  margin-right: 4px;
   display: flex;
   align-items: center;
   font-size: 14px;
   font-weight: 500;
-  color: var(--primary-text);
+  color: var(--secondary-text);
   cursor: pointer;
-  line-height: 64px;
+  line-height: 36px;
+  border-radius: 999px;
+  padding: 0 12px;
+  transition: color .2s ease, background-color .2s ease;
 
   .f-icon {
     margin-left: 4px;
@@ -22,15 +25,17 @@
   }
 
   &:hover {
-    color: var(--secondary-text);
+    color: var(--primary-text);
+    background-color: var(--gray-soft);
   }
 }
 
 .dropdown-panel {
-  border-radius: 6px;
-  min-width: 202px;
+  border-radius: calc(var(--border-radius) + 4px);
+  min-width: 240px;
   border: 1px solid var(--divider-color);
-  background-color: var(--background-color);
+  background-color: var(--surface-glass-strong);
+  backdrop-filter: blur(24px);
   box-shadow: var(--shadow-3);
   max-height: calc(100vh - var(--header-height));
   overflow-y: auto;
@@ -46,23 +51,25 @@
   a {
     color: var(--primary-text);
     white-space: nowrap;
-    border-radius: 6px;
+    border-radius: calc(var(--border-radius) - 2px);
     padding: 0 12px;
     font-size: 14px;
     font-weight: 500;
-    line-height: 32px;
+    line-height: 36px;
     display: block;
     cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: background-color .2s ease, color .2s ease;
 
     &:hover {
-      color: var(--primary-1);
-      background-color: var(--default-3);
+      color: var(--primary-text);
+      background-color: var(--gray-soft);
     }
 
     &.active {
-      color: var(--primary-1);
+      color: var(--primary-text);
+      background-color: var(--soft-background);
     }
   }
 }

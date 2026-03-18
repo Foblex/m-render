@@ -2,13 +2,18 @@
 
   table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
     font-size: 14px;
     line-height: 1.6;
-    margin: 16px 0;
+    margin: 24px 0;
+    border: 1px solid var(--divider-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-1);
 
     thead {
-      background-color: var(--alt-background);
+      background-color: var(--surface-glass-strong);
       color: var(--primary-text);
     }
 

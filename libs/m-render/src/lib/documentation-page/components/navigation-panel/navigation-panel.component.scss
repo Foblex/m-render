@@ -3,8 +3,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 0 var(--navigation-panel-padding);
+  padding: 0 var(--navigation-panel-padding) 40px;
   background-color: var(--navigation-panel-background);
+  backdrop-filter: blur(24px);
+  border-right: 1px solid var(--divider-color);
   overflow: hidden;
   overflow-y: auto;
 
@@ -15,12 +17,14 @@
   transition: transform 0.2s ease-in-out;
   z-index: var(--z-index-navigation);
   transform: none;
+  box-shadow: var(--shadow-4);
 
   @media (min-width: 960px) {
     position: unset;
     display: flex;
     min-width: var(--navigation-panel-width);
-    width: fit-content;
+    width: var(--navigation-panel-width);
+    box-shadow: none;
     transform: none !important;
   }
 
@@ -37,16 +41,16 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px 0;
+  gap: 10px;
+  padding: 0;
   font-weight: 600;
   color: var(--primary-text);
   height: var(--header-height);
   width: 100%;
-  max-width: 240px;
-  margin-left: auto;
+  margin-left: 0;
   cursor: pointer;
 
   img {
-    margin-right: 8px;
+    margin-right: 0;
   }
 }

@@ -6,14 +6,19 @@
   li {
     overflow-wrap: break-word;
     color: var(--secondary-text);
-    max-width: 180px;
+    max-width: 200px;
 
     a {
       display: block;
       line-height: var(--on-page-navigation-item-height);
-      font-size: 14px;
+      font-size: 13px;
       color: inherit;
-      font-weight: 400;
+      font-weight: 500;
+      transition: color .2s ease;
+    }
+
+    &:hover {
+      color: var(--primary-text);
     }
 
     &.active {
@@ -22,6 +27,6 @@
   }
 
   li + ul {
-    padding: 0 16px;
+    padding: 0 0 0 14px;
   }
 }

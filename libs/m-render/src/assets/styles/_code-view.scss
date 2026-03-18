@@ -18,7 +18,7 @@
 
     code {
       display: block;
-      padding: 16px 24px;
+      padding: 18px 22px;
       width: fit-content;
       min-width: 100%;
       line-height: var(--code-view-line-height);
@@ -30,68 +30,102 @@
   .f-code-view, .f-example-view {
     position: relative;
     background-color: var(--code-view-background);
+    border: 1px solid var(--code-view-border-color);
+    box-shadow: var(--shadow-1);
     border-radius: var(--code-view-border-radius);
     overflow-x: auto;
     width: 100%;
 
     .f-copy-button {
       position: absolute;
-      top: 8px;
-      right: 20px;
+      top: 12px;
+      right: 14px;
       border: 1px solid var(--code-view-copy-button-border-color);
-      border-radius: 4px;
-      width: 32px;
-      height: 32px;
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
       z-index: 3;
       background-color: var(--code-view-copy-button-background);
       opacity: 0;
       cursor: pointer;
-      background-image: var(--copy-icon);
-      background-position: 50%;
-      background-size: 14px;
-      background-repeat: no-repeat;
       transition: background-color 0.25s, opacity 0.25s;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 14px;
+        height: 14px;
+        background-color: var(--secondary-text);
+        mask-image: var(--copy-icon);
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: 14px 14px;
+      }
 
       &:hover {
         background-color: var(--code-view-copy-button-hover-background);
+
+        &::before {
+          background-color: var(--primary-text);
+        }
       }
     }
 
     .f-fullscreen-button {
       position: absolute;
-      top: 8px;
-      right: 20px;
+      top: 12px;
+      right: 14px;
       border: 1px solid var(--code-view-copy-button-border-color);
-      border-radius: 4px;
-      width: 32px;
-      height: 32px;
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
       z-index: 3;
       background-color: var(--code-view-copy-button-background);
       opacity: 0;
       cursor: pointer;
-      background-image: var(--fullscreen-icon);
-      background-position: 50%;
-      background-size: 14px;
-      background-repeat: no-repeat;
       transition: background-color 0.25s, opacity 0.25s;
 
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 14px;
+        height: 14px;
+        background-color: var(--secondary-text);
+        mask-image: var(--fullscreen-icon);
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: 14px 14px;
+      }
+
       &.exit {
-        background-image: var(--fullscreen-exit-icon);
+        &::before {
+          mask-image: var(--fullscreen-exit-icon);
+        }
       }
 
       &:hover {
         background-color: var(--code-view-copy-button-hover-background);
+
+        &::before {
+          background-color: var(--primary-text);
+        }
       }
     }
 
     .f-code-language {
       position: absolute;
-      top: 2px;
-      right: 20px;
+      top: 14px;
+      right: 16px;
       font-size: 12px;
       font-weight: 500;
       color: var(--code-view-lang-color);
       transition: opacity 0.4s;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
 
     &:hover {
