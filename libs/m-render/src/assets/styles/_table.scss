@@ -4,7 +4,6 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    overflow: hidden;
     font-size: 14px;
     line-height: 1.6;
     margin: 24px 0;
@@ -12,29 +11,46 @@
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-1);
 
-    thead {
-      background-color: var(--surface-glass-strong);
-      color: var(--primary-text);
-    }
-
     th,
     td {
       padding: 12px 16px;
       text-align: left;
       border-bottom: 1px solid var(--divider-color);
       color: var(--primary-text);
+      background-clip: padding-box;
     }
 
     th {
       font-weight: 600;
+      background-color: var(--surface-glass-strong);
     }
 
-    tr {
+    td {
       background-color: var(--background-color);
+    }
 
-      &:hover {
-        background-color: var(--soft-background);
-      }
+    thead th:first-child {
+      border-top-left-radius: calc(var(--border-radius) - 1px);
+    }
+
+    thead th:last-child {
+      border-top-right-radius: calc(var(--border-radius) - 1px);
+    }
+
+    tbody tr:hover td {
+      background-color: var(--soft-background);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: calc(var(--border-radius) - 1px);
+    }
+
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: calc(var(--border-radius) - 1px);
     }
 
     code {

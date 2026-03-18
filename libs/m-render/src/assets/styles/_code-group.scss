@@ -3,9 +3,16 @@
     margin-top: 12px;
   }
 
+  .f-code-group + .f-code-group {
+    margin-top: 16px;
+  }
+
   .f-code-group {
     display: block;
+    border: 1px solid var(--code-view-border-color);
     border-radius: var(--code-group-border-radius);
+    background-color: var(--code-group-tabs-background);
+    box-shadow: var(--shadow-1);
     overflow: hidden;
     height: 100%;
     width: 100%;
@@ -42,9 +49,23 @@
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
+      background-color: var(--code-view-background);
       height: calc(100% - 52px);
       overflow: auto;
       position: relative;
+
+      > .f-code-view,
+      > .f-example-view {
+        width: 100%;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background-color: transparent;
+      }
+
+      > .f-code-view pre code {
+        border-radius: 0;
+      }
     }
   }
 }
