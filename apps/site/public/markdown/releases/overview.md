@@ -9,6 +9,8 @@ This section explains what changed between versions and how to apply those chang
 3. Read `Upgrade notes` and apply changes in a separate branch.
 4. Follow `Validation` steps before merging.
 
+If you are upgrading from `v3.x`, start with [`v4.0.0`](v4-0-0). That release changes the visual contract of the library and should be treated as a breaking change even if your TypeScript API usage stays the same.
+
 ## Recommended upgrade workflow
 
 1. Create a migration branch.
@@ -19,6 +21,7 @@ This section explains what changed between versions and how to apply those chang
 
 ## Available notes
 
+* [v4.0.0](v4-0-0)
 * [v3.0.0](v3-0-0)
 * [v2.9.0](v2-9-0)
 
