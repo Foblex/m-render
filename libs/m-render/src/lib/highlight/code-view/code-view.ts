@@ -4,7 +4,7 @@ import { EMPTY } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Highlight, resolveHighlightLanguage } from '../index';
-import { copyToClipboard, PopoverService } from '../../common';
+import { copyToClipboard } from '../../common';
 
 interface ContainerData {
   height?: string | number;
@@ -29,7 +29,7 @@ interface ContainerData {
 export class CodeView implements OnInit {
   private readonly _httpClient = inject(HttpClient);
   private readonly _destroyRef = inject(DestroyRef);
-  private readonly _popoverService = inject(PopoverService);
+  private _copyFeedbackTimeout: ReturnType<typeof setTimeout> | null = null;
 
   public readonly data = input<ContainerData>();
 
@@ -40,6 +40,15 @@ export class CodeView implements OnInit {
   protected readonly content = signal<string>('');
   protected readonly visibleLanguage = signal<string>('');
   protected readonly syntaxLanguage = signal<string>('');
+  protected readonly copyButtonLabel = signal('Copy');
+
+  public constructor() {
+    this._destroyRef.onDestroy(() => {
+      if (this._copyFeedbackTimeout) {
+        clearTimeout(this._copyFeedbackTimeout);
+      }
+    });
+  }
 
   public ngOnInit(): void {
     this._updateLanguage();
@@ -84,7 +93,20 @@ export class CodeView implements OnInit {
     copyToClipboard(content).pipe(
       take(1),
       takeUntilDestroyed(this._destroyRef),
-    ).subscribe(() => this._popoverService.show('Copied!'));
+    ).subscribe(() => this._setCopiedFeedback());
+  }
+
+  private _setCopiedFeedback(): void {
+    this.copyButtonLabel.set('Copied');
+
+    if (this._copyFeedbackTimeout) {
+      clearTimeout(this._copyFeedbackTimeout);
+    }
+
+    this._copyFeedbackTimeout = setTimeout(() => {
+      this.copyButtonLabel.set('Copy');
+      this._copyFeedbackTimeout = null;
+    }, 1500);
   }
 }
 

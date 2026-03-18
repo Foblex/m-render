@@ -321,10 +321,11 @@
 }
 
 :root {
-  --theme-button-background: var(--alt-background);
+  --theme-button-background: var(--soft-background);
   --theme-button-border-color: var(--divider-color);
   --theme-button-hovered-border-color: var(--dark-divider-color);
-  --theme-button-icon-background: var(--neutral);
+  --theme-button-icon-background: var(--background-color);
+  --theme-button-icon-border-color: var(--divider-color);
 }
 
 :root {

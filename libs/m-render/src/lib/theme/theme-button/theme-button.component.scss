@@ -11,6 +11,7 @@
   cursor: pointer;
   box-shadow: var(--shadow-1);
   transition: border-color .2s ease, transform .2s ease;
+  overflow: hidden;
 
   &:hover {
     border-color: var(--theme-button-hovered-border-color);
@@ -27,6 +28,8 @@
   padding: 3px;
   border-radius: 50%;
   background-color: var(--theme-button-icon-background);
+//  border: 1px solid var(--theme-button-icon-border-color);
+  box-shadow: 0 1px 2px var(--alpha-08);
   transition: transform 0.3s ease;
 
   .f-icon {
