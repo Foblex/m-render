@@ -35,6 +35,28 @@ provideComponents([
 [component.scss] <<< [https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.scss](https://raw.githubusercontent.com/Foblex/f-flow/main/projects/f-examples/extensions/add-node-from-palette/add-node-from-palette.component.scss)
 :::
 
+## Example view controller
+
+Angular components rendered inside `ng-component` can inject `EXAMPLE_VIEW` from `@foblex/m-render`.
+
+It exposes:
+
+* `isFullscreen`: signal that updates when preview enters or exits fullscreen mode
+* `showLoading()`: shows loading overlay over current example view
+* `hideLoading()`: hides loading overlay
+
+```ts
+import { inject } from '@angular/core';
+import { EXAMPLE_VIEW } from '@foblex/m-render';
+
+const exampleView = inject(EXAMPLE_VIEW);
+
+console.log(exampleView.isFullscreen());
+
+exampleView.showLoading();
+setTimeout(() => exampleView.hideLoading(), 1500);
+```
+
 ## URL iframe mode
 
 ```markdown

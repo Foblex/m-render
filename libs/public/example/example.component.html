@@ -1,2 +1,33 @@
-<div class="div1">DIV1</div>
-<div class="div2">DIV2</div>
+<section class="example-shell">
+  <div class="example-header">
+    <div>
+      <div class="example-eyebrow">Example View API</div>
+      <div class="example-title">Interactive Preview</div>
+    </div>
+
+    <div class="example-status" [class.fullscreen]="isFullscreen()">
+      {{ fullscreenLabel() }}
+    </div>
+  </div>
+
+  <p class="example-description">
+    This component is rendered inside <code>ng-component</code> and reacts to the injected preview controller.
+  </p>
+
+  <div class="example-actions">
+    <button type="button" class="example-button" (click)="simulateLoading()">Simulate loading</button>
+    <span class="example-hint">Open fullscreen to see the signal update.</span>
+  </div>
+
+  <div class="example-canvas">
+    <div class="example-card primary">
+      <div class="example-card-label">Markdown</div>
+      <div class="example-card-value">Alert, code-group, preview-group</div>
+    </div>
+
+    <div class="example-card secondary">
+      <div class="example-card-label">Angular</div>
+      <div class="example-card-value">Rendered component with DI context</div>
+    </div>
+  </div>
+</section>

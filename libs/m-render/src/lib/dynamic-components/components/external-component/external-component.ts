@@ -7,7 +7,6 @@ import {
   inject,
   input,
   OnInit,
-  signal,
   viewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -21,16 +20,25 @@ import { parseIframeUrl } from './utils/parse-iframe-url';
 import { DOCUMENT } from '@angular/common';
 import { IS_BROWSER_PLATFORM } from '../../../common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ExampleViewController, EXAMPLE_VIEW } from './example-view.token';
 
 @Component({
   selector: 'external-component',
   templateUrl: './external-component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    ExampleViewController,
+    {
+      provide: EXAMPLE_VIEW,
+      useExisting: ExampleViewController,
+    },
+  ],
   host: {
     class: 'f-example-view',
     '[style.height]': 'data().height',
     '[class.f-example-view-fullscreen]': 'isFullscreen()',
+    '[attr.aria-busy]': 'isLoading()',
   },
 })
 export class ExternalComponent implements OnInit {
@@ -62,16 +70,21 @@ export class ExternalComponent implements OnInit {
       && typeof this._document.exitFullscreen === 'function';
   });
   protected readonly fullscreenLabel = computed(() => this.isFullscreen() ? 'Exit full screen' : 'Full screen');
-  protected readonly isFullscreen = signal(false);
 
   private readonly _document = inject(DOCUMENT);
+  private readonly _exampleViewController = inject(ExampleViewController);
   private readonly _hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly _isBrowser = inject(IS_BROWSER_PLATFORM);
   private readonly _mediatr = inject(Mediatr);
   private readonly _viewContainerRef = viewChild.required('container', { read: ViewContainerRef });
   private readonly _sanitizer = inject(DomSanitizer);
 
+  protected readonly isFullscreen = this._exampleViewController.isFullscreen;
+  protected readonly isLoading = this._exampleViewController.isLoading;
+
   public ngOnInit(): void {
+    this._exampleViewController.setFullscreen(this._isCurrentElementInFullscreen());
+
     const selector = this.data().selector;
     if (selector) {
       this._mediatr.execute(new RenderExternalComponentRequest(selector, this._viewContainerRef()));
@@ -99,7 +112,7 @@ export class ExternalComponent implements OnInit {
 
   @HostListener('document:fullscreenchange')
   protected onFullscreenChange(): void {
-    this.isFullscreen.set(this._isCurrentElementInFullscreen());
+    this._exampleViewController.setFullscreen(this._isCurrentElementInFullscreen());
   }
 
   private _isCurrentElementInFullscreen(): boolean {

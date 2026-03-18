@@ -25,7 +25,9 @@ export class RenderDynamicComponent implements IExecution<RenderDynamicComponent
         return;
       }
 
-      const componentRef = viewContainerRef.createComponent(extracted);
+      const componentRef = viewContainerRef.createComponent(extracted, {
+        injector: viewContainerRef.injector,
+      });
       this._dynamicStore.addComponent(componentRef, element);
 
       element?.replaceWith(this._extractComponentRoot(componentRef));

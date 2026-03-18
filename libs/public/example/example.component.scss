@@ -1,11 +1,130 @@
-.div1 {
-  background-color: red;
-  width: 100px;
-  height: 100px;
+.example-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  padding: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(1, 105, 204, 0.12), transparent 38%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(249, 249, 249, 0.96));
+  color: #181818;
+  box-sizing: border-box;
 }
 
-.div2 {
-  background-color: blue;
-  width: 100px;
-  height: 100px;
+.example-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.example-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #767676;
+}
+
+.example-title {
+  margin-top: 4px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.example-status {
+  border: 1px solid rgba(13, 13, 13, 0.1);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 12px;
+  font-weight: 600;
+  color: #5d5d5d;
+}
+
+.example-status.fullscreen {
+  color: #0169cc;
+}
+
+.example-description {
+  margin: 0;
+  max-width: 520px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4f4f4f;
+}
+
+.example-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.example-button {
+  border: 1px solid rgba(13, 13, 13, 0.12);
+  border-radius: 999px;
+  height: 34px;
+  padding: 0 14px;
+  background: #ffffff;
+  color: #181818;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.example-button:hover {
+  border-color: rgba(13, 13, 13, 0.2);
+  background: #fcfcfc;
+}
+
+.example-hint {
+  font-size: 13px;
+  color: #767676;
+}
+
+.example-canvas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: auto;
+}
+
+.example-card {
+  border: 1px solid rgba(13, 13, 13, 0.08);
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 10px 24px rgba(13, 13, 13, 0.05);
+}
+
+.example-card.primary {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.example-card.secondary {
+  background: rgba(1, 105, 204, 0.05);
+}
+
+.example-card-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #767676;
+}
+
+.example-card-value {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+@media (max-width: 680px) {
+  .example-canvas {
+    grid-template-columns: 1fr;
+  }
 }

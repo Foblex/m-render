@@ -17,3 +17,13 @@
 }
 
 <ng-container #container />
+
+@if (isLoading()) {
+  <div class="f-example-loading-overlay" role="status" aria-live="polite" aria-label="Loading preview">
+    <div class="f-loading-dots" aria-hidden="true">
+      <span class="f-loading-dot"></span>
+      <span class="f-loading-dot"></span>
+      <span class="f-loading-dot"></span>
+    </div>
+  </div>
+}
