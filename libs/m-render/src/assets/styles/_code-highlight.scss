@@ -1,18 +1,18 @@
 .m-render {
-  --token-tag: var(--primary-text);
-  --token-attr-name: var(--important-2);
-  --token-attr-value: var(--success-2);
-  --token-string: var(--success-2);
-  --token-punctuation: var(--secondary-text);
-  --token-keyword: var(--important-2);
-  --token-function: var(--primary-text);
-  --token-number: var(--warning-2);
-  --token-operator: var(--secondary-text);
-  --token-interpolation: var(--important-1);
-  --token-expression: var(--primary-text);
-  --token-comment: var(--tertiary-text);
-  --token-selector: var(--primary-text);
-  --token-variable: var(--important-1);
+  --token-tag: var(--code-syntax-4);
+  --token-attr-name: var(--code-syntax-4);
+  --token-attr-value: var(--code-syntax-3);
+  --token-string: var(--code-syntax-3);
+  --token-punctuation: var(--code-syntax-muted);
+  --token-keyword: var(--code-syntax-2);
+  --token-function: var(--code-syntax-1);
+  --token-number: var(--code-syntax-5);
+  --token-operator: var(--code-syntax-muted);
+  --token-interpolation: var(--code-syntax-5);
+  --token-expression: var(--code-view-text-color);
+  --token-comment: var(--code-syntax-comment);
+  --token-selector: var(--code-syntax-4);
+  --token-variable: var(--code-syntax-4);
 }
 
 .m-render {
@@ -72,7 +72,6 @@
   }
 }
 
-
 .m-render {
   .language-scss .token.selector,
   .language-css .token.selector {
@@ -92,7 +91,7 @@
   }
 
   .language-scss .token.variable {
-    color: var(--token-variable, var(--important-1));
+    color: var(--token-variable, var(--code-syntax-4));
   }
 
   .language-scss .token.keyword {

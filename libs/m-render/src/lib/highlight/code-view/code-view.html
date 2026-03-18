@@ -1,5 +1,9 @@
-<span class="f-code-language">{{ visibleLanguage() }}</span>
-<button class="f-copy-button" type="button" (click)="onCopyClick()">{{ copyButtonLabel() }}</button>
+<div class="f-code-controls">
+  <button class="f-copy-button" type="button" (click)="onCopyClick()">{{ copyButtonLabel() }}</button>
+  <span class="f-code-language">{{ visibleLanguage() }}</span>
+</div>
 @if (content()) {
-  <highlight [content]="content()" [language]="syntaxLanguage()"/>
+  <div class="f-code-scroll">
+    <highlight [content]="content()" [language]="syntaxLanguage()"/>
+  </div>
 }

@@ -289,23 +289,41 @@
 
 :root {
   --code-view-not-focused-opacity: 0.45;
-  --code-view-background: var(--surface-glass-strong);
-  --code-view-border-color: var(--divider-color);
+  --code-view-background: var(--gray-25);
+  --code-view-border-color: var(--alpha-10);
   --code-view-border-radius: calc(var(--border-radius) + 2px);
 
   --code-view-text-color: var(--primary-text);
-  --code-view-line-height: 1.7;
+  --code-view-line-height: 1.5;
   --code-view-font-size: 0.875em;
+  --code-view-padding-top: 14px;
+  --code-view-padding-right: 40px;
+  --code-view-padding-bottom: 14px;
+  --code-view-padding-left: 16px;
 
   --code-view-lang-color: var(--tertiary-text);
 
   --code-view-copy-button-background: var(--background-color);
   --code-view-copy-button-hover-background: var(--gray-0);
   --code-view-copy-button-border-color: var(--divider-color);
+
+  --code-syntax-1: #c0660d;
+  --code-syntax-2: #0169cc;
+  --code-syntax-3: #008635;
+  --code-syntax-4: #e04c91;
+  --code-syntax-5: #8046d9;
+  --code-syntax-comment: color-mix(in srgb, var(--code-view-text-color) 50%, transparent);
+  --code-syntax-muted: color-mix(in srgb, var(--code-view-text-color) 60%, transparent);
 }
 
 .dark {
+  --code-view-background: var(--gray-975);
+  --code-view-border-color: var(--alpha-12);
   --code-view-copy-button-hover-background: var(--gray-925);
+  --code-syntax-1: #ffe48c;
+  --code-syntax-2: #66b5ff;
+  --code-syntax-3: #40c977;
+  --code-syntax-5: #ad7bf9;
 }
 
 :root {

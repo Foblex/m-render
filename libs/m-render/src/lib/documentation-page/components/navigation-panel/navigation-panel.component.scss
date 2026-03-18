@@ -49,6 +49,7 @@
   width: 100%;
   margin-left: 0;
   cursor: pointer;
+  min-height: calc(var(--header-height) - 1px);
 
   img {
     margin-right: 0;

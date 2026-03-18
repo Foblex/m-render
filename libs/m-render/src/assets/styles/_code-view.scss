@@ -18,11 +18,16 @@
 
     code {
       display: block;
-      padding: 18px 22px;
+      padding:
+        var(--code-view-padding-top)
+        var(--code-view-padding-right)
+        var(--code-view-padding-bottom)
+        var(--code-view-padding-left);
       width: fit-content;
       min-width: 100%;
       line-height: var(--code-view-line-height);
       font-size: var(--code-view-font-size);
+      font-weight: 400;
       color: var(--code-view-text-color);
     }
   }
@@ -31,21 +36,27 @@
     position: relative;
     background-color: var(--code-view-background);
     border: 1px solid var(--code-view-border-color);
-    box-shadow: var(--shadow-1);
     border-radius: var(--code-view-border-radius);
-    overflow-x: auto;
+    overflow: hidden;
     width: 100%;
 
-    .f-copy-button {
+    .f-code-controls {
       position: absolute;
       top: 10px;
       right: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      z-index: 3;
+    }
+
+    .f-copy-button {
       border: 1px solid var(--code-view-copy-button-border-color);
       border-radius: 10px;
       min-width: 58px;
       height: 28px;
       padding: 0 12px;
-      z-index: 3;
       background-color: var(--code-view-copy-button-background);
       opacity: 1;
       cursor: pointer;
@@ -105,9 +116,10 @@
     }
 
     .f-code-language {
+      pointer-events: none;
       position: absolute;
-      top: 18px;
-      right: 80px;
+      top: 2px;
+      right: 2px;
       font-size: 10px;
       font-weight: 400;
       color: var(--code-view-lang-color);
@@ -122,7 +134,7 @@
       }
 
       .f-code-language {
-        opacity: 0.85;
+        display: none;
       }
 
       .f-fullscreen-button {
@@ -135,13 +147,38 @@
     }
   }
 
+  .f-code-view {
+    .f-code-scroll {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      border-radius: inherit;
+    }
+  }
+
   .f-example-view {
     width: 100%;
     height: 300px;
     overflow: hidden;
+    box-shadow: var(--shadow-1);
 
     &.f-example-view-fullscreen {
+      background-color: var(--background-color);
       border-radius: 0;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    &:fullscreen {
+      background-color: var(--background-color);
+      border-radius: 0;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    &::backdrop {
+      background-color: var(--background-color);
+      background-image: var(--page-background-image);
     }
 
     .f-example-iframe {
