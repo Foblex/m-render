@@ -16,6 +16,7 @@ html {
   line-height: 1.4;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  background-color: var(--background-color);
 
   &.dark {
     color-scheme: dark;
@@ -37,6 +38,8 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: var(--page-background-image);
+  background-attachment: fixed;
 }
 
 p {
@@ -53,6 +56,8 @@ a {
 
 * {
   box-sizing: border-box;
+  scrollbar-color: var(--alpha-25) transparent;
+  scrollbar-width: thin;
 }
 
 .flex-space {

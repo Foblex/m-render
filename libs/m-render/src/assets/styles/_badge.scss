@@ -1,11 +1,12 @@
 .f-badge {
   display: inline-block;
-  border: 1px solid transparent;
-  border-radius: var(--border-radius);
+  border: 1px solid var(--divider-color);
+  border-radius: 999px;
   padding: 0 10px;
   line-height: 22px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 
   &.tip {
     color: var(--f-badge-tip-color);
@@ -36,7 +37,7 @@
 f-navigation-panel {
   .f-badge {
     padding: 0 6px;
-    line-height: 14px;
+    line-height: 18px;
   }
 }
 

@@ -162,6 +162,11 @@ Display preview groups with filters:
 :::
 ```
 
+Filters appear automatically when referenced navigation items provide `badge.text`.
+Sorting by newness becomes available when those items also provide `date`.
+
+See [Preview Group Filters](example-preview-group-filters) for a live example.
+
 ### Alerts
 
 Use `tip`, `danger`, `info`, etc.:
@@ -175,4 +180,3 @@ This is a tip block
 ## 🧑‍💻 Contributing
 
 Open for contributions, feedback and PRs. [GitHub](https://github.com/Foblex/m-render)
-

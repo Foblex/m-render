@@ -1,6 +1,7 @@
 :host {
   display: block;
   width: 100%;
+  max-width: 960px;
 
   @media (min-width: 1280px) {
     width: calc(100% - var(--on-page-navigation-width) - var(--page-padding));
@@ -14,7 +15,7 @@
 
   &.empty-navigation {
     margin: auto;
-    max-width: 900px;
+    max-width: 1040px;
   }
 }
 
@@ -25,9 +26,9 @@
   gap: 12px;
   margin-top: 28px;
   border: 1px solid var(--divider-color);
-  border-radius: 10px;
-  padding: 12px 14px;
-  background: linear-gradient(135deg, var(--soft-background) 0%, var(--alt-background) 100%);
+  border-radius: calc(var(--border-radius) + 2px);
+  padding: 14px 16px;
+  background: var(--surface-glass-strong);
   box-shadow: var(--shadow-1);
   line-height: 20px;
   font-size: 14px;
@@ -41,8 +42,8 @@
   width: 28px;
   height: 28px;
   border-radius: 999px;
-  background-color: var(--primary-soft);
-  color: var(--primary-2);
+  background-color: var(--primary-text);
+  color: var(--neutral-inverse);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -65,7 +66,7 @@
 .origin-link-url {
   display: inline-block;
   margin-top: 2px;
-  color: var(--primary-1);
+  color: var(--primary-text);
   text-decoration: underline;
   text-underline-offset: 3px;
   overflow-wrap: anywhere;
@@ -73,7 +74,7 @@
 }
 
 .origin-link-url:hover {
-  color: var(--primary-2);
+  color: var(--primary-text);
 }
 
 @media (max-width: 639px) {

@@ -30,10 +30,14 @@ function releaseNotes() {
     text: 'Overview',
     description: 'Release stream overview and changelog navigation.',
   }, {
+    link: 'v4-0-0',
+    text: 'v4.0.0',
+    description: 'Major visual redesign and UI contract update for consumers using bundled styles.',
+    badge: { text: 'latest', type: 'tip' },
+  }, {
     link: 'v3-0-0',
     text: 'v3.0.0',
     description: 'Major release notes with layout and SEO enhancements.',
-    badge: { text: 'latest', type: 'tip' },
   }, {
     link: 'v2-9-0',
     text: 'v2.9.0',

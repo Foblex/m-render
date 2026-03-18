@@ -1,9 +1,9 @@
 :host {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: stretch;
   height: 100%;
-  gap: 5px;
+  gap: 0;
 }
 
 .f-backdrop  {
@@ -15,6 +15,7 @@
   opacity: 0;
   z-index: var(--z-index-backdrop);
   background: var(--backdrop-color);
+  backdrop-filter: blur(6px);
   transition: opacity 0.2s ease-in-out;
   pointer-events: none;
 
@@ -35,15 +36,14 @@
   left: 50%;
   text-align: center;
   transform: translate(-50%, -50%);
-  background-color: var(--code-view-copy-button-hover-background);
-  border: 1px solid var(--code-view-copy-button-border-color);
-  box-shadow: var(--shadow-3);
+  background-color: var(--surface-glass-strong);
+  border: 1px solid var(--divider-color);
+  box-shadow: var(--shadow-2);
   color: var(--primary-text);
   font-size: 14px;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 8px 12px;
+  border-radius: 999px;
   z-index: var(--z-index-popover);
   opacity: 1;
 }
-
 

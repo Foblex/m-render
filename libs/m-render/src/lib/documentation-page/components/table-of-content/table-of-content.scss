@@ -1,23 +1,29 @@
 :host {
-  --on-page-navigation-item-height: 32px;
+  --on-page-navigation-item-height: 30px;
   display: none;
-  padding-left: 16px;
+  padding-left: 18px;
   border-left: 1px solid var(--divider-color);
   font-size: 13px;
   font-weight: 500;
   position: relative;
+  max-height: calc(100vh - var(--header-height) - 48px);
+  overflow-y: auto;
 
   .title {
-    line-height: 32px;
-    font-size: 14px;
-    font-weight: 600;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tertiary-text);
+    margin-bottom: 12px;
   }
 
   @media (min-width: 1280px) {
     display: block;
     width: var(--on-page-navigation-width);
     position: fixed;
-    top: calc(var(--header-height) + 48px);
+    top: calc(var(--header-height) + 32px);
     right: max(var(--page-padding), calc((100vw - var(--layout-max-width)) / 3));
   }
 
@@ -28,7 +34,7 @@
     width: 2px;
     height: calc(var(--on-page-navigation-item-height) / 2);
     border-radius: 2px;
-    background-color: var(--primary-1);
+    background-color: var(--primary-text);
     transition:
       top 0.25s cubic-bezier(0, 1, 0.5, 1),
       opacity 0.25s;

@@ -1,37 +1,18 @@
 .m-render {
-  --token-tag: #1d4ed8;
-  --token-attr-name: #7c3aed;
-  --token-attr-value: #0f7a43;
-  --token-string: #0f8a55;
-  --token-punctuation: #2f3441;
-  --token-keyword: #6d28d9;
-  --token-function: #1e40af;
-  --token-number: #b45309;
-  --token-operator: #4b5563;
-  --token-interpolation: #8b3cf6;
-  --token-expression: #0c7a4c;
-  --token-comment: #6b7280;
-  --token-selector: #1d4ed8;
-  --token-variable: #9b2fae;
-}
-
-.dark {
-  .m-render {
-    --token-tag: #8fb5ff;
-    --token-attr-name: #d2b4ff;
-    --token-attr-value: #7fe3a0;
-    --token-string: #84e1a8;
-    --token-punctuation: #ececf2;
-    --token-keyword: #cab8ff;
-    --token-function: #79a6ff;
-    --token-number: #f3c97a;
-    --token-operator: #b6bbca;
-    --token-interpolation: #e4b8ff;
-    --token-expression: #8fe7b8;
-    --token-comment: #8d95a5;
-    --token-selector: #8fb5ff;
-    --token-variable: #ffb4d8;
-  }
+  --token-tag: var(--primary-text);
+  --token-attr-name: var(--important-2);
+  --token-attr-value: var(--success-2);
+  --token-string: var(--success-2);
+  --token-punctuation: var(--secondary-text);
+  --token-keyword: var(--important-2);
+  --token-function: var(--primary-text);
+  --token-number: var(--warning-2);
+  --token-operator: var(--secondary-text);
+  --token-interpolation: var(--important-1);
+  --token-expression: var(--primary-text);
+  --token-comment: var(--tertiary-text);
+  --token-selector: var(--primary-text);
+  --token-variable: var(--important-1);
 }
 
 .m-render {
@@ -95,7 +76,7 @@
 .m-render {
   .language-scss .token.selector,
   .language-css .token.selector {
-    color: var(--token-selector, #3e63dd);
+    color: var(--token-selector, var(--primary-text));
   }
 
   .language-scss .token.property,
@@ -111,7 +92,7 @@
   }
 
   .language-scss .token.variable {
-    color: var(--token-variable, #d17adf);
+    color: var(--token-variable, var(--important-1));
   }
 
   .language-scss .token.keyword {

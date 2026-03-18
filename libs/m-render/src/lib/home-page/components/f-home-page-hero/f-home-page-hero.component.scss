@@ -38,8 +38,10 @@
 }
 
 h1 {
-  background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+  background: linear-gradient(135deg, var(--primary-text) 0%, var(--secondary-text) 100%);
   background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
 }
 
@@ -69,6 +71,5 @@ h1 {
     padding: 8px 0 0;
   }
 }
-
 
 

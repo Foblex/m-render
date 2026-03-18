@@ -1,11 +1,12 @@
 :host {
   display: flex;
   background: var(--code-view-background);
+  border: 1px solid var(--code-view-border-color);
   color: var(--code-view-text-color);
   font-family: 'Courier New', monospace;
   font-size: 0.7rem;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: var(--code-view-border-radius);
   text-align: left;
   margin: 0 10px;
   max-width: 450px;
@@ -39,15 +40,15 @@
 }
 
 .console-header .circle.close {
-  background: #ff5f56;
+  background: var(--alpha-20);
 }
 
 .console-header .circle.minimize {
-  background: #ffbd2e;
+  background: var(--alpha-30);
 }
 
 .console-header .circle.fullscreen {
-  background: #27c93f;
+  background: var(--alpha-40);
 }
 
 .console-text {
