@@ -266,8 +266,10 @@
 }
 
 :root {
-  --on-page-navigation-width: 236px;
+  --on-page-navigation-width: 212px;
+  --on-page-navigation-shift-desktop: 64px;
   --page-padding: 24px;
+  --docs-content-offset-desktop: 72px;
 }
 
 :root {

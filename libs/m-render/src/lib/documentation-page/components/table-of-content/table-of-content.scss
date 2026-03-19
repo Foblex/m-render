@@ -1,7 +1,7 @@
 :host {
   --on-page-navigation-item-height: 30px;
   display: none;
-  padding-left: 18px;
+  padding-left: 16px;
   border-left: 1px solid var(--divider-color);
   font-size: 13px;
   font-weight: 500;
@@ -24,7 +24,7 @@
     width: var(--on-page-navigation-width);
     position: fixed;
     top: calc(var(--header-height) + 32px);
-    right: max(var(--page-padding), calc((100vw - var(--layout-max-width)) / 3));
+    right: max(var(--page-padding), calc((100vw - var(--layout-max-width)) / 3 - var(--on-page-navigation-shift-desktop)));
   }
 
   .active-marker {

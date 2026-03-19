@@ -4,18 +4,26 @@
   max-width: 860px;
 
   @media (min-width: 1280px) {
-    width: calc(100% - var(--on-page-navigation-width) - var(--page-padding));
+    width: calc(100% - var(--on-page-navigation-width) - var(--page-padding) - var(--docs-content-offset-desktop));
+    margin-left: var(--docs-content-offset-desktop);
   }
 
   &.expand-no-toc {
     @media (min-width: 1280px) {
-      width: 100%;
+      width: calc(100% - var(--docs-content-offset-desktop));
+      max-width: 1060px;
     }
   }
 
   &.empty-navigation {
     margin: auto;
     max-width: 980px;
+
+    @media (min-width: 1280px) {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 
