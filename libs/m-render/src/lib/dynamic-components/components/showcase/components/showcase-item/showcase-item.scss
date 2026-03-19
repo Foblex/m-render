@@ -59,20 +59,9 @@
 
   a {
     font-size: 14px;
-    font-weight: 500;
-    color: var(--primary-text);
-    cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    &:hover {
-      color: var(--primary-1);
-    }
-
-    &.active {
-      color: var(--primary-1);
-    }
   }
 }
 
@@ -81,4 +70,3 @@
   flex-wrap: wrap;
   gap: 8px;
 }
-

@@ -1,12 +1,19 @@
 .f-badge {
-  display: inline-block;
-  border: 1px solid var(--divider-color);
-  border-radius: 999px;
-  padding: 0 10px;
-  line-height: 22px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: var(--f-badge-height);
+  padding: 0 var(--f-badge-padding-x);
+  border-radius: var(--f-badge-border-radius);
+  font-size: var(--f-badge-font-size);
+  font-weight: var(--f-badge-font-weight);
+  line-height: 1;
+  letter-spacing: var(--f-badge-letter-spacing);
+  white-space: nowrap;
+  vertical-align: middle;
+  border: none;
+  text-transform: none;
 
   &.tip {
     color: var(--f-badge-tip-color);
@@ -36,23 +43,24 @@
 
 f-navigation-panel {
   .f-badge {
-    padding: 0 6px;
-    line-height: 18px;
+    height: var(--f-badge-compact-height);
+    padding: 0 var(--f-badge-compact-padding-x);
+    font-size: var(--f-badge-compact-font-size);
   }
 }
 
 .m-render h1 > .f-badge {
-  margin-top: 4px;
+  margin-top: 6px;
   vertical-align: top;
 }
 
 .m-render h2 > .f-badge {
-  margin-top: 3px;
-  padding: 0 8px;
+  margin-top: 4px;
   vertical-align: top;
 }
 
 .m-render h3 > .f-badge {
+  margin-top: 1px;
   vertical-align: middle;
 }
 
@@ -60,5 +68,4 @@ f-navigation-panel {
 .m-render h5 > .f-badge,
 .m-render h6 > .f-badge {
   vertical-align: middle;
-  line-height: 18px;
 }

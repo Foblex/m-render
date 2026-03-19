@@ -91,6 +91,13 @@
   --yellow-3: #be7a06;
   --yellow-soft: rgba(190, 122, 6, 0.12);
 
+  --blue-200: #66b5ff;
+  --blue-300: #339cff;
+  --blue-400: #0285ff;
+  --blue-500: #0169cc;
+  --blue-600: #004f99;
+  --blue-800: #013566;
+
   --red-1: #a53c3c;
   --red-2: #be4a4a;
   --red-3: #d25b5b;
@@ -271,8 +278,19 @@
 }
 
 :root {
-  --f-badge-tip-color: var(--secondary-text);
-  --f-badge-tip-background: var(--soft-background);
+  --f-badge-height: 22px;
+  --f-badge-padding-x: 6px;
+  --f-badge-border-radius: 4px;
+  --f-badge-font-size: 14px;
+  --f-badge-font-weight: 600;
+  --f-badge-letter-spacing: 0;
+
+  --f-badge-compact-height: 20px;
+  --f-badge-compact-padding-x: 5px;
+  --f-badge-compact-font-size: 12px;
+
+  --f-badge-tip-color: var(--primary-text);
+  --f-badge-tip-background: var(--alpha-08);
 
   --f-badge-info-color: var(--primary-text);
   --f-badge-info-background: var(--primary-soft);
@@ -285,6 +303,25 @@
 
   --f-badge-success-color: var(--success-1);
   --f-badge-success-background: var(--success-soft);
+}
+
+.dark {
+  --f-badge-tip-background: var(--alpha-12);
+}
+
+:root {
+  --f-link-radius: 6px;
+  --f-link-font-weight: inherit;
+  --f-link-underline-offset: 0.1em;
+  --f-link-focus-color: var(--blue-500);
+  --f-link-primary-color: var(--blue-500);
+  --f-link-primary-hover-color: var(--blue-800);
+}
+
+.dark {
+  --f-link-focus-color: var(--blue-400);
+  --f-link-primary-color: var(--blue-300);
+  --f-link-primary-hover-color: var(--blue-400);
 }
 
 :root {

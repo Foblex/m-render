@@ -68,19 +68,6 @@
     font-size: 16px;
   }
 
-  a {
-    font-weight: 500;
-    color: var(--primary-text);
-    text-decoration: underline;
-    text-decoration-color: var(--alpha-20);
-    text-underline-offset: 3px;
-
-    &:hover {
-      color: var(--primary-text);
-      text-decoration-color: currentColor;
-    }
-  }
-
   strong {
     font-weight: 600;
   }
@@ -125,4 +112,3 @@
     white-space: pre-wrap;
   }
 }
-

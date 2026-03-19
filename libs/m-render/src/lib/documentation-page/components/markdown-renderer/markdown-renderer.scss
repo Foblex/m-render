@@ -64,17 +64,10 @@
 }
 
 .origin-link-url {
-  display: inline-block;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
   margin-top: 2px;
-  color: var(--primary-text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  overflow-wrap: anywhere;
-  transition: color 0.2s ease;
-}
-
-.origin-link-url:hover {
-  color: var(--primary-text);
 }
 
 @media (max-width: 639px) {

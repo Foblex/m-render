@@ -10,58 +10,126 @@
 }
 
 :host {
+  --f-preview-card-radius: calc(var(--border-radius) + 2px);
+  --f-preview-card-media-radius: calc(var(--border-radius) - 2px);
+
+  position: relative;
   display: block;
-  border-radius: 4px;
-  background-color: var(--soft-background);
-  padding: 24px;
+  box-sizing: border-box;
   width: 100%;
+  padding: 14px;
+  border-radius: var(--f-preview-card-radius);
   text-decoration: none !important;
   color: inherit !important;
-  line-height: 24px;
-  font-size: 14px;
   cursor: pointer;
+  user-select: none;
+  isolation: isolate;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--alpha-12);
+    border-radius: inherit;
+    background-color: var(--background-color);
+    box-shadow: var(--shadow-1);
+    content: "";
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      transform 0.15s ease;
+  }
 
   &:hover {
-    img {
-      transform: scale(1.1);
+    &::before {
+      border-color: var(--divider-color);
+      background-color: var(--alt-background);
     }
+
+    img {
+      transform: scale(1.02);
+    }
+  }
+
+  &:active::before {
+    transform: scale(0.985);
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    &::before {
+      border-color: var(--primary-1);
+      box-shadow:
+        0 0 0 3px var(--primary-soft),
+        var(--shadow-1);
+    }
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .media {
+    overflow: hidden;
+    border: 1px solid var(--divider-color);
+    border-radius: var(--f-preview-card-media-radius);
+    background-color: var(--soft-background);
+    aspect-ratio: 16 / 9;
   }
 
   img {
     display: block;
-    margin-bottom: 16px;
     width: 100%;
-    height: 180px;
-    border-radius: 4px;
+    height: 100%;
     object-fit: cover;
-    transition: transform 0.3s;
+    transition: transform 0.2s ease;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .media + .content {
+    padding-top: 14px;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    min-height: 22px;
+    margin-bottom: 2px;
   }
 
   .title {
-    line-height: inherit;
-    font-weight: 600;
-    text-transform: uppercase;
+    margin: 0;
     color: var(--primary-text);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    @include two-lines-ellipsis();
   }
 
   .description {
-    margin: 8px 0 !important;
-    line-height: inherit;
+    margin: 0 !important;
+    font-size: 15px;
+    line-height: 24px;
     color: var(--secondary-text);
     @include two-lines-ellipsis();
   }
 
   @media (min-width: 640px) {
-    width: calc((100% - 32px) / 2);
+    width: calc((100% - 24px) / 2);
   }
 }
 
 .f-badge {
-  padding: 0 6px;
-  line-height: 14px;
-  text-transform: none;
+  border-color: var(--alpha-12);
+  padding: 0 8px;
+  line-height: 20px;
 }
-

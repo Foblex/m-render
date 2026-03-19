@@ -3,7 +3,7 @@
 @let nLink = nextLink();
 
 @if (eLink) {
-  <a class="footer-edit-link" [href]="eLink">
+  <a class="footer-edit-link f-text-link f-text-link-primary" [href]="eLink">
     <span class="edit-link-icon f-icon edit"></span>
     {{ navigation.editLink?.text || 'Edit this page on GitHub' }}
   </a>
@@ -27,4 +27,3 @@
     }
   </nav>
 }
-
