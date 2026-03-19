@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   ElementRef,
   HostListener,
   inject,
@@ -42,6 +43,8 @@ import { ExampleViewController, EXAMPLE_VIEW } from './example-view.token';
   },
 })
 export class ExternalComponent implements OnInit {
+  private _defaultLoadingTimeout: ReturnType<typeof setTimeout> | null = null;
+
   public readonly data = input.required<IExampleViewData, IParsedContainerData>({
     transform: (x) => {
       const value = x.value?.trim() || '';
@@ -72,6 +75,7 @@ export class ExternalComponent implements OnInit {
   protected readonly fullscreenLabel = computed(() => this.isFullscreen() ? 'Exit full screen' : 'Full screen');
 
   private readonly _document = inject(DOCUMENT);
+  private readonly _destroyRef = inject(DestroyRef);
   private readonly _exampleViewController = inject(ExampleViewController);
   private readonly _hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly _isBrowser = inject(IS_BROWSER_PLATFORM);
@@ -84,6 +88,7 @@ export class ExternalComponent implements OnInit {
 
   public ngOnInit(): void {
     this._exampleViewController.setFullscreen(this._isCurrentElementInFullscreen());
+    this._startDefaultLoading();
 
     const selector = this.data().selector;
     if (selector) {
@@ -117,5 +122,24 @@ export class ExternalComponent implements OnInit {
 
   private _isCurrentElementInFullscreen(): boolean {
     return this._document.fullscreenElement === this._hostElement.nativeElement;
+  }
+
+  private _startDefaultLoading(): void {
+    if (!this.hasContent()) {
+      return;
+    }
+
+    this._exampleViewController.showLoading();
+    this._defaultLoadingTimeout = setTimeout(() => {
+      this._exampleViewController.hideLoading();
+      this._defaultLoadingTimeout = null;
+    }, 1000);
+
+    this._destroyRef.onDestroy(() => {
+      if (this._defaultLoadingTimeout) {
+        clearTimeout(this._defaultLoadingTimeout);
+        this._defaultLoadingTimeout = null;
+      }
+    });
   }
 }
