@@ -1,72 +1,63 @@
-.m-render {
-
+.m-render .doc-content {
   table {
     width: 100%;
+    margin: 2em 0;
+    border: 0;
     border-collapse: separate;
     border-spacing: 0;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 24px 0;
-    border: 1px solid var(--divider-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-1);
-
-    th,
-    td {
-      padding: 12px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--divider-color);
-      color: var(--primary-text);
-      background-clip: padding-box;
-    }
+    table-layout: auto;
+    font-size: 0.875em;
+    line-height: 1.7142857;
 
     th {
+      border: 0;
+      border-bottom: 1px solid var(--dark-divider-color);
+      padding-block: 8px;
+      padding-inline: 8px;
+      color: var(--primary-text);
       font-weight: 600;
-      background-color: var(--surface-glass-strong);
+      line-height: 20px;
+      text-align: start;
+
+      &:first-child {
+        padding-inline-start: 0;
+      }
+
+      &:last-child {
+        padding-inline-end: 0;
+      }
     }
 
     td {
-      background-color: var(--background-color);
-    }
+      border: 0;
+      border-bottom: 1px solid var(--divider-color);
+      padding-block: 10px;
+      padding-inline: 8px;
+      color: var(--primary-text);
+      background: none;
 
-    thead th:first-child {
-      border-top-left-radius: calc(var(--border-radius) - 1px);
-    }
+      &:first-child {
+        padding-inline-start: 0;
+      }
 
-    thead th:last-child {
-      border-top-right-radius: calc(var(--border-radius) - 1px);
-    }
-
-    tbody tr:hover td {
-      background-color: var(--soft-background);
+      &:last-child {
+        padding-inline-end: 0;
+      }
     }
 
     tbody tr:last-child td {
       border-bottom: 0;
     }
 
-    tbody tr:last-child td:first-child {
-      border-bottom-left-radius: calc(var(--border-radius) - 1px);
-    }
-
-    tbody tr:last-child td:last-child {
-      border-bottom-right-radius: calc(var(--border-radius) - 1px);
-    }
-
     code {
       font-family: var(--font-family-mono);
-      font-size: 0.875em;
+      font-size: var(--not-pre-code-font-size);
       background-color: var(--not-pre-code-background);
-      color: var(--not-pre-code-color);
-      padding: 0.2em 0.4em;
-      border-radius: var(--border-radius);
+      box-shadow: inset 0 0 0 1px var(--not-pre-code-border-color);
+      color: inherit;
+      padding: 1px 0.3rem;
+      border-radius: 0.25rem;
+      font-weight: 500;
     }
-  }
-
-  table:not([class]) {
-    display: table;
-    width: 100%;
-    overflow-x: auto;
-    max-width: 100%;
   }
 }

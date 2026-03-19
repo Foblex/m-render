@@ -243,9 +243,16 @@
 }
 
 :root {
-  --not-pre-code-background: var(--soft-background);
+  --not-pre-code-background: var(--alpha-04);
+  --not-pre-code-border-color: var(--alpha-08);
   --not-pre-code-font-size: 0.875em;
   --not-pre-code-color: var(--primary-text);
+  --doc-blockquote-bar-color: var(--alpha-15);
+}
+
+.dark {
+  --not-pre-code-background: var(--alpha-10);
+  --doc-blockquote-bar-color: var(--alpha-20);
 }
 
 :root {

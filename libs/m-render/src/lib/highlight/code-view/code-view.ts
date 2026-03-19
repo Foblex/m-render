@@ -61,7 +61,7 @@ export class CodeView implements OnInit {
     const data = this.data();
     const language = data?.language || parseLanguageFromFileExtension(data?.value || '');
     this.syntaxLanguage.set(parseSyntaxLanguage(language));
-    this.visibleLanguage.set(language);
+    this.visibleLanguage.set(parseVisibleLanguage(language));
   }
 
   private _updateNotExistingData(data?: ContainerData): void {
@@ -179,6 +179,10 @@ function parseSyntaxLanguage(language: string): string {
       result = extractLanguage(language);
   }
   return resolveHighlightLanguage(result);
+}
+
+function parseVisibleLanguage(language: string): string {
+  return extractLanguage(language);
 }
 
 function extractLanguage(language: string): string {
