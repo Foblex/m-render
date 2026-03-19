@@ -10,10 +10,9 @@
   font-weight: 600;
   color: var(--primary-text);
   height: var(--header-height);
-  background-color: var(--surface-glass);
+  background-color: var(--page-header-background);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--divider-color);
-  box-shadow: 0 1px 0 var(--alpha-02);
+  border-bottom: 1px solid var(--page-shell-border-color);
   z-index: var(--z-index-header);
 
   @media (min-width: 1280px) {

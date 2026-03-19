@@ -62,9 +62,10 @@
   --soft-background: var(--gray-75);
   --surface-glass: rgba(255, 255, 255, 0.78);
   --surface-glass-strong: rgba(255, 255, 255, 0.92);
-  --page-background-image:
-    radial-gradient(circle at top center, rgba(13, 13, 13, 0.05) 0%, rgba(13, 13, 13, 0) 36%),
-    linear-gradient(180deg, rgba(13, 13, 13, 0.018) 0%, rgba(13, 13, 13, 0) 28%);
+  --page-background-color: #ffffff;
+  --page-header-background: #ffffff;
+  --page-navigation-background: #f9f9f9;
+  --page-shell-border-color: rgba(13, 13, 13, 0.08);
 
   --gray-1: var(--gray-150);
   --gray-2: var(--gray-100);
@@ -138,9 +139,10 @@
   --soft-background: var(--gray-950);
   --surface-glass: rgba(13, 13, 13, 0.78);
   --surface-glass-strong: rgba(13, 13, 13, 0.92);
-  --page-background-image:
-    radial-gradient(circle at top center, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 36%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.024) 0%, rgba(255, 255, 255, 0) 28%);
+  --page-background-color: #212121;
+  --page-header-background: #212121;
+  --page-navigation-background: #181818;
+  --page-shell-border-color: rgba(255, 255, 255, 0.08);
 
   --gray-1: var(--gray-800);
   --gray-2: var(--gray-900);
@@ -239,7 +241,7 @@
 :root {
   --navigation-panel-padding: 20px;
   --navigation-panel-width: clamp(236px, 24vw, 252px);
-  --navigation-panel-background: var(--surface-glass-strong);
+  --navigation-panel-background: var(--page-navigation-background);
 }
 
 :root {
