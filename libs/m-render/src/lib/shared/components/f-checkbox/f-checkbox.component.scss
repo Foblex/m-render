@@ -1,25 +1,26 @@
 :host {
   position: relative;
-  display: flex;
-  align-items: center;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
   font-weight: 400;
-  white-space: nowrap;
   font-size: 14px;
+  line-height: 20px;
   cursor: pointer;
-  background-color: var(--checkbox-container-background);
-  border-radius: var(--checkbox-border-radius);
-  padding: 0 8px;
   color: var(--checkbox-text);
-  transition: color .25s, background-color .25s;
 
   input {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    inset: 0;
     opacity: 0;
     cursor: pointer;
+    margin: 0;
+  }
+
+  &:hover {
+    .f-checkbox-container {
+      border-color: var(--checkbox-border-color-hover);
+    }
   }
 
   .f-checkbox-container {
@@ -29,38 +30,65 @@
     justify-content: center;
     width: var(--checkbox-size);
     height: var(--checkbox-size);
-    margin-right: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    border: 1px solid var(--checkbox-border-color);
     border-radius: var(--checkbox-border-radius);
     background-color: var(--checkbox-background);
-    padding: 2px;
+    transition:
+      border-color .15s ease,
+      background-color .15s ease;
 
     .f-checkbox-checkmark {
       position: absolute;
-      top: calc(var(--checkbox-size) / 8);
-      right: calc(var(--checkbox-size) / 8);
-      bottom: calc(var(--checkbox-size) / 8);
-      left: calc(var(--checkbox-size) / 8);
+      width: 10px;
+      height: 10px;
       opacity: 0;
+      transform: scale(0.7);
+      transition:
+        opacity .15s ease,
+        transform .15s ease,
+        color .15s ease;
 
       .f-checkbox-checkmark-path {
-        stroke: currentColor;
-        stroke-width: 3;
+        stroke: var(--checkbox-checkmark-color);
+        stroke-width: 2.75;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 32;
+        stroke-dashoffset: 32;
       }
     }
   }
 
   label {
     user-select: none;
+    line-height: inherit;
   }
 
   &.f-checkbox-checked {
     .f-checkbox-container {
+      border-color: var(--checkbox-checked-background);
       background-color: var(--checkbox-checked-background);
 
       .f-checkbox-checkmark {
-        color: var(--checkbox-checkmark-color);
         opacity: 1;
+        transform: scale(1);
+
+        .f-checkbox-checkmark-path {
+          animation: f-checkbox-check-draw .22s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
       }
     }
+  }
+}
+
+@keyframes f-checkbox-check-draw {
+  from {
+    stroke-dashoffset: 32;
+  }
+
+  to {
+    stroke-dashoffset: 0;
   }
 }

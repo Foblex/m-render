@@ -18,6 +18,7 @@ let uniqueId = 0;
 export class FRadioButtonComponent {
 
   public id = input<string>(`f-radio-button-${ uniqueId++ }`);
+  public name = input<string | null>(null);
 
   public change = output<boolean>();
   public checked = input<boolean>(false);

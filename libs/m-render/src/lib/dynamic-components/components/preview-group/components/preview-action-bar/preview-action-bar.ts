@@ -4,6 +4,8 @@ import { TitleCasePipe } from '@angular/common';
 import { FCheckboxComponent, FRadioButtonComponent } from '../../../../../shared';
 import { PreviewGroupService } from '../../preview-group.service';
 
+let previewFilterGroupUniqueId = 0;
+
 @Component({
   selector: 'div[preview-action-bar]',
   templateUrl: './preview-action-bar.html',
@@ -23,6 +25,7 @@ export class PreviewActionBar implements AfterViewInit {
   private _fEnvironment = inject(DocumentationStore);
   private _fPreviewGroupService = inject(PreviewGroupService);
 
+  protected readonly filterGroupName = `preview-filters-${ previewFilterGroupUniqueId++ }`;
   protected filters = signal<string[]>([]);
   protected activeFilter = signal<string>(this._allKey);
 
@@ -48,7 +51,9 @@ export class PreviewActionBar implements AfterViewInit {
     if (filters.length > 0) {
       filters.unshift(this._allKey);
     }
-    return filters;
+    return filters[0] === this._allKey
+      ? [ this._allKey, ...filters.slice(1).sort((a, b) => a.localeCompare(b)) ]
+      : filters.sort((a, b) => a.localeCompare(b));
   }
 
   protected onFilterChange(key: string): void {

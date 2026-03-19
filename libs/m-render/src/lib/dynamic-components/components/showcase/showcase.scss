@@ -1,20 +1,22 @@
 .filters-panel {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.filters-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
-
-  .f-badge {
-    cursor: pointer;
-  }
+  align-items: flex-start;
+  column-gap: 20px;
+  row-gap: 10px;
 }
 
 .showcase-list {
   display: flex;
   justify-content: flex-start;
-  align-items: normal;
+  align-items: stretch;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 24px;
   pointer-events: all;
   overflow: hidden;
 }

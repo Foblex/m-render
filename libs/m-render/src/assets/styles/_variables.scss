@@ -416,27 +416,24 @@
 }
 
 :root {
-  --checkbox-size: 16px;
-  --checkbox-border-radius: 6px;
+  --checkbox-size: 18px;
+  --checkbox-border-radius: 4px;
   --checkbox-text: var(--primary-text);
-
-  --checkbox-container-background: var(--default-3);
-
-  --checkbox-background: var(--neutral-inverse);
-  --checkbox-checked-background: var(--neutral-inverse);
-
-  --checkbox-checkmark-color: var(--secondary-text);
+  --checkbox-border-color: var(--alpha-20);
+  --checkbox-border-color-hover: var(--alpha-30);
+  --checkbox-background: transparent;
+  --checkbox-checked-background: var(--primary-text);
+  --checkbox-checkmark-color: var(--neutral-inverse);
 }
 
 :root {
   --radio-button-size: 16px;
   --radio-button-container-border-radius: 999px;
   --radio-button-text: var(--primary-text);
-  --radio-button-container-background: var(--default-3);
-
-  --radio-button-border-color: var(--tertiary-text);
-  --radio-button-background: var(--neutral-inverse);
-  --radio-button-checked-background: var(--neutral-inverse);
-
-  --radio-button-inner-circle-color: var(--secondary-text);
+  --radio-button-border-color: var(--alpha-20);
+  --radio-button-border-color-hover: var(--alpha-30);
+  --radio-button-background: transparent;
+  --radio-button-checked-background: var(--primary-text);
+  --radio-button-inner-circle-size: 6px;
+  --radio-button-inner-circle-color: var(--neutral-inverse);
 }

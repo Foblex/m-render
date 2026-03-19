@@ -100,7 +100,7 @@
   .meta {
     display: flex;
     align-items: center;
-    min-height: 22px;
+    min-height: var(--f-badge-compact-height);
     margin-bottom: 2px;
   }
 
@@ -126,10 +126,4 @@
   @media (min-width: 640px) {
     width: calc((100% - 24px) / 2);
   }
-}
-
-.f-badge {
-  border-color: var(--alpha-12);
-  padding: 0 8px;
-  line-height: 20px;
 }

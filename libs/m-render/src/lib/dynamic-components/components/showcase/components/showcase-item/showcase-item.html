@@ -1,19 +1,30 @@
 @let data = model();
 
 @if (data) {
-  <img [src]="src()" [alt]="data.description" [title]="data.name">
-  <div class="title">{{ data.name }}</div>
-  <div class="description">{{ data.description }}</div>
-  <div class="links">
-    @for (link of (data.links || []); track link.text) {
-      <a class="f-text-link f-text-link-primary" href="{{ link.url }}" target="_blank" rel="noopener">{{ link.text }}</a>
+  @if (src()) {
+    <div class="media">
+      <img [src]="src()" [alt]="data.description || data.name" [title]="data.name">
+    </div>
+  }
+
+  <div class="content">
+    @if (data.tags?.length) {
+      <div class="meta">
+        @for (tag of data.tags; track tag) {
+          <span class="f-badge sm tip">{{ tag }}</span>
+        }
+      </div>
     }
-  </div>
-  <div class="tags">
-    @for (tag of (data.tags || []); track tag) {
-      <span class="f-badge tip">{{ tag }}</span>
+
+    <div class="title">{{ data.name }}</div>
+    <div class="description">{{ data.description }}</div>
+
+    @if (data.links?.length) {
+      <div class="links">
+        @for (link of data.links; track link.text) {
+          <a class="f-text-link f-text-link-primary" href="{{ link.url }}" target="_blank" rel="noopener">{{ link.text }}</a>
+        }
+      </div>
     }
   </div>
 }
-
-
