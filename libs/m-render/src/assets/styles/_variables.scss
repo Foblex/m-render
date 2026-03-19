@@ -335,16 +335,15 @@
   --code-view-not-focused-opacity: 0.45;
   --code-view-background: var(--gray-25);
   --code-view-border-color: var(--alpha-10);
-  --code-view-border-radius: calc(var(--border-radius) + 2px);
+  --code-view-border-radius: 8px;
 
   --code-view-text-color: var(--primary-text);
   --code-view-line-height: 21px;
-  --code-view-font-size: 13px;
+  --code-view-font-size: 14px;
   --code-view-padding-top: 14px;
   --code-view-padding-right: 40px;
   --code-view-padding-bottom: 14px;
   --code-view-padding-left: 16px;
-
   --code-view-lang-color: var(--tertiary-text);
 
   --code-view-copy-button-background: var(--background-color);
@@ -371,14 +370,13 @@
 }
 
 :root {
-  --code-group-tabs-background: var(--surface-glass-strong);
-  --code-group-border-radius: calc(var(--border-radius) + 2px);
-  --code-group-tabs-border-color: var(--gutter-color);
+  --code-group-tabs-background: var(--alpha-02);
+  --code-group-border-radius: var(--code-view-border-radius);
+  --code-group-tabs-border-color: var(--alpha-06);
 
   --code-group-tab-button-text-color: var(--secondary-text);
   --code-group-tab-button-active-text-color: var(--primary-text);
   --code-group-tab-button-active-border-color: var(--primary-text);
-  --code-group-line-height: 1.7;
   --code-group-tab-button-font-size: 14px;
 }
 
