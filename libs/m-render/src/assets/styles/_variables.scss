@@ -250,11 +250,19 @@
   --not-pre-code-font-size: 0.875em;
   --not-pre-code-color: var(--primary-text);
   --doc-blockquote-bar-color: var(--alpha-15);
+  --doc-divider-color: var(--alpha-08);
+  --footer-navigation-border-color: var(--alpha-08);
+  --footer-navigation-button-border-color: var(--alpha-10);
+  --footer-navigation-button-hover-border-color: var(--alpha-15);
 }
 
 .dark {
   --not-pre-code-background: var(--alpha-10);
   --doc-blockquote-bar-color: var(--alpha-20);
+  --doc-divider-color: var(--alpha-20);
+  --footer-navigation-border-color: var(--alpha-20);
+  --footer-navigation-button-border-color: var(--alpha-20);
+  --footer-navigation-button-hover-border-color: var(--alpha-30);
 }
 
 :root {

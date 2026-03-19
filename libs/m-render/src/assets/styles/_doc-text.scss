@@ -16,7 +16,7 @@
   }
 
   h2 {
-    border-top: 1px solid var(--divider-color);
+    border-top: 1px solid var(--doc-divider-color);
     padding-top: 2rem;
     margin-bottom: 1rem;
     font-size: 1.5em;
@@ -129,7 +129,7 @@
   hr {
     margin: 2em 0;
     border: none;
-    border-top: 1px solid var(--divider-color);
+    border-top: 1px solid var(--doc-divider-color);
   }
 
   :not(pre) > code {
