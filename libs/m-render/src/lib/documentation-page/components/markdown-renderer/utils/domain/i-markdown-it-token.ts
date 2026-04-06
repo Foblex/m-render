@@ -26,5 +26,3 @@ export interface IMarkdownItToken {
 
   hidden: boolean;
 }
-
-

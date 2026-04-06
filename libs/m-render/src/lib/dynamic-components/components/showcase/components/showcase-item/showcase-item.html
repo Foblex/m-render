@@ -19,7 +19,7 @@
     <div class="title">{{ data.name }}</div>
     <div class="description">{{ data.description }}</div>
 
-    @if (data.links?.length) {
+    @if (data.links.length) {
       <div class="links">
         @for (link of data.links; track link.text) {
           <a class="f-text-link f-text-link-primary" href="{{ link.url }}" target="_blank" rel="noopener">{{ link.text }}</a>

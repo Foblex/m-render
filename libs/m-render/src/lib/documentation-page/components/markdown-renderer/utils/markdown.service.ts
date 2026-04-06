@@ -86,16 +86,42 @@ export class MarkdownService {
     const currentPath = this._router.url;
     const prefix = currentPath.substring(0, currentPath.lastIndexOf('/'));
 
-    return html.replace(/<a\s+href="([^"]*)"/g, (match, href) => {
-      if (!this._isExternalLink(href)) {
-        let newHref = href.substring(0);
-        if (!href.startsWith('./')) {
-          newHref = href.startsWith('/') ? `${prefix}${href}` : `${prefix}/${href}`;
-        }
-        return `<a href="${newHref}"`;
+    return html.replace(/<a\b[^>]*>/g, (tag) => {
+      const tagWithClasses = this._appendLinkClasses(tag);
+      const hrefMatch = tagWithClasses.match(/\bhref=(["'])([^"']*)\1/);
+      if (!hrefMatch) {
+        return tagWithClasses;
       }
-      return match;
+
+      const href = hrefMatch[2];
+      if (this._isExternalLink(href)) {
+        return tagWithClasses;
+      }
+
+      let newHref = href.substring(0);
+      if (!href.startsWith('./')) {
+        newHref = href.startsWith('/') ? `${prefix}${href}` : `${prefix}/${href}`;
+      }
+
+      return tagWithClasses.replace(hrefMatch[0], `href=${hrefMatch[1]}${newHref}${hrefMatch[1]}`);
     });
+  }
+
+  private _appendLinkClasses(tag: string): string {
+    const classes = [ 'f-text-link', 'f-text-link-primary' ];
+    const classMatch = tag.match(/\bclass=(["'])([^"']*)\1/);
+
+    if (!classMatch) {
+      return tag.replace('<a', `<a class="${classes.join(' ')}"`);
+    }
+
+    const existingClasses = classMatch[2].split(/\s+/).filter(Boolean);
+    const mergedClasses = [
+      ...existingClasses,
+      ...classes.filter((className) => !existingClasses.includes(className)),
+    ];
+
+    return tag.replace(classMatch[0], `class=${classMatch[1]}${mergedClasses.join(' ')}${classMatch[1]}`);
   }
 
   private _isExternalLink(href: string): boolean {

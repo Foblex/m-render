@@ -1,6 +1,6 @@
 <div class="filters-panel">
   <div class="filters-group" role="radiogroup" aria-label="Filter showcase items">
-    @for (filter of filterOptions(); track filter.value ?? 'all') {
+    @for (filter of filterOptions(); track filter.label) {
       <f-radio-button
         [name]="filterGroupName"
         [checked]="activeTag() === filter.value"
